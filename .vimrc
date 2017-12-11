@@ -28,6 +28,8 @@ Plug 'Valloric/YouCompleteMe', { 'on': 'YCM'}
 
 call plug#end() 
 
+set cursorline
+set hlsearch
 set shiftwidth=2
 set autoindent
 set cindent
@@ -38,7 +40,6 @@ set expandtab
 set tabstop=2
 set softtabstop=0
 set smarttab
-set colorcolumn=80
 
 let g:airline#extensions#al#enabled = 1
 let g:airline_powerline_fonts=1
