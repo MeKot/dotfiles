@@ -103,7 +103,7 @@ vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
 nnoremap <Leader>vs :vsplit<cr>
 nnoremap <Leader>hs :split<cr>
 nnoremap gen        :YcmGenerateConfig<CR>
-nnoremap <Leader>ev <C-w>v :o "~/.vimrc"" 
+nnoremap <Leader>ev :tabe ~/.vimrc<CR> 
 nnoremap <Leader>sv :source $MYVIMRC<cr>
 nnoremap tt <C-w><C-w> 
 nnoremap r :later<CR>
