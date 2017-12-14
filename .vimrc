@@ -40,6 +40,7 @@ set expandtab
 set tabstop=2
 set softtabstop=0
 set smarttab
+set showcmd
 
 let g:airline#extensions#al#enabled = 1
 let g:airline_powerline_fonts=1
@@ -60,6 +61,8 @@ set clipboard=exclude:.*
 "
 "Bracket completion for vim, manually, noplugin"""""""""""""""""""""""
 "
+
+let mapleader=','
 inoremap {<CR> {<CR><CR>}<Up><Space><Tab><End> 
 inoremap { {}<Esc>i
 inoremap [ []<Esc>i
@@ -74,8 +77,8 @@ augroup treeGroup
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup end
 "
-"UltiSnips plugin settings""""""""""""""""""""""""""""""""""""""""""""""
-"
+"UltiSnips plugin settings"""""""""""""""""""""""""""""""""""""""""""""
+
 map <Leader>a :UltiSnipsEdit
 let g:UltiSnipsSnippetsDir  ='~/.vim//plugged/vim-snippets/snippets/'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
