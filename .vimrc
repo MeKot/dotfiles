@@ -1,5 +1,4 @@
 set nocompatible              " be iMproved, required
-colorscheme monokai
 set rtp+=/usr/local/opt/fzf
 let g:monokai_term_italic = 1
 
@@ -10,12 +9,16 @@ Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Valloric/YouCompleteMe'
+Plug 'vimwiki/vimwiki'
 "On-demand loading"
+""Plug 'vimwiki/vimwiki', {'on': 'VimwikiIndex'}
 Plug 'w0rp/ale', {'on': 'ALE'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTree' }
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig' }
 ""
 call plug#end() 
+syntax match TODOs ".*TODO.*\|.*BUG.*\|.*HACK.*\|.*FIXIT.*\|.*TESTIT.*"
+colorscheme monokai
 
 set cursorline
 set hlsearch
@@ -49,6 +52,10 @@ nmap ga <Plug>(EasyAlign)
 set clipboard=exclude:.*
 
 "
+"Configuring the vimwiki plugin not to steal the Tab event"
+"
+let g:vimwiki_table_mappings = 0
+"
 "Bracket completion for vim, manually, noplugin"""""""""""""""""""""""
 "
 
@@ -71,23 +78,23 @@ let g:ale_sign_error   = '>'
 let g:ale_sign_warning = '-'
 
 "
-"UltiSnips plugin settings"""""""""""""""""""""""""""""""""""""""""""""
+"ltiSnips plugin settings"""""""""""""""""""""""""""""""""""""""""""""
 "
-
 map <Leader>a :UltiSnipsEdit
 
-let g:UltiSnipsSnippetsDir         = '~/.vim//plugged/vim-snippets/snippets/'
+let g:UltiSnipsSnippetsDir         = '~/.vim//plugged/vim-snippets/UltiSnips/'
 let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
 let g:UltiSnipsEditSplit           = 'horizontal'
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsExpandTrigger       = "<C-x>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-c>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
+let g:snips_author                 = "Ivan Kotegov"
 
 "
 "YCM plugin setup and configuration""""""""""""""""""""""""""""""""""""""
 "
-
+let g:ycm_filetype_blacklist={}
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_cofirm_extra_conf=0
 ""let g:ycm_global_ycm_extra_conf                    = '~/.vim/bundle/.ycm_extra_conf.py'
@@ -130,9 +137,15 @@ inoremap <Up> <nop>
 inoremap <Down> <nop>
 inoremap <Left> <nop>
 inoremap <Right> <nop>
+nnoremap <Leader>dd :bd<CR>
 nnoremap :W :w
 nnoremap :Wq :wq
 nnoremap :WQ :wq
 nnoremap :Q :q
 nnoremap :wQ :wq
+
+"Folds
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <silent> <Leader><Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
+vnoremap <Space> zf
 
