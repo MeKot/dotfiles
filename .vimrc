@@ -137,7 +137,7 @@ inoremap <Up> <nop>
 inoremap <Down> <nop>
 inoremap <Left> <nop>
 inoremap <Right> <nop>
-nnoremap <Leader>dd :bd<CR>
+nnoremap <Leader>dd :bp\|bd # <CR>
 nnoremap :W :w
 nnoremap :Wq :wq
 nnoremap :WQ :wq
