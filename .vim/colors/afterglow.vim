@@ -17,19 +17,21 @@ let g:colors_name = "afterglow"
 
 " Default GUI Colours
 let s:foreground = "d6d6d6"
-let s:background = "000000"
-let s:selection  = "5a647e"
-let s:line       = "393939"
-let s:comment    = "008700"
-let s:numbers    = "797979"
-let s:red        = "ac4142"
-let s:orange     = "e87d3e"
-let s:yellow     = "f2c566"
-let s:green      = "b4c973"
-let s:blue       = "6c99bb"
-let s:wine       = "b05279"
-let s:purple     = "9e86c8"
-let s:window     = "4d5057"
+let s:background = "1a1a1a"
+let s:selection = "5a647e"
+let s:line = "393939"
+let s:comment = "008700"
+let s:number  = "797979"
+let s:red = "ac4142"
+let s:orange = "e87d3e"
+let s:yellow = "e5b567"
+let s:green = "b4c973"
+let s:blue = "6c99bb"
+let s:wine = "b05279"
+let s:purple = "9e86c8"
+let s:window = "4d5057"
+
+hi Comment cterm=italic 
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " Returns an approximate grey index for the given grey level
@@ -194,16 +196,16 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
         let l:y = <SID>rgb_number(a:g)
         let l:z = <SID>rgb_number(a:b)
 
-        if l:gx         == l:gy && l:gy == l:gz
+        if l:gx == l:gy && l:gy == l:gz
             " There are two possibilities
-            let l:dgr    = <SID>grey_level(l:gx) - a:r
-            let l:dgg    = <SID>grey_level(l:gy) - a:g
-            let l:dgb    = <SID>grey_level(l:gz) - a:b
-            let l:dgrey  = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
-            let l:dr     = <SID>rgb_level(l:gx) - a:r
-            let l:dg     = <SID>rgb_level(l:gy) - a:g
-            let l:db     = <SID>rgb_level(l:gz) - a:b
-            let l:drgb   = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
+            let l:dgr = <SID>grey_level(l:gx) - a:r
+            let l:dgg = <SID>grey_level(l:gy) - a:g
+            let l:dgb = <SID>grey_level(l:gz) - a:b
+            let l:dgrey = (l:dgr * l:dgr) + (l:dgg * l:dgg) + (l:dgb * l:dgb)
+            let l:dr = <SID>rgb_level(l:gx) - a:r
+            let l:dg = <SID>rgb_level(l:gy) - a:g
+            let l:db = <SID>rgb_level(l:gz) - a:b
+            let l:drgb = (l:dr * l:dr) + (l:dg * l:dg) + (l:db * l:db)
             if l:dgrey < l:drgb
                 " Use the grey
                 return <SID>grey_colour(l:gx)
@@ -241,7 +243,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 
     " Vim Highlighting
     call <SID>X("Normal", s:foreground, s:background, "")
-    call <SID>X("LineNr", s:numbers, "", "")
+    call <SID>X("LineNr", s:number, "", "")
     call <SID>X("NonText", s:selection, "", "")
     call <SID>X("SpecialKey", s:selection, "", "")
     call <SID>X("Search", s:background, s:yellow, "")

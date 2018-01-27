@@ -117,9 +117,9 @@ call s:h("MoreMsg",       { "fg": s:yellow })
 call s:h("ErrorMsg",      { "fg": s:black,      "bg": s:red,          "format": "standout" })
 call s:h("WarningMsg",    { "fg": s:red })
 call s:h("VertSplit",     { "fg": s:darkgrey,   "bg": s:darkblack })
-call s:h("LineNr",        { "fg": s:grey,       "bg": s:lightblack })
-call s:h("CursorLineNr",  { "fg": s:orange,     "bg": s:lightblack })
-call s:h("SignColumn",    {                     "bg": s:lightblack })
+call s:h("LineNr",        { "fg": s:grey,       "bg": s:black })
+call s:h("CursorLineNr",  { "fg": s:orange,     "bg": s:black })
+call s:h("SignColumn",    {                     "bg": s:black })
 
 " misc
 call s:h("SpecialKey",    { "fg": s:pink })
@@ -133,8 +133,8 @@ call s:h("DiffChange",    { "fg": s:changefg,   "bg": s:changebg })
 call s:h("DiffText",      { "fg": s:black,      "bg": s:aqua })
 
 " fold
-call s:h("Folded",        { "fg": s:warmgrey,   "bg": s:darkblack })
-call s:h("FoldColumn",    {                     "bg": s:darkblack })
+call s:h("Folded",        { "fg": s:warmgrey,   "bg": s:black })
+call s:h("FoldColumn",    {                     "bg": s:black })
 "        Incsearch"
 
 " popup menu
