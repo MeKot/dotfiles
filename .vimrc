@@ -1,4 +1,4 @@
-set nocompatible              " be iMproved, required
+set nocompatible               
 set rtp+=/usr/local/opt/fzf
 set shellpipe=>
 let g:monokai_term_italic = 1
@@ -11,7 +11,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Valloric/YouCompleteMe'
 "On-demand loading"
-""Plug 'vimwiki/vimwiki', {'on': 'VimwikiIndex'}
 Plug 'mileszs/ack.vim', { 'on': 'Ack'}
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -40,6 +39,7 @@ let g:airline#extensions#ale#enabled     = 1
 let g:airline_powerline_fonts            = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled     = 1
+
 "
 "Easy Align configuration
 "
@@ -47,19 +47,8 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "
-"Speeding up the load time by automatically dropping the connection to the X
-"server
-"
-set clipboard=exclude:.*
-
-"
-"Configuring the vimwiki plugin not to steal the Tab event"
-"
-let g:vimwiki_table_mappings = 0
-"
 "Bracket completion for vim, manually, noplugin"""""""""""""""""""""""
 "
-
 let mapleader=','
 inoremap {<CR> {<CR><CR>}<Up><Space><Tab><End> 
 inoremap { {}<Esc>i
@@ -152,6 +141,10 @@ nnoremap :Wq :wq
 nnoremap :WQ :wq
 nnoremap :Q  :q
 nnoremap :wQ :wq
+
+"Moving multiple selected lines in visual mode
+vmap : <esc>gv<Plug>SwapVisualCursor
+vnoremap <expr> <Plug>SwapVisualCursor line('.') == line("'<") ? ':' : 'o:'
 
 "Folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
