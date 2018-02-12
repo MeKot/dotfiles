@@ -9,8 +9,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'Valloric/YouCompleteMe'
 "On-demand loading"
+Plug 'Valloric/YouCompleteMe', {'on': 'YCMRestartServer'}
 Plug 'mileszs/ack.vim', { 'on': 'Ack'}
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
