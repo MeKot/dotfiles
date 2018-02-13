@@ -10,7 +10,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "On-demand loading"
-Plug 'Valloric/YouCompleteMe', {'on': 'YCMRestartServer'}
+Plug 'Valloric/YouCompleteMe', {'on': 'YCM'}
 Plug 'mileszs/ack.vim', { 'on': 'Ack'}
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -59,14 +59,6 @@ inoremap " ""<Esc>i
 inoremap § <Esc>$a
 inoremap qq <Esc>$a
 
-"NERDTree plugin settings""""""""""""""""""""""""""""""""""""""""""""""
-"
-
-"ALE plugin settings"""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-let g:ale_sign_error   = '>'
-let g:ale_sign_warning = '-'
-
 "
 "ltiSnips plugin settings"""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -85,7 +77,6 @@ let g:snips_author                 = "Ivan Kotegov"
 "YCM plugin setup and configuration""""""""""""""""""""""""""""""""""""""
 "
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_filetype_blacklist={}
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_cofirm_extra_conf=0
@@ -99,12 +90,10 @@ let g:tagbar_autoclose=1
 iabbrev ccopy Copyright 2018 Ivan Kotegov, all rights reserved.
 iabbrev inc #include
 iabbrev prag #pragma once
-inoreabbrev psvm  public static void main(int argc, char[] argv) {<CR><CR>}<Up><Tab><End> 
 
 "Mappings 
 nnoremap <Leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
-nnoremap <Leader>ale :ALEToggle<CR>
 nnoremap <Leader>t   :NERDTreeToggle %:p:h<CR> 
 nnoremap <Leader>m   :TagbarToggle<CR>
 nnoremap <Leader>vs  :vsplit<cr>
@@ -117,7 +106,6 @@ nmap <Leader>. <Plug>AirlineSelectPrevTab
 nmap <Leader>/ <Plug>AirlineSelectNextTab
 
 nnoremap ff  :FZF<CR>
-nnoremap gen :YcmGenerateConfig<CR>
 nnoremap ok  :noh<CR>
 nnoremap tt <C-w><C-w> 
 nnoremap H 0
