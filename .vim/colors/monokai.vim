@@ -31,6 +31,8 @@ if exists("syntax_on")
   syntax reset
 endif
 
+syntax match TODOs ".*TODO.*\|.*BUG.*\|.*HACK.*\|.*FIXIT.*\|.*TESTIT.*"
+
 let colors_name = "monokai"
 
 function! s:h(group, style)

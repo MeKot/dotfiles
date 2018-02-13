@@ -16,29 +16,32 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 call plug#end() 
-syntax match TODOs ".*TODO.*\|.*BUG.*\|.*HACK.*\|.*FIXIT.*\|.*TESTIT.*"
 colorscheme monokai
 
-set foldmethod=syntax
-set cursorline
-set hlsearch
-set incsearch
-set shiftwidth=2 
 set autoindent
 set cindent
-set relativenumber 
-set number
-set wrap
+set cursorline
 set expandtab
-set tabstop=2
-set softtabstop=0
-set smarttab
+set foldmethod=syntax
+set hls
+set incsearch
+set number
+set relativenumber 
+set shiftwidth=2 
 set showcmd
+set smarttab
+set softtabstop=0
+set tabstop=2
+set wrap
 
 let g:airline#extensions#ale#enabled     = 1
 let g:airline_powerline_fonts            = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled     = 1
+
+
+"Highlight search but not when resourcing the vimrc
+let @/=""
 
 "
 "Easy Align configuration
