@@ -85,13 +85,14 @@ source $ZSH/oh-my-zsh.sh
 alias antlr="java -jar /usr/local/Cellar/antlr/4.7/antlr-4.7-complete.jar"
 alias grun="java -cp bin:lib/antlr-4.7-complete.jar org.antlr.v4.runtime.misc.TestRig antlr.WACC"
 alias c="clear"
-alias view="vim -R"
+alias vim="nvim"
+alias view="nvim -R"
 alias gqs="git-quick-stats"
 alias f="fzf -m"
-alias v="vim"
+alias v="nvim"
 alias q="exit"
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
