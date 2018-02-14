@@ -9,8 +9,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-clang'
 "On-demand loading"
-Plug 'Valloric/YouCompleteMe', {'on': 'YCM'}
+""Plug 'Valloric/YouCompleteMe', {'on': 'YCM'}
 Plug 'mileszs/ack.vim', { 'on': 'Ack'}
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -79,12 +81,17 @@ let g:snips_author                 = "Ivan Kotegov"
 "
 "YCM plugin setup and configuration""""""""""""""""""""""""""""""""""""""
 "
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_filetype_blacklist={}
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_cofirm_extra_conf=0
+""let g:ycm_collect_identifiers_from_tags_files = 1
+""let g:ycm_filetype_blacklist={}
+""let g:ycm_autoclose_preview_window_after_insertion = 1
+""let g:ycm_cofirm_extra_conf=0
 
-"
+"Deoplete configs, trying new things"
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0'
+
+
 "TagBar config
 "
 let g:tagbar_autoclose=1
@@ -117,7 +124,7 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-inoremap jk <Esc>
+inoremap <special> jk <Esc>
 
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
