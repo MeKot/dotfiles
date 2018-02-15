@@ -99,15 +99,9 @@ nnoremap <Leader>dd  :bp\|bd # <CR>
 nmap <Leader>. <Plug>AirlineSelectPrevTab
 nmap <Leader>/ <Plug>AirlineSelectNextTab
 
-nnoremap ff  :FZF<CR>
-nnoremap ok  :noh<CR>
+nnoremap <C-f> :FZF<CR>
+nnoremap <C-k> :noh<CR>
 nnoremap tt <C-w><C-w> 
-nnoremap H 0
-nnoremap L $
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
 inoremap <special> jk <Esc>
 inoremap qq <Esc>$a
 
