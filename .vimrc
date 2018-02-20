@@ -77,9 +77,6 @@ let g:deoplete#enable_smart_case = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-"TagBar config
-let g:tagbar_autoclose=1
-
 "Abbreviations
 iabbrev ccopy Copyright 2018 Ivan Kotegov, all rights reserved.
 iabbrev inc #include
@@ -95,7 +92,13 @@ call denite#custom#map(
 call denite#custom#map(
       \ 'normal',
       \ '<Esc>',
-      \ '<NOP>',
+      \ '<denite:quit>',
+      \ 'noremap'
+      \)
+call denite#custom#map(
+      \ 'normal',
+      \ '<Leader>m',
+      \ '<denite:quit>',
       \ 'noremap'
       \)
 call denite#custom#map(
