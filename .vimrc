@@ -7,6 +7,7 @@ let g:monokai_term_italic = 1
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neosnippet-snippets'
@@ -21,7 +22,6 @@ Plug 'tsukkee/unite-tag'
 
 call plug#end() 
 
-colorscheme monokai
 set omnifunc=syntaxcomplete#Complete
 
 let mapleader=','
@@ -42,6 +42,7 @@ set tabstop=2
 set wrap
 
 "Airline plugin configuration
+let g:airline_theme='nord'
 let g:airline#extensions#ale#enabled     = 1
 let g:airline_powerline_fonts            = 1
 let g:airline#extensions#tabline#enabled = 1
