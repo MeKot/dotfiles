@@ -64,6 +64,7 @@ inoremap ( ()<Esc>i
 inoremap " ""<Esc>i
 
 "NeoSnippet configuration
+let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets/'
 imap <C-x>     <Plug>(neosnippet_expand_or_jump)
 smap <C-x>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-x>     <Plug>(neosnippet_expand_target)
