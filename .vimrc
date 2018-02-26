@@ -131,6 +131,7 @@ nnoremap <Leader>sv  :source $MYVIMRC<cr>
 nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>dd  :bp\|bd # <CR>
 nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
+nnoremap <Leader>go  :Goyo<CR>
 nmap <Leader>[ <Plug>AirlineSelectPrevTab
 nmap <Leader>] <Plug>AirlineSelectNextTab
 
