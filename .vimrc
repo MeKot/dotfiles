@@ -8,6 +8,7 @@ let g:monokai_term_italic = 1
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
+Plug 'jreybert/vimagit'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
@@ -64,14 +65,6 @@ inoremap [ []<Esc>i
 inoremap ( ()<Esc>i
 inoremap " ""<Esc>i
 
-"NeoSnippet configuration
-let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets'
-imap <C-x>     <Plug>(neosnippet_expand_or_jump)
-smap <C-x>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-x>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-x>     <Plug>(neosnippet_expand_target)
-let g:neosnippet#enable_completed_snippet=1
-
 "Deoplete configs, trying new things
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
@@ -80,6 +73,18 @@ let g:deoplete#auto_complete_delay=5
 let g:deoplete#enable_smart_case = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+"NeoSnippet configuration
+"let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets'
+imap <C-x>     <Plug>(neosnippet_expand_or_jump)
+smap <C-x>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-x>     <Plug>(neosnippet_expand_target)
+"let g:neosnippet#enable_completed_snippet=1
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 "Abbreviations
 iabbrev ccopy Copyright 2018 Ivan Kotegov, all rights reserved.
@@ -131,6 +136,8 @@ nnoremap <Leader>sv  :source $MYVIMRC<cr>
 nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>dd  :bp\|bd # <CR>
 nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
+nnoremap <Leader>go  :Goyo<CR>
+nnoremap <Leader>gp  :Goyo 200x95%<CR>
 nmap <Leader>[ <Plug>AirlineSelectPrevTab
 nmap <Leader>] <Plug>AirlineSelectNextTab
 
