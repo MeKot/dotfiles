@@ -75,11 +75,10 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 "NeoSnippet configuration
-"let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets'
 imap <C-x>     <Plug>(neosnippet_expand_or_jump)
 smap <C-x>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-x>     <Plug>(neosnippet_expand_target)
-"let g:neosnippet#enable_completed_snippet=1
+let g:neosnippet#enable_completed_snippet=1
 
 " For conceal markers.
 if has('conceal')
