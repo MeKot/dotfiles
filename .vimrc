@@ -8,9 +8,9 @@ let g:monokai_term_italic = 1
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
-Plug 'jreybert/vimagit'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/vim-easy-align'
+Plug 'jreybert/vimagit', {'on': 'Magit'}
+Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
+Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
