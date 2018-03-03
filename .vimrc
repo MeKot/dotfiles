@@ -116,6 +116,17 @@ call denite#custom#map(
       \ 'noremap'
       \)
 
+" Modifying the Nord colorscheme for DEnite and Diff
+" Diff
+hi! link DiffAdd Question
+hi! link DiffChange Underlined
+hi! link DiffDelete WarningMsg
+
+" Denite
+call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
+call denite#custom#option('_', 'highlight_matched_range', 'None')
+call denite#custom#option('_', 'highlight_matched_char', 'None')
+
 "Denite mappings
 let g:denite_source_history_yank_enable = 1
 nnoremap ff :Denite file_rec<Cr>
