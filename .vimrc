@@ -1,6 +1,6 @@
-set nocompatible               
-set rtp+=/usr/local/opt/fzf
-set shellpipe=>
+"set nocompatible
+"set rtp+=/usr/local/opt/fzf
+"set shellpipe=>
 set path=.,./**,$PWD/**
 
 let g:monokai_term_italic = 1
@@ -121,6 +121,7 @@ call denite#custom#map(
 hi! link DiffAdd Question
 hi! link DiffChange Underlined
 hi! link DiffDelete WarningMsg
+hi! link DiffText Statement
 
 " Denite
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
