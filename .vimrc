@@ -12,6 +12,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
 Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-startify'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
 Plug 'Shougo/deoplete.nvim'
@@ -20,7 +21,6 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
 Plug 'Shougo/neoyank.vim'
-Plug 'tsukkee/unite-tag'
 
 call plug#end() 
 
