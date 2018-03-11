@@ -12,7 +12,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
 Plug 'vim-airline/vim-airline'
-Plug 'mhinz/vim-startify'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
 Plug 'Shougo/deoplete.nvim'
