@@ -8,11 +8,11 @@ let g:monokai_term_italic = 1
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
 Plug 'vim-airline/vim-airline'
-Plug 'mhinz/vim-startify'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
 Plug 'Shougo/deoplete.nvim'
@@ -122,6 +122,9 @@ hi! link DiffAdd Question
 hi! link DiffChange Underlined
 hi! link DiffDelete WarningMsg
 hi! link DiffText Statement
+hi! link Folded VisualNC
+hi! link FoldColumn LineNr
+hi! link Visual airline_x
 
 " Denite
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
@@ -130,7 +133,9 @@ call denite#custom#option('_', 'highlight_matched_char', 'None')
 
 "Denite mappings
 let g:denite_source_history_yank_enable = 1
-nnoremap ff :Denite file_rec<Cr>
+nnoremap <C-D> :Denite
+nnoremap <C-S> :Denite file_rec <Cr>
+nnoremap <C-B> :Denite buffer <Cr>
 nnoremap <Leader>/  :Denite -no-empty grep<Cr>
 nnoremap <Leader>sh :Denite -split=vertical -winwidth=45 -direction=dynamictop history:search -mode=normal<Cr>
 nnoremap <Leader>sc :Denite -split=vertical -winwidth=45 -direction=dynamictop history:cmd -mode=normal<Cr>
@@ -153,9 +158,7 @@ nmap <Leader>[ <Plug>AirlineSelectPrevTab
 nmap <Leader>] <Plug>AirlineSelectNextTab
 
 nnoremap <C-k> :noh<CR>
-nnoremap tt <C-w><C-w> 
 inoremap <special> jk <Esc>
-inoremap qq <Esc>$a
 
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
