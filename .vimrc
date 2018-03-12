@@ -147,7 +147,7 @@ nnoremap <Leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
 nnoremap <Leader>vs  :vsplit<cr>
 nnoremap <Leader>hs  :split<cr>
-nnoremap <Leader>ev  :tabe ~/.vimrc<CR> 
+nnoremap <Leader>ev  :e ~/.vimrc<CR> 
 nnoremap <Leader>sv  :source $MYVIMRC<cr>
 nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>dd  :bp\|bd # <CR>
