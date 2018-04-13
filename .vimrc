@@ -3,6 +3,7 @@
 "set shellpipe=>
 set path=.,./**,$PWD/**
 
+
 let g:monokai_term_italic = 1
 
 call plug#begin('~/.vim/plugged')
@@ -27,6 +28,7 @@ call plug#end()
 set omnifunc=syntaxcomplete#Complete
 
 let mapleader=','
+set hidden
 set autoindent
 set cindent
 set cursorline
@@ -39,6 +41,7 @@ set relativenumber
 set shiftwidth=2 
 set showcmd
 set smarttab
+set smartcase
 set softtabstop=0
 set tabstop=2
 set wrap
@@ -172,6 +175,8 @@ inoremap <Down> <nop>
 inoremap <Left> <nop>
 inoremap <Right> <nop>
 
+nnoremap j gj
+nnoremap k gk
 nnoremap :W  :w
 nnoremap :Wq :wq
 nnoremap :WQ :wq
