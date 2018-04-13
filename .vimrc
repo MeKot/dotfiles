@@ -20,7 +20,7 @@ Plug 'zchee/deoplete-clang'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
-Plug 'Shougo/neoyank.vim'
+"Plug 'Shougo/neoyank.vim'
 
 call plug#end() 
 
@@ -134,9 +134,9 @@ call denite#custom#option('_', 'highlight_matched_char', 'None')
 "Denite mappings
 let g:denite_source_history_yank_enable = 1
 nnoremap <C-D> :Denite
-nnoremap <C-S> :Denite file_rec <Cr>
-nnoremap <C-B> :Denite buffer <Cr>
-nnoremap <Leader>/  :Denite -no-empty grep<Cr>
+nnoremap <C-S> :Denite file_rec <CR>
+nnoremap <C-B> :Denite buffer <CR>
+nnoremap <Leader>/  :Denite -default-action=quickfix -no-empty grep<Cr>
 nnoremap <Leader>sh :Denite -split=vertical -winwidth=45 -direction=dynamictop history:search -mode=normal<Cr>
 nnoremap <Leader>sc :Denite -split=vertical -winwidth=45 -direction=dynamictop history:cmd -mode=normal<Cr>
 nnoremap <Leader>sy :Denite -split=vertical -winwidth=45 -direction=dynamictop neoyank -mode=normal<Cr>
@@ -145,20 +145,23 @@ nnoremap <Leader>m  :Denite -split=vertical -winwidth=80 tag -mode=insert<Cr>
 "Mappings 
 nnoremap <Leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
-nnoremap <Leader>vs  :vsplit<cr>
-nnoremap <Leader>hs  :split<cr>
-nnoremap <Leader>ev  :tabe ~/.vimrc<CR> 
-nnoremap <Leader>sv  :source $MYVIMRC<cr>
+nnoremap <Leader>vs  :vsplit<CR>
+nnoremap <Leader>hs  :split<CR>
+nnoremap <Leader>ev  :e ~/.vimrc<CR> 
+nnoremap <Leader>sv  :source $MYVIMRC<CR>
 nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>dd  :bp\|bd # <CR>
 nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
 nnoremap <Leader>go  :Goyo<CR>
 nnoremap <Leader>gp  :Goyo 200x95%<CR>
-nmap <Leader>[ <Plug>AirlineSelectPrevTab
-nmap <Leader>] <Plug>AirlineSelectNextTab
+nmap <Tab> <Plug>AirlineSelectNextTab
+nmap <S-Tab> <Plug>AirlineSelectPrevTab
 
 nnoremap <C-k> :noh<CR>
 inoremap <special> jk <Esc>
+nnoremap <C-p> :cp<CR>
+nnoremap \\ <C-w><C-w>
+inoremap <special>jk <Esc>
 
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
