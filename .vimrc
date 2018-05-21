@@ -12,7 +12,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
-Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
+Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
@@ -109,7 +109,7 @@ call denite#custom#map(
 call denite#custom#map(
       \ 'normal',
       \ '<Esc>',
-      \ '<NOP>',
+      \ '<denite:quit>',
       \ 'noremap'
       \)
 call denite#custom#map(
@@ -133,6 +133,17 @@ hi! link Visual airline_x
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
 call denite#custom#option('_', 'highlight_matched_range', 'None')
 call denite#custom#option('_', 'highlight_matched_char', 'None')
+
+call denite#custom#option('_', {
+    \ 'prompt': 'λ:',
+  \ 'empty': 0,
+  \ 'winheight': 16,
+  \ 'source_names': 'short',
+  \ 'vertical_preview': 1,
+  \ 'auto-accel': 1,
+  \ 'auto-resume': 1,
+  \ })
+
 
 "Denite mappings
 let g:denite_source_history_yank_enable = 1
