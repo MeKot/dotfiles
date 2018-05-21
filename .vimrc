@@ -7,6 +7,7 @@ let g:monokai_term_italic = 1
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'w0rp/ale'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
@@ -16,7 +17,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
 Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/deoplete-clangx'
+Plug 'Shougo/deoplete-clangx', {'for': 'c, cpp, cs'}
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
@@ -52,6 +53,15 @@ let g:airline_powerline_fonts            = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled     = 1
 let g:airline#extensions#tabline#excludes = ['denite']
+
+"ALE config for React and general JS
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+let g:ale_fixers = { 
+\  'javascript': [ 'eslint' ]
+\}
+nnoremap <Leader><Leader> :ALEFix<CR>
 
 "Highlight search but not when resourcing the vimrc
 let @/=""
