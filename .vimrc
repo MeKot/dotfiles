@@ -4,7 +4,9 @@ let g:monokai_term_italic = 1
 " Think of using Dein? dark side of the force and stuff
 call plug#begin('~/.vim/plugged')
 
-Plug 'w0rp/ale', {'for': 'js, ts, css, html'} " Connect for webdev only
+Plug 'w0rp/ale', {'on': 'Web'} " Connect for webdev only
+Plug 'mxw/vim-jsx', {'on': 'Web'} " Connect only for the JS projects, obvs
+Plug 'pangloss/vim-javascript', {'on': 'Web'} " Again, only for webdev
 Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
