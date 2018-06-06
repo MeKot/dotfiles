@@ -165,7 +165,7 @@ nnoremap <C-p> :cp<CR>
 inoremap <special> jk <Esc>
 
 " Buffer switching with Tab ans Shift-Tab
-nmap <Tab> <Plug>AirlineSelectNextTab
+" nmap <Tab> <Plug>AirlineSelectNextTab
 nmap <S-Tab> <Plug>AirlineSelectPrevTab
 
 " Abbreviations
