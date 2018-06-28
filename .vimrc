@@ -4,9 +4,6 @@ let g:monokai_term_italic = 1
 " Think of using Dein? dark side of the force and stuff
 call plug#begin('~/.vim/plugged')
 
-Plug 'w0rp/ale', {'on': 'Web'} " Connect for webdev only
-Plug 'mxw/vim-jsx', {'on': 'Web'} " Connect only for the JS projects, obvs
-Plug 'pangloss/vim-javascript', {'on': 'Web'} " Again, only for webdev
 Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
@@ -55,13 +52,13 @@ let g:airline#extensions#ycm#enabled     = 1
 let g:airline#extensions#tabline#excludes = ['denite']
 
 " ALE config for React and general JS
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
-let g:ale_fixers = { 
-\  'javascript': [ 'eslint' ]
-\}
-nnoremap <Leader><Leader> :ALEFix<CR>
+"let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+"let g:ale_sign_warning = '.'
+"let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+"let g:ale_fixers = { 
+"\  'javascript': [ 'eslint' ]
+"\}
+"nnoremap <Leader><Leader> :ALEFix<CR>
 
 " Highlight search but not on every refresh (just purges the search buffer)
 let @/=""
