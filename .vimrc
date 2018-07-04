@@ -155,7 +155,7 @@ nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>dd  :bp\|bd # <CR>
 nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
 nnoremap <Leader>go  :Goyo<CR>
-nnoremap <Leader>gp  :Goyo 200x95%<CR>
+nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :noh<CR>
 nnoremap <C-p> :cp<CR>
 
