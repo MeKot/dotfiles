@@ -18,11 +18,14 @@ Plug 'Shougo/deoplete-clangx', {'for': 'c, cpp, cs'}
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
+Plug 'fatih/vim-go'
 "Plug 'Shougo/neoyank.vim' " Still needs a bit of reading up on, check back later
 
 call plug#end() 
 
 set omnifunc=syntaxcomplete#Complete
+
+hi VertSplit none
 
 let mapleader=',' 
 set hidden
@@ -173,3 +176,6 @@ iabbrev prag #pragma once
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <silent> <Leader><Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space>  zf
+
+cmap Q q
+cmap W w

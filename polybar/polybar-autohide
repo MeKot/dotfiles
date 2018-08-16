@@ -5,6 +5,7 @@ import re
 import logging
 
 DELAY = 7.05
+LOOP_SLEEP = 1.01
 SCREEN_HEIGHT = 900
 PERCENT_LIMIT = 150
 SHOW_CMD = 'xdo show -N Polybar'
@@ -31,3 +32,4 @@ while True:
         time.sleep(DELAY)
         hidden = True
         subprocess.call(HIDE_CMD, shell=True)
+    time.sleep(2)

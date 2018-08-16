@@ -30,7 +30,6 @@ font hack:regular 10
 
 bindsym $mod+q kill
 bindsym Mod1+Mod4+space exec "rofi -lines 3 -eh 2 -modi combi -bw 0 -show combi -theme gotham"
-# bindsym Mod1+Mod4+space exec "rofi -lines 3 -eh 2 -modi \"dmenu, combi\"-bw 0 -show combi"
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
