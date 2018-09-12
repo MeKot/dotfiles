@@ -28,6 +28,8 @@ set omnifunc=syntaxcomplete#Complete
 hi VertSplit none
 hi Search none
 hi link Search Underlined
+hi WildMenu none
+hi link WildMenu Underlined
 hi Todo none
 hi link Todo ModeMsg
 
@@ -166,7 +168,7 @@ nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
 nnoremap <Leader>go  :Goyo<CR>
 nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :Gcommit<CR>
-"nnoremap <C-S-k> :Gpush<CR>
+nnoremap <C-l> :Gpush<CR>
 nnoremap <C-p> :cp<CR>
 
 inoremap <special> jk <Esc>
