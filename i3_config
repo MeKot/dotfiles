@@ -11,7 +11,7 @@ exec --no-startup-id xss-lock -- i3lock -n -i ~/Pictures/Mankind.png &
 
 exec_always --no-startup-id polybar -c ~/.config/polybar/config PolybarTony
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
