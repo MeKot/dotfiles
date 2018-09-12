@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/usr/local/bin:~/go/bin:/home/admin/Applications/idea-IU-181.5087.20/bin:$PATH
+export PATH=/usr/local/bin:~/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
