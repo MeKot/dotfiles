@@ -26,6 +26,12 @@ call plug#end()
 set omnifunc=syntaxcomplete#Complete
 
 hi VertSplit none
+hi Search none
+hi link Search Underlined
+hi Todo none
+hi link Todo ModeMsg
+
+" TODO:
 
 let mapleader=',' 
 set hidden
@@ -152,14 +158,15 @@ nnoremap <Leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
 nnoremap <Leader>vs  :vsplit<CR>
 nnoremap <Leader>hs  :split<CR>
-nnoremap <Leader>ev  :e ~/.vimrc<CR> 
+nnoremap <Leader>ev  :e ~/dotfiles/.vimrc<CR> 
 nnoremap <Leader>sv  :source $MYVIMRC<CR>
 nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>dd  :bp\|bd # <CR>
 nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
 nnoremap <Leader>go  :Goyo<CR>
 nnoremap <Leader>gp  :Goyo 200x95<CR>
-nnoremap <C-k> :noh<CR>
+nnoremap <C-k> :Gcommit<CR>
+"nnoremap <C-S-k> :Gpush<CR>
 nnoremap <C-p> :cp<CR>
 
 inoremap <special> jk <Esc>
