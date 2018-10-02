@@ -4,12 +4,13 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-exec killall polybar
+
+exec_always --no-startup-id ~/dotfiles/launch.sh
 exec --no-startup-id feh --bg-scale ~/Pictures/Sakura.png
-exec --no-startup-id compton --config ~/.config/compton.conf
+# exec --no-startup-id compton -b
 exec --no-startup-id xss-lock -- i3lock -n -i ~/Pictures/Mankind.png & 
 
-exec_always --no-startup-id polybar -c ~/.config/polybar/config PolybarTony
+# exec_always --no-startup-id polybar -c ~/.config/polybar/config default
 
 set $mod Mod4
 
@@ -55,9 +56,10 @@ bindsym $mod+Shift+P exec escrotum --clipboard --select --selection-delay 100 $s
 floating_modifier $mod
 
 for_window [class="Mailspring"] floating enable
-for_window [class="nautilus"] floating enable
-for_window [class="Files"] floating enable
+for_window [class="Nautilus"] floating enable
 for_window [class="Telegram Desktop"] floating enable
+for_window [class="MineTime"] floating enable
+for_window [class="Slack"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec termite

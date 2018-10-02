@@ -1,3 +1,4 @@
+set nocompatible
 set path=.,./**,$PWD/** " Giving Denite a helpful hand in file_rec
 let g:monokai_term_italic = 1
 
@@ -14,16 +15,19 @@ Plug 'vim-airline/vim-airline'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
 Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/deoplete-clangx', {'for': 'c, cpp, cs'}
+Plug 'Shougo/deoplete-clangx', {'for': 'c, cpp, cs'} " Lazy loaded
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
 Plug 'fatih/vim-go'
-"Plug 'Shougo/neoyank.vim' " Still needs a bit of reading up on, check back later
+Plug 'vimwiki/vimwiki'
+Plug 'Shougo/neoyank.vim' " Still needs a bit of reading up on, check back later
 
 call plug#end() 
 
 set omnifunc=syntaxcomplete#Complete
+filetype plugin on
+syntax on
 
 hi VertSplit none
 hi Search none
@@ -32,8 +36,6 @@ hi WildMenu none
 hi link WildMenu Underlined
 hi Todo none
 hi link Todo ModeMsg
-
-" TODO:
 
 let mapleader=',' 
 set hidden
@@ -85,7 +87,7 @@ let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/u
 let g:deoplete#auto_complete_delay=5
 let g:deoplete#enable_smart_case = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <silent><expr> <Tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " NeoSnippet configuration
 imap <C-x>     <Plug>(neosnippet_expand_or_jump)
@@ -169,7 +171,13 @@ nnoremap <Leader>go  :Goyo<CR>
 nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :Gcommit<CR>
 nnoremap <C-l> :Gpush<CR>
-nnoremap <C-p> :cp<CR>
+nnoremap <C-c> :cc!<CR>
+
+" Timestamps
+nnoremap ts i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+
+nmap <C-e> <Plug>VimwikiToggleListItem
+let g:vimwiki_table_mappings = 0
 
 inoremap <special> jk <Esc>
 
