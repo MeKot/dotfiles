@@ -60,6 +60,8 @@ for_window [class="Nautilus"] floating enable
 for_window [class="Telegram Desktop"] floating enable
 for_window [class="MineTime"] floating enable
 for_window [class="Slack"] floating enable
+for_window [class="Blueberry.py"] floating enable
+for_window [class="Gnome-disks"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec termite
