@@ -5,7 +5,7 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-exec_always --no-startup-id ~/dotfiles/launch.sh
+exec_always --no-startup-id ~/dotfiles/launch.sh &> /dev/null
 exec --no-startup-id feh --bg-scale ~/Pictures/Sakura.png
 # exec --no-startup-id compton -b
 exec --no-startup-id xss-lock -- i3lock -n -i ~/Pictures/Mankind.png & 
@@ -62,6 +62,9 @@ for_window [class="MineTime"] floating enable
 for_window [class="Slack"] floating enable
 for_window [class="Blueberry.py"] floating enable
 for_window [class="Gnome-disks"] floating enable
+
+# Intellij focus issue
+for_window [class="^jetbrains-.+"][window_type=dialog] focus
 
 # start a terminal
 bindsym $mod+Return exec termite
