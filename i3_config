@@ -57,7 +57,7 @@ floating_modifier $mod
 
 for_window [class="Mailspring"] floating enable
 for_window [class="Nautilus"] floating enable
-for_window [class="Telegram Desktop"] floating enable
+for_window [class="TelegramDesktop"] floating enable
 for_window [class="MineTime"] floating enable
 for_window [class="Slack"] floating enable
 for_window [class="Blueberry.py"] floating enable
