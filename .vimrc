@@ -84,7 +84,7 @@ nmap ga <Plug>(EasyAlign)
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0'
-let g:deoplete#auto_complete_delay=5
+let g:deoplete#auto_complete_delay=1
 let g:deoplete#enable_smart_case = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <silent><expr> <Tab> pumvisible() ? "\<c-n>" : "\<tab>"
