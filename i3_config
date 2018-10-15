@@ -62,9 +62,11 @@ for_window [class="MineTime"] floating enable
 for_window [class="Slack"] floating enable
 for_window [class="Blueberry.py"] floating enable
 for_window [class="Gnome-disks"] floating enable
+for_window [class="Baobab"] floating enable
 
 # Intellij focus issue
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
+for_window [class="jetbrains-idea"][window_type=dialog] focus
 
 # start a terminal
 bindsym $mod+Return exec termite

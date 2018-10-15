@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', {'on': 'Gcommit'}
 Plug 'tpope/vim-surround'
 Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'junegunn/vim-easy-align'
@@ -16,12 +16,12 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim' 
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/deoplete-clangx', {'for': 'c, cpp, cs'} " Lazy loaded
-Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neoinclude.vim', {'for': 'c, cpp, cs'}
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'vimwiki/vimwiki'
-Plug 'Shougo/neoyank.vim' " Still needs a bit of reading up on, check back later
+Plug 'tfnico/vim-gradle', {'for': 'gradle'}
 
 call plug#end() 
 
