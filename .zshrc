@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/usr/local/bin:~/go/bin:$PATH
+export PATH=/home/admin/.local/bin:/usr/local/bin:~/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:/home/admin/IdeaProjects/bigpig/symbex/jpf-core/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh

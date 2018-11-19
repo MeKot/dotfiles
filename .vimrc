@@ -1,5 +1,5 @@
 set nocompatible
-set path=.,./**,$PWD/** " Giving Denite a helpful hand in file_rec
+set path+=.,./**,$PWD/** " Giving Denite a helpful hand in file_rec
 let g:monokai_term_italic = 1
 
 " Think of using Dein? dark side of the force and stuff
@@ -9,14 +9,11 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive', {'on': 'Gcommit'}
 Plug 'tpope/vim-surround'
-Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
+Plug 'Shougo/neosnippet.vim' 
+Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim' 
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/deoplete-clangx', {'for': 'c, cpp, cs'} " Lazy loaded
-Plug 'Shougo/neoinclude.vim', {'for': 'c, cpp, cs'}
+Plug 'Valloric/YouCompleteMe', {'dir': '~/.vim/plugged/YouCompleteMe/', 'do': './install.py --clang-completer --go-completer --java-completer'}
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -58,20 +55,10 @@ set wrap
 
 " Airline plugin configuration
 let g:airline_theme='nord'
-let g:airline#extensions#ale#enabled     = 1
 let g:airline_powerline_fonts            = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled     = 1
 let g:airline#extensions#tabline#excludes = ['denite']
-
-" ALE config for React and general JS
-"let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-"let g:ale_sign_warning = '.'
-"let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
-"let g:ale_fixers = { 
-"\  'javascript': [ 'eslint' ]
-"\}
-"nnoremap <Leader><Leader> :ALEFix<CR>
 
 " Highlight search but not on every refresh (just purges the search buffer)
 let @/=""
@@ -80,20 +67,22 @@ let @/=""
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" Deoplete configs
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0'
-let g:deoplete#auto_complete_delay=1
-let g:deoplete#enable_smart_case = 1
+" Sane defs for YCM
+let g:error = '●' " Less aggressive than the default '>>'
+let g:todo = '@' " Less aggressive than the default '>>'
+let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
+let g:ycm_seed_identifiers_with_syntax = 1
+hi YcmErrorSection none
+hi link YcmErrorSection DiffDelete
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <silent><expr> <Tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" NeoSnippet configuration
 imap <C-x>     <Plug>(neosnippet_expand_or_jump)
 smap <C-x>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-x>     <Plug>(neosnippet_expand_target)
 let g:neosnippet#enable_completed_snippet=1
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/UltiSnips'
 
 " Modifying the Nord colorscheme for Denite and Fugitive diffs
 hi! link DiffAdd Question
@@ -172,6 +161,8 @@ nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :Gcommit<CR>
 nnoremap <C-l> :Gpush<CR>
 nnoremap <C-c> :cc!<CR>
+nnoremap <C-f> :YcmCompleter FixIt<CR>
+nnoremap <C-/> I//<Esc>
 
 " Timestamps
 nnoremap ts i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>

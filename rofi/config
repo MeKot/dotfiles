@@ -4,8 +4,8 @@
 ! Enable the extended coloring options
 rofi.color-enabled: true
 
-rofi.color-normal #3b425275 #3B425294 #00000000
+rofi.hide-scrollbar: true
+rofi.sort: true
+rofi.levenshtein-sort: false
 
-rofi.hide-scrollbar = true
-
-rofi.combi-modi:  window,drun,ssh
+rofi.combi-modi:  drun,window
