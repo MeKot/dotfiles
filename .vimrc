@@ -5,15 +5,15 @@ let g:monokai_term_italic = 1
 " Think of using Dein? dark side of the force and stuff
 call plug#begin('~/.vim/plugged')
 
-Plug 'arcticicestudio/nord-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive', {'on': 'Gcommit'}
 Plug 'tpope/vim-surround'
 Plug 'Shougo/neosnippet.vim' 
+Plug 'arcticicestudio/nord-vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
-Plug 'Valloric/YouCompleteMe', {'dir': '~/.vim/plugged/YouCompleteMe/', 'do': './install.py --clang-completer --go-completer --java-completer'}
+Plug 'Valloric/YouCompleteMe', {'dir': '~/.vim/plugged/YouCompleteMe/', 'do': './install.py --clang-completer --go-completer --java-completer --ts-completer'}
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-extra'
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -26,13 +26,24 @@ set omnifunc=syntaxcomplete#Complete
 filetype plugin on
 syntax on
 
-hi VertSplit none
-hi Search none
-hi link Search Underlined
-hi WildMenu none
-hi link WildMenu Underlined
-hi Todo none
-hi link Todo ModeMsg
+augroup nordkot-overrides
+  autocmd!
+  autocmd ColorScheme nordkot hi VertSplit none
+  autocmd ColorScheme nordkot hi Search none
+  autocmd ColorScheme nordkot hi link Search Underlined
+  autocmd ColorScheme nordkot hi WildMenu none
+  autocmd ColorScheme nordkot hi link WildMenu Underlined
+  autocmd ColorScheme nordkot hi Todo none
+  autocmd ColorScheme nordkot hi link Todo ModeMsg
+  autocmd ColorScheme nordkot hi ErrorMsg none
+  autocmd ColorScheme nordkot hi link ErrorMsg SpellBad
+  autocmd ColorScheme nordkot hi Error none
+  autocmd ColorScheme nordkot hi link Error ErrorMsg
+  autocmd ColorScheme nordkot hi WarningMsg none
+  autocmd ColorScheme nordkot hi link WarningMsg SpellCap
+augroup END
+
+color nordkot
 
 let mapleader=',' 
 set hidden
@@ -71,6 +82,7 @@ nmap ga <Plug>(EasyAlign)
 let g:error = '●' " Less aggressive than the default '>>'
 let g:todo = '@' " Less aggressive than the default '>>'
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
+let g:ycm_always_populate_location_list = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 hi YcmErrorSection none
 hi link YcmErrorSection DiffDelete
@@ -82,7 +94,7 @@ smap <C-x>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-x>     <Plug>(neosnippet_expand_target)
 let g:neosnippet#enable_completed_snippet=1
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/UltiSnips'
+"let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/UltiSnips'
 
 " Modifying the Nord colorscheme for Denite and Fugitive diffs
 hi! link DiffAdd Question
@@ -149,6 +161,7 @@ nnoremap <Leader>m  :Denite -split=vertical -winwidth=80 tag -mode=insert<Cr>
 " General Mappings
 nnoremap <Leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
+vnoremap  <leader>y  "+y
 nnoremap <Leader>vs  :vsplit<CR>
 nnoremap <Leader>hs  :split<CR>
 nnoremap <Leader>ev  :e ~/dotfiles/.vimrc<CR> 
