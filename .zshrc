@@ -1,5 +1,6 @@
+export SABER_HOME=/home/admin/Downloads/PerfEng/performanceprofiling_ik716
 # If you come from bash you might have to change your $PATH.
-export PATH=/home/admin/.local/bin:/usr/local/bin:~/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:/home/admin/IdeaProjects/bigpig/symbex/jpf-core/bin:$HOME/.node_modules/bin:$PATH
+export PATH=$SABER_HOME/clib:/home/admin/.local/bin:/usr/local/bin:~/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:/home/admin/IdeaProjects/bigpig/symbex/jpf-core/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
 
 #export ANDROID_HOME=/opt/android-sdk/
 
@@ -97,12 +98,15 @@ alias c="clear"
 alias vim="nvim"
 alias view="nvim -R"
 alias gqs="git-quick-stats"
-alias f="fzf -m"
 alias v="nvim"
 alias q="exit"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias gcam="git commit -a -S -m"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export GPG_TTY=$(tty)
+export JAVA_HOME=/usr/local/java/jdk1.8.0_191/
+export PATH=$JAVA_HOME/bin:$PATH

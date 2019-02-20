@@ -65,6 +65,7 @@ for_window [class="Gnome-disks"] floating enable
 for_window [class="Baobab"] floating enable
 for_window [class="zoom"] floating enable
 for_window [title="albert"] floating enable
+for_window [title="Signal"] floating enable
 for_window [title="Battery Warning"] sticky enable
 
 # Intellij focus issue

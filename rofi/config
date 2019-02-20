@@ -1,5 +1,5 @@
 
--modi window#ssh#drun#run
+-modi window#drun#run
 
 ! Enable the extended coloring options
 rofi.color-enabled: true
