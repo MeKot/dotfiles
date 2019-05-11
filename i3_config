@@ -6,7 +6,7 @@
 #
 
 exec_always --no-startup-id ~/dotfiles/launch.sh &> /dev/null
-exec --no-startup-id feh --bg-scale ~/Pictures/Sakura.png
+exec --no-startup-id feh --bg-scale ~/Pictures/Abstract2.jpg
 exec --no-startup-id xbanish &> /dev/null
 exec --no-startup-id xss-lock -- i3lock -n -i ~/Pictures/Mankind.png & 
 
@@ -30,7 +30,8 @@ font hack:regular 10
 # font, it doesn’t scale on retina/hidpi displays.
 
 bindsym $mod+q kill
-bindsym Mod1+Mod4+space exec "rofi -matching fuzzy -lines 5 -eh 2 -modi combi -bw 0 -show combi -theme gotham"
+bindsym Mod1+Mod4+l exec "i3lock -i ~/Pictures/Mankind.png"
+bindsym Mod1+Mod4+space exec "rofi -lines 5 -eh 2 -bw 0 -show combi -font 'noto mono 12' -theme gotham -sorting-method fzf -sort -matching fuzzy"
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness

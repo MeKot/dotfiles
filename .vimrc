@@ -22,7 +22,7 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'chemzqm/denite-extra'
 Plug 'vimwiki/vimwiki'
-Plug 'sheerun/vim-polyglot', {'dir': '~/.vim/plugged/vim-polyglot/', 'do': './build'}
+Plug 'sheerun/vim-polyglot', {'dir': '~/.vim/plugged/vim-polyglot/', 'do': 'git reset --hard &&./build'}
 Plug 'slashmili/alchemist.vim'
 
 call plug#end() 
@@ -117,6 +117,11 @@ let g:neosnippet#snippets_directory='~/.vim/plugged/ultisnips/snippets'
 let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
 let g:jedi#completions_enabled = 0 " Keeping Jedi actions and deoplete complete
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 5,
+      \ 'camel_case': v:true,
+      \ 'num_processes': -1,
+      \ 'smart_case': v:true})
 
 "
 let g:UltiSnipsExpandTrigger="<C-x>"
@@ -175,7 +180,7 @@ call denite#custom#option('_', {
 
 " Denite activation mappings 
 let g:denite_source_history_yank_enable = 1
-nnoremap <C-h> :Denite -split=vertical -winwidth=80 outline -mode=insert<Cr>
+nnoremap <M-o> :Denite -split=vertical -winwidth=80 outline -mode=insert<Cr>
 nnoremap <C-s> :Denite file_rec <CR>
 nnoremap <C-b> :Denite buffer <CR>
 nnoremap <Leader>/  :Denite -default-action=quickfix -no-empty grep<Cr>
@@ -204,6 +209,7 @@ nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :Gstatus<CR>
 nnoremap <C-l> :Gpush<CR>
 nnoremap <C-c> :cc!<CR>
+nnoremap <M-x> :Denite command <CR>
 nnoremap <C-f> :YcmCompleter FixIt<CR>
 nnoremap <C-/> I//<Esc>
 
