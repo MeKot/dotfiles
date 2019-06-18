@@ -6,7 +6,7 @@
 #
 
 exec_always --no-startup-id ~/dotfiles/launch.sh &> /dev/null
-exec --no-startup-id feh --bg-scale ~/Pictures/Abstract2.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/Sakura.png
 exec --no-startup-id xbanish &> /dev/null
 exec --no-startup-id xss-lock -- i3lock -n -i ~/Pictures/Mankind.png & 
 
