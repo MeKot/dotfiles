@@ -45,7 +45,8 @@ augroup nordkot-overrides
   autocmd ColorScheme nordkot hi link DiffAdd String
 augroup END
 
-color nordkot
+" My own flavour of nord
+color nordkot 
 
 let mapleader=',' 
 set autoread
@@ -77,7 +78,7 @@ let g:airline#extensions#tabline#excludes = ['denite']
 " Highlight search but not on every refresh (just purges the search buffer)
 let @/=""
 
-" Sane defs for YCM
+" Sane defs for completion window navigation
 inoremap <silent><expr> <Tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Modifying the Nord colorscheme for Denite and Fugitive diffs
