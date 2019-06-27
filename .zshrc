@@ -102,6 +102,7 @@ alias v="nvim"
 alias q="exit"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias cat="bat"
 alias gcam="git commit -a -S -m"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,0 +1,31 @@
+{
+  "snippets.ultisnips.enable": true,
+  "snippets.ultisnips.directories": [
+    "~/.vim/snippets/vim-snippets/UltiSnips"
+  ],
+  "snippets.priority": 100,
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "h", "hpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+         "cache": {
+           "directory": "/tmp/ccls"
+         }
+       }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+  }
+}
