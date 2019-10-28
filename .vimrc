@@ -1,5 +1,4 @@
 set nocompatible
-set path+=.,./**,$PWD/** " Giving Denite a helpful hand in file_rec
 let g:monokai_term_italic = 1
 
 " Think of using Dein? dark side of the force and stuff
@@ -9,20 +8,20 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
-Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'vimwiki/vimwiki'
 Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
+Plug 'chrisbra/Colorizer'
+Plug 'lervag/vimtex'
 
-call plug#end() 
+call plug#end()
 
 set omnifunc=syntaxcomplete#Complete
 filetype plugin on
 syntax on
 
-" Probably should extract nord overrides into a different file
-augroup nordkot-overrides
+augroup NordKotOverrides
   autocmd!
   autocmd ColorScheme nordkot hi VertSplit none
   autocmd ColorScheme nordkot hi Search none
@@ -45,10 +44,29 @@ augroup nordkot-overrides
   autocmd ColorScheme nordkot hi link DiffAdd String
 augroup END
 
-" My own flavour of nord
-color nordkot 
+augroup TextWidthTex
+  autocmd!
+  autocmd BufWritePre *.tex set textwidth=100
+augroup END
 
-let mapleader=',' 
+augroup RemoveTrailingWhitespace
+  autocmd!
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
+augroup CURSORLINE
+  autocmd InsertEnter * set nocursorline
+  autocmd InsertLeave * set cursorline
+augroup END
+
+augroup DENITE
+  autocmd FileType denite setlocal noswapfile
+augroup END
+
+" My own flavour of nord
+color nordkot
+
+let mapleader=','
 set autoread
 set hidden
 set autoindent
@@ -59,8 +77,8 @@ set foldmethod=manual  " Clearly not an origami fan
 set hls
 set incsearch
 set number
-set relativenumber 
-set shiftwidth=2
+set relativenumber
+set shiftwidth=4
 set showcmd
 set smarttab
 set smartcase
@@ -71,12 +89,19 @@ set wrap
 " Airline plugin configuration
 let g:airline_theme='nord'
 let g:airline_powerline_fonts            = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled     = 1
 let g:airline#extensions#tabline#excludes = ['denite']
 
 " Highlight search but not on every refresh (just purges the search buffer)
 let @/=""
+
+" Vimtex config
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_quickfix_mode=0
+set conceallevel=2
+let g:tex_conceal='abdmg'
 
 " Sane defs for completion window navigation
 inoremap <silent><expr> <Tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -90,60 +115,91 @@ hi! link Folded VisualNC
 hi! link FoldColumn LineNr
 hi! link Visual airline_x
 
+if has('nvim')
+  call denite#custom#option('_', { 'split': 'bottom', 'statusline': 0 })
+endif
+
 " Define mappings
-autocmd FileType denite call s:denite_my_settings()                                             
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-        \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-        \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-        \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-        \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-        \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-        \ denite#do_map('toggle_select').'j'
+augroup user_plugin_denite
+  autocmd!
+
+  autocmd FileType denite call s:denite_settings()
+
+  autocmd VimResized * call denite#custom#option('_', {
+        \   'winwidth': &columns,
+        \   'winheight': &lines / 3,
+        \   'winrow': (&lines - 3) - (&lines / 3),
+        \ })
+augroup END
+
+function! s:denite_settings() abort
+  setlocal signcolumn=no cursorline
+
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> i    denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> /    denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> dd   denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p    denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> st   denite#do_map('do_action', 'tabopen')
+  nnoremap <silent><buffer><expr> sg   denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> sv   denite#do_map('do_action', 'split')
+  nnoremap <silent><buffer><expr> '    denite#do_map('quick_move')
+  nnoremap <silent><buffer><expr> q    denite#do_map('quit')
+  nnoremap <silent><buffer><expr> r    denite#do_map('redraw')
+  nnoremap <silent><buffer><expr> yy   denite#do_map('do_action', 'yank')
+  nnoremap <silent><buffer><expr> <Esc>   denite#do_map('quit')
+  nnoremap <silent><buffer><expr> <Tab>   denite#do_map('choose_action')
+  nnoremap <silent><buffer><expr><nowait> <Space> denite#do_map('toggle_select').'j'
 endfunction
 
-call denite#custom#var('file/rec', 'command',    
-        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('file/rec', 'command',
+      \ ['ag', '-U', '--hidden', '--follow', '--nocolor', '--nogroup',
+      \ '--ignore-dir', 'build/', '--ignore-dir', '.*/', '-g', ''])
 
-" Silver searcher command on grep source
 call denite#custom#var('grep', 'command', ['ag'])
-
-" Custom options for ripgrep
-call denite#custom#var('grep', 'default_opts', ['--hidden', '--vimgrep', '--heading', '-S'])
 call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#var('grep', 'default_opts',
+      \ [ '--skip-vcs-ignores', '--vimgrep', '--smart-case', '--hidden' ])
+
+" Taskwarrior config
+call denite#custom#var('task', 'taskrc', '~/dotfiles/.taskrc')
+call denite#custom#var('task', 'data_dir', '~/.tasks')
+call denite#custom#var('task', 'format', '{id:3.3} | {priority:1.1} | {project:15.15} | {description:40.40} | {entry} | {due}')
+call denite#custom#var('task', 'date_format', '%y-%m-%d %H:%M')
+call denite#custom#var('task', 'label_width', 17)
 
 " Remove date from buffer list
 call denite#custom#var('buffer', 'date_format', '')
 
-" Denite configs for search popup window
-call denite#custom#option('_', 'statusline', v:false)
-call denite#custom#option('_', 'split', 'floating')
-call denite#custom#option('_', 'start_filter', v:true)
-call denite#custom#option('_', 'auto_resize', v:true)
-call denite#custom#option('_', 'prompt', 'λ:')
-call denite#custom#option('_', 'direction', 'dynamicbottom')
-call denite#custom#option('_', 'filter_updatetime', 5)
-call denite#custom#option('_', 'auto_resume', v:true)
-call denite#custom#option('_', 'source_names', 'short')
-call denite#custom#option('_', 'vertical_preview', v:true)
+call denite#custom#option('_', {
+      \ 'auto_resume': 1,
+      \ 'start_filter': 1,
+      \ 'statusline': 0,
+      \ 'smartcase': 1,
+      \ 'vertical_preview': 1,
+      \ 'direction': 'dynamicbottom',
+      \ 'filter_updatetime': 20,
+      \ 'prompt': 'λ❯❯',
+      \ 'winwidth': &columns,
+      \ 'winheight': &lines / 3,
+      \ 'wincol': 0,
+      \ 'winrow': (&lines - 3) - (&lines / 3),
+      \ })
 
-" Denite activation mappings 
-let g:denite_source_history_yank_enable = 1
-nnoremap <silent> <C-s> :Denite -no-statusline file/rec<CR>
+call denite#custom#source(
+      \ 'buffer,file_mru,file_old',
+      \ 'converters', ['converter_relative_word'])
+
+" Denite activation mappings
+nnoremap <silent> E :Denite -no-statusline file/rec<CR>
 nnoremap <silent> <M-o> :Denite outline<CR>
-nnoremap <silent> <C-b> :Denite buffer<CR>
-nnoremap <silent> <C-c> :Denite command<CR>
-nnoremap <silent> <C-h> :Denite help<CR>
+nnoremap <silent> B :Denite buffer<CR>
+nnoremap <silent> <M-x> :Denite command<CR>
 nnoremap <silent> <Leader>/ :Denite -default-action=quickfix -no-empty grep<CR>
-nnoremap <silent> <Leader>m :Denite -winwidth=100 tag<CR>
+nnoremap <silent> <Leader>m :Denite tag<CR>
 
 " Yank to system clipboard
 vnoremap  <leader>y  "+y
@@ -156,38 +212,45 @@ nnoremap <Leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 vnoremap <Leader>' <Esc><Esc>`>a"<Esc>`<i"<Esc>`>lel
 nnoremap <Leader>vs  :vsplit<CR><C-w><C-w>
 nnoremap <Leader>hs  :split<CR><C-w><C-w>
-nnoremap <Leader>ev  :e ~/dotfiles/.vimrc<CR> 
+nnoremap <Leader>ev  :e ~/dotfiles/.vimrc<CR>
 nnoremap <Leader>sv  :source $MYVIMRC<CR>
 nnoremap <Leader>ps  :PlugStatus<CR>
+nnoremap <Leader>np  :e ~/ops/web/_posts/
 nnoremap <Leader>dd  :bp\|bd # <CR>
 nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
 nnoremap <Leader>go  :Goyo<CR>
 nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :Gstatus<CR>
 nnoremap <C-l> :Gpush<CR>
-nnoremap <M-x> :Denite command <CR>
 nnoremap <C-/> I//<Esc>
 
-" Use <C-l> for trigger snippet expand.
+" Use <C-x> for trigger snippet expand.
 imap <C-x> <Plug>(coc-snippets-expand)
 
-" Use <C-j> for select text for visual placeholder of snippet.
+" Use <C-x> for select text for visual placeholder of snippet.
 vmap <C-x> <Plug>(coc-snippets-select)
 
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<tab>'
+inoremap <silent><expr> <C-x> pumvisible() ?coc#_select_confirm() :
+      \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<tab>'
+" Use <C-x> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<C-x>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-x> <Plug>(coc-snippets-expand-jump)
+nmap <Leader>rn <Plug>(coc-rename)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Dispatcher
-nnoremap <C-d> :Dispatch<CR>
+nnoremap <C-d> :Dispatch!<CR>
 
-" Timestamps
-nnoremap ts i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+"Session management
+let g:session_dir = '~/.vim/sessions'
+exec 'nnoremap <Leader>ss :mks! ' . g:session_dir . '/'
+exec 'nnoremap <Leader>sr :so ' . g:session_dir . '/'
 
 nmap <C-e> <Plug>VimwikiToggleListItem
 let g:vimwiki_table_mappings = 0

@@ -1,12 +1,16 @@
-export SABER_HOME=/home/admin/Downloads/PerfEng/performanceprofiling_ik716
 # If you come from bash you might have to change your $PATH.
-export PATH=$SABER_HOME/clib:/home/admin/.local/bin:/usr/local/bin:~/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:/home/admin/IdeaProjects/bigpig/symbex/jpf-core/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
-
+export PATH=/home/admin/.gem/ruby/2.6.0/bin:/home/admin/.local/bin:/usr/local/bin:~/ops/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
+export GOPATH=~/ops/go/
 #export ANDROID_HOME=/opt/android-sdk/
+export TASKRC=~/dotfiles/.taskrc
+export NOTES_DIR=~/vimwiki/
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export npm_config_prefix=~/.node_modules
+
+# NVR setup
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 
 # Starting the ssh-agent if not running
 eval $(keychain --eval --quiet)
@@ -61,7 +65,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn)
+plugins=(git mvn taskwarrior fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,23 +95,29 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
- 
+
 alias antlr="java -jar /usr/local/Cellar/antlr/4.7/antlr-4.7-complete.jar"
+alias ag="ag --color-match \"3;34\""
 alias grun="java -cp bin:lib/antlr-4.7-complete.jar org.antlr.v4.runtime.misc.TestRig antlr.WACC"
 alias c="clear"
 alias vim="nvim"
 alias view="nvim -R"
 alias gqs="git-quick-stats"
+alias tt="tmux attach -t"
 alias v="nvim"
 alias q="exit"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias cat="bat"
+alias cat!="cat"
 alias gcam="git commit -a -S -m"
+
+alias ta="task add"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 export GPG_TTY=$(tty)
 export JAVA_HOME=/usr/local/java/jdk1.8.0_191/
+export CATALINA_HOME=/usr/share/tomcat9
 export PATH=$JAVA_HOME/bin:$PATH

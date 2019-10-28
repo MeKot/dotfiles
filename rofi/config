@@ -8,4 +8,4 @@ rofi.hide-scrollbar: true
 rofi.sort: true
 rofi.levenshtein-sort: false
 
-rofi.combi-modi:  drun,window
+rofi.combi-modi: window,drun
