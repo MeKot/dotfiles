@@ -4,6 +4,8 @@
 ! Enable the extended coloring options
 rofi.color-enabled: true
 
+rofi.terminal: termite
+
 rofi.hide-scrollbar: true
 rofi.sort: true
 rofi.levenshtein-sort: false

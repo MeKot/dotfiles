@@ -67,6 +67,8 @@ augroup END
 color nordkot
 
 let mapleader=','
+set textwidth=100
+set colorcolumn=100
 set autoread
 set hidden
 set autoindent
@@ -115,10 +117,6 @@ hi! link Folded VisualNC
 hi! link FoldColumn LineNr
 hi! link Visual airline_x
 
-if has('nvim')
-  call denite#custom#option('_', { 'split': 'bottom', 'statusline': 0 })
-endif
-
 " Define mappings
 augroup user_plugin_denite
   autocmd!
@@ -164,17 +162,11 @@ call denite#custom#var('grep', 'final_opts', [])
 call denite#custom#var('grep', 'default_opts',
       \ [ '--skip-vcs-ignores', '--vimgrep', '--smart-case', '--hidden' ])
 
-" Taskwarrior config
-call denite#custom#var('task', 'taskrc', '~/dotfiles/.taskrc')
-call denite#custom#var('task', 'data_dir', '~/.tasks')
-call denite#custom#var('task', 'format', '{id:3.3} | {priority:1.1} | {project:15.15} | {description:40.40} | {entry} | {due}')
-call denite#custom#var('task', 'date_format', '%y-%m-%d %H:%M')
-call denite#custom#var('task', 'label_width', 17)
-
 " Remove date from buffer list
 call denite#custom#var('buffer', 'date_format', '')
 
 call denite#custom#option('_', {
+      \ 'split': 'bottom',
       \ 'auto_resume': 1,
       \ 'start_filter': 1,
       \ 'statusline': 0,
@@ -183,10 +175,6 @@ call denite#custom#option('_', {
       \ 'direction': 'dynamicbottom',
       \ 'filter_updatetime': 20,
       \ 'prompt': 'λ❯❯',
-      \ 'winwidth': &columns,
-      \ 'winheight': &lines / 3,
-      \ 'wincol': 0,
-      \ 'winrow': (&lines - 3) - (&lines / 3),
       \ })
 
 call denite#custom#source(
@@ -264,6 +252,9 @@ nmap <S-Tab> <Plug>AirlineSelectPrevTab
 " Abbreviations
 iabbrev inc #include
 iabbrev prag #pragma once
+
+" Spelling
+nmap <C-c> 1z=
 
 " Folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>

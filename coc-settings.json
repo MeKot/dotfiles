@@ -1,6 +1,6 @@
 {
   "diagnostic.errorSign": "",
-  "rust-client.channel": "beta",
+  "suggest.noselect": true,
   "diagnostic.hintSign": "",
   "suggest.minTriggerInputLength": 2,
   "snippets.ultisnips.directories": [

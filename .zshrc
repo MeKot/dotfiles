@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/home/admin/.gem/ruby/2.6.0/bin:/home/admin/.local/bin:/usr/local/bin:~/ops/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
+export PATH=/home/admin/.cargo/bin:/home/admin/.gem/ruby/2.6.0/bin:/home/admin/.local/bin:/usr/local/bin:~/ops/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
 export GOPATH=~/ops/go/
 #export ANDROID_HOME=/opt/android-sdk/
 export TASKRC=~/dotfiles/.taskrc
@@ -65,7 +65,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn taskwarrior fzf)
+plugins=(git fzf kubectl minikube)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,7 +103,8 @@ alias c="clear"
 alias vim="nvim"
 alias view="nvim -R"
 alias gqs="git-quick-stats"
-alias tt="tmux attach -t"
+alias ta="tmux attach -t"
+alias tt="terraform"
 alias v="nvim"
 alias q="exit"
 alias zshconfig="nvim ~/.zshrc"
@@ -112,8 +113,6 @@ alias cat="bat"
 alias cat!="cat"
 alias gcam="git commit -a -S -m"
 
-alias ta="task add"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -121,3 +120,8 @@ export GPG_TTY=$(tty)
 export JAVA_HOME=/usr/local/java/jdk1.8.0_191/
 export CATALINA_HOME=/usr/share/tomcat9
 export PATH=$JAVA_HOME/bin:$PATH
+
+export PATH=$PATH:/home/admin/bin
+
+autoload -U +X bashcompinit && bashcompinit
+source '/home/admin/lib/azure-cli/az.completion'

@@ -5,7 +5,7 @@ import re
 import logging
 
 DELAY = 7.05
-LOOP_SLEEP = 1.01
+LOOP_SLEEP = 0.8
 SCREEN_HEIGHT = 900
 PERCENT_LIMIT = 150
 SHOW_CMD = 'xdo show -N Polybar'
