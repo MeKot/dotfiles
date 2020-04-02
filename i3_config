@@ -36,8 +36,8 @@ bindsym $mod+m exec "xinput --enable 'SYNA2393:00 06CB:7A13 Touchpad'"
 
 bindsym $mod+Ctrl+k move workspace to output up
 bindsym $mod+Ctrl+j move workspace to output down
-bindsym $mod+Ctrl+h move workspace to output right
-bindsym $mod+Ctrl+l move workspace to output left
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+l move workspace to output right
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
@@ -115,10 +115,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+l move left
+bindsym $mod+Shift+l move right
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
-bindsym $mod+Shift+h move right
+bindsym $mod+Shift+h move left
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left

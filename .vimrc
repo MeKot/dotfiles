@@ -14,6 +14,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
 Plug 'chrisbra/Colorizer'
 Plug 'lervag/vimtex'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -44,10 +45,18 @@ augroup NordKotOverrides
   autocmd ColorScheme nordkot hi link DiffAdd String
 augroup END
 
-augroup TextWidthTex
-  autocmd!
-  autocmd BufWritePre *.tex set textwidth=100
-augroup END
+" function! s:auto_goyo()
+"   echom &ft
+"   if &ft == 'denite-filter' || &ft == 'denite'
+"     echom "Detected"
+"   elseif &ft == 'vimwiki'
+"    Goyo 100
+"   elseif exists('#goyo')
+"     Goyo!
+"   endif
+" endfunction
+"
+" autocmd BufEnter * call s:auto_goyo()
 
 augroup RemoveTrailingWhitespace
   autocmd!
@@ -182,12 +191,19 @@ call denite#custom#source(
       \ 'converters', ['converter_relative_word'])
 
 " Denite activation mappings
-nnoremap <silent> E :Denite -no-statusline file/rec<CR>
+nnoremap <silent> E :Denite file/rec<CR>
 nnoremap <silent> <M-o> :Denite outline<CR>
 nnoremap <silent> B :Denite buffer<CR>
 nnoremap <silent> <M-x> :Denite command<CR>
-nnoremap <silent> <Leader>/ :Denite -default-action=quickfix -no-empty grep<CR>
 nnoremap <silent> <Leader>m :Denite tag<CR>
+nnoremap // :Denite -default-action=quickfix -no-empty grep<CR>
+
+" Zettelkasten
+nnoremap <silent> <Leader>/ :Denite -default-action=quickfix -no-empty grep:~/vimwiki<CR>
+nnoremap <Leader>t :e ~/vimwiki/TODOs.wiki<CR>Go
+nnoremap <Leader>wb :e ~/vimwiki/Buffer.wiki<CR>Go
+let g:goyo_width=&textwidth
+nnoremap <Leader>go :Goyo<CR>
 
 " Yank to system clipboard
 vnoremap  <leader>y  "+y
@@ -205,9 +221,6 @@ nnoremap <Leader>sv  :source $MYVIMRC<CR>
 nnoremap <Leader>ps  :PlugStatus<CR>
 nnoremap <Leader>np  :e ~/ops/web/_posts/
 nnoremap <Leader>dd  :bp\|bd # <CR>
-nnoremap <Leader>t   :terminal zsh<CR>:set modifiable<CR>
-nnoremap <Leader>go  :Goyo<CR>
-nnoremap <Leader>gp  :Goyo 200x95<CR>
 nnoremap <C-k> :Gstatus<CR>
 nnoremap <C-l> :Gpush<CR>
 nnoremap <C-/> I//<Esc>

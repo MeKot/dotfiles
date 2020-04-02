@@ -53,11 +53,6 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-    "dockerfile": {
-      "command": "docker-langserver",
-      "filetypes": ["dockerfile"],
-      "args": ["--stdio"]
-    },
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],
@@ -65,8 +60,10 @@
     },
     "haskell": {
       "command": "hie-wrapper",
+      "args": ["--lsp"],
       "rootPatterns": [
         ".stack.yaml",
+        "stack.yaml",
         "cabal.config",
         "package.yaml"
       ],
