@@ -1,11 +1,14 @@
 {
   "diagnostic.errorSign": "",
+  "latex.lint.onSave": false,
+  "latex.lint.onChange": false,
+  "diagnostic.warningSign": "",
+  "diagnostic.enableSign": false,
+  "python.jediEnabled": false,
   "suggest.noselect": true,
   "diagnostic.hintSign": "",
   "suggest.minTriggerInputLength": 2,
-  "snippets.ultisnips.directories": [
-    "~/.vim/snippets/UltiSnips"
-  ],
+  "snippets.userSnippetsDirectory": "~/.vim/plugged/vim-snippets",
   "snippets.trace": "verbose",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
@@ -39,13 +42,16 @@
   "languageserver": {
     "ccls": {
       "command": "ccls",
-      "filetypes": ["c", "cpp", "h", "hpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["h", "hpp", "c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "compile_commands.json", ".git"],
       "initializationOptions": {
-         "cache": {
-           "directory": "/tmp/ccls"
-         }
-       }
+        "cache": {
+          "directory": ".ccls-cache"
+        },
+        "client": {
+          "snippetSupport": true
+        }
+      }
     },
     "bash": {
       "command": "bash-language-server",
@@ -57,26 +63,6 @@
       "command": "gopls",
       "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
-    },
-    "haskell": {
-      "command": "hie-wrapper",
-      "args": ["--lsp"],
-      "rootPatterns": [
-        ".stack.yaml",
-        "stack.yaml",
-        "cabal.config",
-        "package.yaml"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell"
-      ],
-      "initializationOptions": {
-        "languageServerHaskell": {
-          "hlintOn": true
-        }
-      }
     }
   }
 }

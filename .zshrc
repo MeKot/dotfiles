@@ -1,9 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/home/admin/.cargo/bin:/home/admin/.gem/ruby/2.6.0/bin:/home/admin/.local/bin:/usr/local/bin:~/ops/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
+export PATH=/home/admin/.cargo/bin:/home/admin/.gem/ruby/2.7.0/bin:/home/admin/.local/bin:/usr/local/bin:~/ops/go/bin:~/dotfiles/bin:/usr/local/java/jdk1.8.0_191/bin:$HOME/.node_modules/bin:/opt/cuda/bin:$PATH
 export GOPATH=~/ops/go/
 #export ANDROID_HOME=/opt/android-sdk/
 export TASKRC=~/dotfiles/.taskrc
 export NOTES_DIR=~/vimwiki/
+
+export KUBECONFIG=~/Documents/Project/brownout_project/config:$HOME/.kube/config
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh

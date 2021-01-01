@@ -4,17 +4,18 @@ let g:monokai_term_italic = 1
 " Think of using Dein? dark side of the force and stuff
 call plug#begin('~/.vim/plugged')
 
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'vimwiki/vimwiki'
-Plug 'neoclide/coc.nvim', { 'do': './install.sh nightly' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'chrisbra/Colorizer'
 Plug 'lervag/vimtex'
-Plug 'junegunn/goyo.vim'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -64,19 +65,27 @@ augroup RemoveTrailingWhitespace
 augroup END
 
 augroup CURSORLINE
+  autocmd!
   autocmd InsertEnter * set nocursorline
   autocmd InsertLeave * set cursorline
 augroup END
 
 augroup DENITE
+  autocmd!
   autocmd FileType denite setlocal noswapfile
+augroup END
+
+augroup WIKI
+  autocmd!
+  autocmd FileType vimwiki setlocal spell
+  autocmd BufEnter,BufNewFile *.wiki setlocal spell
 augroup END
 
 " My own flavour of nord
 color nordkot
 
 let mapleader=','
-set textwidth=100
+set textwidth=99
 set colorcolumn=100
 set autoread
 set hidden
@@ -89,7 +98,7 @@ set hls
 set incsearch
 set number
 set relativenumber
-set shiftwidth=4
+set shiftwidth=2
 set showcmd
 set smarttab
 set smartcase
@@ -100,7 +109,6 @@ set wrap
 " Airline plugin configuration
 let g:airline_theme='nord'
 let g:airline_powerline_fonts            = 1
-let g:airline#extensions#ycm#enabled     = 1
 let g:airline#extensions#tabline#excludes = ['denite']
 
 " Highlight search but not on every refresh (just purges the search buffer)
@@ -194,16 +202,31 @@ call denite#custom#source(
 nnoremap <silent> E :Denite file/rec<CR>
 nnoremap <silent> <M-o> :Denite outline<CR>
 nnoremap <silent> B :Denite buffer<CR>
+nnoremap <silent> W :Denite window<CR>
 nnoremap <silent> <M-x> :Denite command<CR>
 nnoremap <silent> <Leader>m :Denite tag<CR>
 nnoremap // :Denite -default-action=quickfix -no-empty grep<CR>
 
+" Spelling
+nnoremap <C-c> :Denite spell<CR>
+
 " Zettelkasten
-nnoremap <silent> <Leader>/ :Denite -default-action=quickfix -no-empty grep:~/vimwiki<CR>
-nnoremap <Leader>t :e ~/vimwiki/TODOs.wiki<CR>Go
-nnoremap <Leader>wb :e ~/vimwiki/Buffer.wiki<CR>Go
 let g:goyo_width=&textwidth
+let g:vimwiki_list = [{
+            \ 'path': '~/vimwiki/',
+            \ 'path_html': '~/ops/web',
+            \ 'template_path': '~/vimwiki/templates/',
+            \ 'template_default': 'main',
+            \ 'template_ext': '.html',
+            \ 'nested_syntaxes': {'python': 'python', 'cpp': 'cpp', 'bash': 'bash'}
+            \ }]
+let g:vimwiki_user_htmls = 'templates/main.html'
+nnoremap <silent> <Leader>/ :Denite -default-action=quickfix -no-empty grep:~/vimwiki<CR>
+nnoremap <Leader>t :e ~/vimwiki/TODOs.wiki<CR>G
+nnoremap <Leader>b :e ~/vimwiki/Buffer.wiki<CR>G
 nnoremap <Leader>go :Goyo<CR>
+"nnoremap <C-Space> <Plug>VimwikiToggleListItem
+let g:vimwiki_table_mappings = 0
 
 " Yank to system clipboard
 vnoremap  <leader>y  "+y
@@ -244,6 +267,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <C-e> :CocList diagnostics<CR>
 
 " Dispatcher
 nnoremap <C-d> :Dispatch!<CR>
@@ -253,26 +277,20 @@ let g:session_dir = '~/.vim/sessions'
 exec 'nnoremap <Leader>ss :mks! ' . g:session_dir . '/'
 exec 'nnoremap <Leader>sr :so ' . g:session_dir . '/'
 
-nmap <C-e> <Plug>VimwikiToggleListItem
-let g:vimwiki_table_mappings = 0
-
+" Map jk to escape
 inoremap <special> jk <Esc>
-
-" Buffer switching with Tab ans Shift-Tab
-" nmap <Tab> <Plug>AirlineSelectNextTab
-nmap <S-Tab> <Plug>AirlineSelectPrevTab
 
 " Abbreviations
 iabbrev inc #include
 iabbrev prag #pragma once
-
-" Spelling
-nmap <C-c> 1z=
 
 " Folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <silent> <Leader><Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space>  zf
 
+let g:vimtex_quickfix_latexlog = {'default' : 0}
+
 cmap Q q
 cmap W w
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
