@@ -222,8 +222,8 @@ let g:vimwiki_list = [{
             \ }]
 let g:vimwiki_user_htmls = 'templates/main.html'
 nnoremap <silent> <Leader>/ :Denite -default-action=quickfix -no-empty grep:~/vimwiki<CR>
-nnoremap <Leader>t :e ~/vimwiki/TODOs.wiki<CR>G
-nnoremap <Leader>b :e ~/vimwiki/Buffer.wiki<CR>G
+nnoremap <Leader>wt :e ~/vimwiki/TODOs.wiki<CR>G
+nnoremap <Leader>wb :e ~/vimwiki/Buffer.wiki<CR>G
 nnoremap <Leader>go :Goyo<CR>
 "nnoremap <C-Space> <Plug>VimwikiToggleListItem
 let g:vimwiki_table_mappings = 0
