@@ -3,7 +3,6 @@
 update() {
   source "$CONFIG_DIR/colors.sh"
   COLOR=$BACKGROUND_2
-  label.color=$WHITE
   sketchybar --set $NAME icon.highlight=$SELECTED \
                          label.highlight=$SELECTED \
                          background.border_color=$COLOR
