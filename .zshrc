@@ -40,9 +40,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
  if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR="/usr/local/bin/vim"
+   export EDITOR="nvim"
  else
-   export EDITOR="/usr/local/bin/vim"
+   export EDITOR="nvim"
  fi
 
 # Compilation flags
@@ -67,8 +67,8 @@ alias tt="terraform"
 alias v="nvim"
 alias q="exit"
 alias zshconfig="nvim ~/.zshrc"
-alias cat="bat"
 alias catt="cat"
+alias cat="bat"
 alias gcam="git commit -a -S -m"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
