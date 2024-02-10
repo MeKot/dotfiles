@@ -20,3 +20,5 @@ yabai -m rule --add app="^Spark$" manage=off
 yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Mozilla VPN$" manage=off
+yabai -m rule --add app="^Weather$" manage=off
