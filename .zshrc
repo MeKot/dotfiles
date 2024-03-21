@@ -3,8 +3,6 @@ export PATH=~/dotfiles/bin:/opt/homebrew/bin:$PATH
 export NOTES_DIR=~/vimwiki/
 export XDG_CONFIG_HOME=~/.config
 
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
-
 source ~/.ssh/keys.sh
 
 # Path to your oh-my-zsh installation.
