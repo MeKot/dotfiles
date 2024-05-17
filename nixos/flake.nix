@@ -20,11 +20,24 @@
     lib = nixpkgs.lib;
 
   in {
+    homeManagerConfigurations = {
+      admin = home-manager.lib.homeManagerConfiguration {
+        
+	inherit pkgs;
+
+        modules = [
+
+          ./users/admin/home.nix
+	];
+      };
+    };
+
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         
 	inherit system;
 	modules = [
+
 	  ./system/configuration.nix
 	];
       };
