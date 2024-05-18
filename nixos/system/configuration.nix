@@ -116,7 +116,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
      neovim
-     pkgs.python311Packages.pynvim
+     python311Packages.pynvim
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -145,6 +145,14 @@
       PermitRootLogin = "yes";
       PasswordAuthentication = true;
     };
+
+    extraConfig = ''
+      TCPKeepAlive yes
+      KeepAlive yes
+      ClientAliveInterval = 60
+      ClientAliveCountMax = 15
+      SetEnv IGNOREOF=10
+    '';
   };
 
   # Open ports in the firewall.
