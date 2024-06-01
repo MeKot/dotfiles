@@ -15,7 +15,6 @@
   ];
 
   programs.nix-index.enable = true;
-  programs.nix-index.enableZshIntegration = true;
 
   # Fonts
   fonts.fontDir.enable = true;
