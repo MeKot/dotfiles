@@ -15,6 +15,7 @@
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
+
   let
 
     inherit (self.lib) attrValues makeOverridable mkForce optionalAttrs singleton;
@@ -92,6 +93,29 @@
     tweaks = _: _: {
 
       # Temporary overlays
+    };
+
+    darwinModules = {
+
+      bootstrap = import ./darwin/bootstrap.nix;
+      defaults = import ./darwin/defaults.nix;
+      general = import ./darwin/general.nix;
+      homebrew = import ./darwin/homebrew.nix;
+
+      primaryUser = import ./modules/darwin/users.nix;
+    };
+
+    homeManagerModules = {
+
+      colors = import ./home/colors.nix;
+      config-files = import ./home/config-files.nix;
+      zsh = import ./home/zsh.nix;
+      git = import ./home/git.nix;
+      kitty = import ./home/kitty.nix;
+      tmux = import ./home/tmux.nix;
+
+      neovim = import ./home/neovim.nix;
+
     };
 
     homeManagerConfigurations = {

@@ -1,10 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
+let
+  inherit (config.home.user-info) nixConfigDirectory;
+in {
 
-{
-
-  home.packages = with pkgs; [
-    zsh
-  ];
+  programs.zsh.enable = true;
 
   programs.zsh = {
     enable = true;
