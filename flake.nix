@@ -41,25 +41,68 @@
       );
     };
 
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
+    primaryUserDefaults = {
 
-      inherit system;
-      config = { allowUnfree = true; };
+      username = "admin";
+      fullName = "Ivan Kotegov";
+      email = "ivan@kotegov.com";
+      nixConfigDirectory = "/Users/admin/dotfiles";
     };
 
-    lib = nixpkgs.lib;
-
   in {
+
+    lib = inputs.nixpkgs.lib.extend (_: _: {
+
+        mkDarwinSystem = import ./lib/mkDarwinSystem.nix inputs;
+        lsnix = import ./lib/lsnix.nix;
+    });
+
+    pkgs = _: prev: {
+      pkgs = import inputs.nixpkgs {
+
+        inherit (prev.stdenv) system;
+        inherit (nixpkgsDefaults) config;
+      };
+    };
+
+    apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+
+      # Add access to x86 packages for ARM-backed systems
+      pkgs-x86 = import inputs.nixpkgs.nixpkgs {
+
+        system = "x86_64-dawrin";
+        inherit (nixpkgsDefaults) config;
+      };
+    };
+
+    vimUtils = import ./overlays/vimUtils.nix;
+    vimPlugins = final: prev:
+      let
+
+        inherit (self.overlays.vimUtils final prev) vimUtils;
+      in {
+        vimPlugins = prev.vimPlugins.extend (_: _:
+          vimUtils.buildVimPluginsFromFlakeInputs inputs [
+
+            # flake input names here for a vim plugin repo
+          ]
+        );
+      }
+
+    tweaks = _: _: {
+
+      # Temporary overlays
+    };
+
     homeManagerConfigurations = {
       admin = home-manager.lib.homeManagerConfiguration {
 
-	inherit pkgs;
+        inherit pkgs;
 
         modules = [
 
           ./users/admin/home.nix
-	];
+        ];
       };
     };
 
