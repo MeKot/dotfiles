@@ -51,6 +51,8 @@ require("lazy").setup({
     build = "cp ~/dotfiles/colors/spaceline/sonokai.vim ~/.local/share/nvim/lazy/spaceline.vim/autoload/spaceline/colorscheme/"
   },
 
+  "dhruvasagar/vim-table-mode",
+
   "neovim/nvim-lspconfig",
   {
     'nvim-treesitter/nvim-treesitter',

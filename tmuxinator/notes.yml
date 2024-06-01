@@ -20,6 +20,7 @@ root: ~/
 
 windows:
   - notes: nvim
+  - worker:
+    - ssh nixos
   - scripts:
       root: ~/dotfiles/scripts
-  - local:
