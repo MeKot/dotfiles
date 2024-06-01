@@ -42,8 +42,7 @@
     enable = true;
 
     # Background dependent colors
-    dark = config.colors.solarized-dark.pkgThemes.kitty;
-    light = config.colors.solarized-light.pkgThemes.kitty;
+    dark = config.colors.sonokai.pkgThemes.kitty;
   };
   # }}}
 }

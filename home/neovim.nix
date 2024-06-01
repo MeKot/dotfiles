@@ -165,10 +165,13 @@ in {
     { use = vim-surround; vscode = true; }
 
     # Misc
+    { use = vim-fugitive; }
+    { use = lush-nvim; vscode = true; }
     { use = which-key-nvim; opt = true; }
 
     # The dependencies for this are in a special overlay as it requires a bunch of crap
-    { use = neorg; config = requireConf neorg; }
+    # TODO: Create an overlay an plug this in
+    # { use = neorg; config = requireConf neorg; }
   ];
 
   # From personal addon module `../modules/home/programs/neovim/extras.nix`

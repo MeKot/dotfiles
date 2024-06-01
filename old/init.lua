@@ -135,7 +135,6 @@ augroup CURSORLINE
 augroup END
 
 " Folds
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <silent> <Leader><Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space>  zf
 

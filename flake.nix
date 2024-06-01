@@ -107,7 +107,7 @@
 
     homeManagerModules = {
 
-      colors = import ./home/colors.nix;
+      sonokai-colors = import ./home/sonokai-colors.nix;
       config-files = import ./home/config-files.nix;
       zsh = import ./home/zsh.nix;
       git = import ./home/git.nix;
@@ -115,31 +115,117 @@
       tmux = import ./home/tmux.nix;
 
       neovim = import ./home/neovim.nix;
+      packages = import ./home/packages.nix;
 
-    };
+      colors = import ./modules/home/colors;
+      programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
 
-    homeManagerConfigurations = {
-      admin = home-manager.lib.homeManagerConfiguration {
-
-        inherit pkgs;
-
-        modules = [
-
-          ./users/admin/home.nix
-        ];
+      home-user-info = { lib, ... }: {
+        options.home.user-info =
+          (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
       };
     };
 
-    nixosConfigurations = {
-      nixos = lib.nixosSystem {
+    darwinConfigurations = {
+      # Minimal config to bootstrap the system on Mac OS
 
-	inherit system;
-	modules = [
+      bootstrap-x86 = makeOverridable darwin.lib.darwinSystem {
 
-	  ./system/configuration.nix
-	];
+        system = "x86_64-darwin";
+        modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsDefaults; } ];
       };
 
+      bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
+        system = "aarch64-darwin";
+      };
+
+      # Boombox config
+      boombox = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
+
+          modules = attrValues self.darwinModules ++ singleton {
+
+            nixpkgs = nixpkgsDefaults;
+            networking.computerName = "boombox";
+            networking.hostName = "boombox";
+            networking.knownNetworkServices = [
+              "Wi-Fi"
+              "USB 10/100/1000 LAN"
+            ];
+
+            nix.registry.my.flake = inputs.self;
+          };
+
+          extraModules = singleton {
+
+            nix.linux-builder.enable = true;
+            nix.linux-builder.maxJobs = 8;
+            nix.linux-builder.config = {
+
+              virtualisation.cores = 8;
+              virtualisation.darwin-builder.memorySize = 12 * 1024;
+            };
+          };
+
+          inherit homeStateVersion;
+          homeModules = attrValues self.homeManagerModules;
+      });
+
+      # Config with small modifications needed/desired for CI with GitHub workflow
+      githubCI = self.darwinConfigurations.boombox.override {
+
+        username = "runner";
+        nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
+        extraModules = singleton {
+
+          environment.etc.shells.enable = mkForce false;
+          environment.etc."nix/nix.conf".enable = mkForce false;
+          homebrew.enable = mkForce false;
+          };
+        };
+      };
+
+      # Config I use with non-NixOS Linux systems (e.g., cloud VMs etc.)
+      # Build and activate on new system with:
+      # `nix build .#homeConfigurations.mekot.activationPackage && ./result/activate`
+      homeConfigurations.mekot = makeOverridable home-manager.lib.homeManagerConfiguration {
+
+        pkgs = import inputs.nixpkgs (nixpkgsDefaults // { system = "x86_64-linux"; });
+
+        modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
+
+          home.username = config.home.user-info.username;
+          home.homeDirectory = "/home/${config.home.username}";
+          home.stateVersion = homeStateVersion;
+          home.user-info = primaryUserDefaults // {
+            nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
+          };
+        });
+      };
+
+      # Config with small modifications needed/desired for CI with GitHub workflow
+      homeConfigurations.runner = self.homeConfigurations.mekot.override (old: {
+        modules = old.modules ++ singleton {
+          home.username = mkForce "runner";
+          home.homeDirectory = mkForce "/home/runner";
+          home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
+        };
+      });
+  } // flake-utils.lib.eachDefeaultSystem (system: {
+
+    legacyPackages = import inputs.nixpkgs ( nixpkgsDefaults // { inherit system; } );
+
+    devShells = let pkgs = self.legacyPackages.${system}; in
+    {
+
+      python = pkgs.mkShell {
+
+        name = "python310";
+        inputsFrom = attrValues {
+
+          inherit (pkgs.pkgs.python310Packages) black isort;
+          inherit (pkgs) poetry python310 pyright;
+        };
+      };
     };
-  };
+  });
 }
