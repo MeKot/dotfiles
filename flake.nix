@@ -1,5 +1,5 @@
 {
-  description = "Total system Config";
+  description = "System Config";
 
   inputs = {
 
@@ -38,7 +38,7 @@
           }) // {
 
             # add other overlays here (say for another plaform / shared across all archs) here
-          };
+          }
       );
     };
 
@@ -58,41 +58,44 @@
         lsnix = import ./lib/lsnix.nix;
     });
 
-    pkgs = _: prev: {
-      pkgs = import inputs.nixpkgs {
+    overlays = {
 
-        inherit (prev.stdenv) system;
-        inherit (nixpkgsDefaults) config;
+      pkgs = _: prev: {
+        pkgs = import inputs.nixpkgs {
+
+          inherit (prev.stdenv) system;
+          inherit (nixpkgsDefaults) config;
+        };
       };
-    };
 
-    apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+      apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
 
-      # Add access to x86 packages for ARM-backed systems
-      pkgs-x86 = import inputs.nixpkgs.nixpkgs {
+        # Add access to x86 packages for ARM-backed systems
+        pkgs-x86 = import inputs.nixpkgs.nixpkgs {
 
-        system = "x86_64-dawrin";
-        inherit (nixpkgsDefaults) config;
+          system = "x86_64-dawrin";
+          inherit (nixpkgsDefaults) config;
+        };
       };
-    };
 
-    vimUtils = import ./overlays/vimUtils.nix;
-    vimPlugins = final: prev:
-      let
+      vimUtils = import ./overlays/vimUtils.nix;
+      vimPlugins = final: prev:
+        let
 
         inherit (self.overlays.vimUtils final prev) vimUtils;
       in {
         vimPlugins = prev.vimPlugins.extend (_: _:
-          vimUtils.buildVimPluginsFromFlakeInputs inputs [
+            vimUtils.buildVimPluginsFromFlakeInputs inputs [
 
-            # flake input names here for a vim plugin repo
-          ]
-        );
-      }
+              # flake input names here for a vim plugin repo
+            ]
+            );
+      };
 
-    tweaks = _: _: {
+      tweaks = _: _: {
 
-      # Temporary overlays
+        # Temporary overlays
+      };
     };
 
     darwinModules = {
@@ -210,7 +213,7 @@
           home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
         };
       });
-  } // flake-utils.lib.eachDefeaultSystem (system: {
+  } // flake-utils.lib.eachDefaultSystem (system: {
 
     legacyPackages = import inputs.nixpkgs ( nixpkgsDefaults // { inherit system; } );
 
