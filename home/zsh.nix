@@ -20,7 +20,6 @@ in {
       catt = "cat";
       cat = "bat";
       gcam = "git commit -a -m";
-      nixit = "home-manager switch -f ~/git/dotfiles/users/admin/home.nix";
     };
 
     history = {
