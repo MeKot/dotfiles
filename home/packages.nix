@@ -22,6 +22,24 @@ let inherit (lib) mkIf elem; in
   programs.ssh.enable = true;
   programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
 
+  programs.ssh.extraConfig = ''
+Host *
+    ServerAliveInterval 60
+
+Host *.compute.amazonaws.com
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  User ubuntu
+  LogLevel QUIET
+
+Host nixos
+  User admin
+  IdentityFile ~/.ssh/local
+
+Host gitlab.com
+  IdentityFile ~/.ssh/git
+  '';
+
   home.packages = lib.attrValues ({
     # Some basics
     inherit (pkgs)

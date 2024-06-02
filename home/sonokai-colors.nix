@@ -19,9 +19,9 @@
       color10   = "#312c2b";
       color11   = "#393230";
       color12   = "#413937";
-      color13   = "c9fa0e1";
-      color14    = "#49403c";
-      color15    = "#e4e3e1";
+      color13   = "#9fa0e1";
+      color14   = "#49403c";
+      color15   = "#e4e3e1";
     };
 
     namedColors = {
@@ -53,14 +53,12 @@
     };
 
     pkgThemes.kitty = {
-      inherit (config.colors.sonokai.pkgThemes.kitty)
-        url_color
-        active_tab_background
-        active_tab_foreground
-        inactive_tab_background;
-
-      tab_bar_background = "base02";
-      inactive_tab_foreground = "base1";
+      url_color = "blue";
+      tab_bar_background = "base2";
+      active_tab_background = "green";
+      active_tab_foreground = "base3";
+      inactive_tab_background = "base01";
+      inactive_tab_foreground = "base3";
     };
   };
 }

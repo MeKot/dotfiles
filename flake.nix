@@ -3,13 +3,15 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
   };
@@ -52,7 +54,7 @@
 
   in {
 
-    lib = inputs.nixpkgs.lib.extend (_: _: {
+    lib = inputs.nixpkgs-unstable.lib.extend (_: _: {
 
         mkDarwinSystem = import ./lib/mkDarwinSystem.nix inputs;
         lsnix = import ./lib/lsnix.nix;
@@ -60,18 +62,31 @@
 
     overlays = {
 
-      pkgs = _: prev: {
-        pkgs = import inputs.nixpkgs {
-
-          inherit (prev.stdenv) system;
-          inherit (nixpkgsDefaults) config;
+      pkgs-master = _: prev: {
+          pkgs-master = import inputs.nixpkgs-master {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsDefaults) config;
+          };
         };
-      };
+
+        pkgs-stable = _: prev: {
+          pkgs-stable = import inputs.nixpkgs-stable {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsDefaults) config;
+          };
+        };
+
+        pkgs-unstable = _: prev: {
+          pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsDefaults) config;
+          };
+        };
 
       apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
 
         # Add access to x86 packages for ARM-backed systems
-        pkgs-x86 = import inputs.nixpkgs.nixpkgs {
+        pkgs-x86 = import inputs.nixpkgs-unstable {
 
           system = "x86_64-dawrin";
           inherit (nixpkgsDefaults) config;
@@ -125,7 +140,7 @@
 
       home-user-info = { lib, ... }: {
         options.home.user-info =
-          (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
+          (self.darwinModules.primaryUser { inherit lib; }).options.users.primaryUser;
       };
     };
 
@@ -192,7 +207,7 @@
       # `nix build .#homeConfigurations.mekot.activationPackage && ./result/activate`
       homeConfigurations.mekot = makeOverridable home-manager.lib.homeManagerConfiguration {
 
-        pkgs = import inputs.nixpkgs (nixpkgsDefaults // { system = "x86_64-linux"; });
+        pkgs = import inputs.nixpkgs-unstable (nixpkgsDefaults // { system = "x86_64-linux"; });
 
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
 
@@ -215,7 +230,7 @@
       });
   } // flake-utils.lib.eachDefaultSystem (system: {
 
-    legacyPackages = import inputs.nixpkgs ( nixpkgsDefaults // { inherit system; } );
+    legacyPackages = import inputs.nixpkgs-unstable ( nixpkgsDefaults // { inherit system; } );
 
     devShells = let pkgs = self.legacyPackages.${system}; in
     {
@@ -225,7 +240,7 @@
         name = "python310";
         inputsFrom = attrValues {
 
-          inherit (pkgs.pkgs.python310Packages) black isort;
+          inherit (pkgs.pkgs-master.python310Packages) black isort;
           inherit (pkgs) poetry python310 pyright;
         };
       };

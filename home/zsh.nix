@@ -3,8 +3,6 @@ let
   inherit (config.home.user-info) nixConfigDirectory;
 in {
 
-  programs.zsh.enable = true;
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -57,5 +55,4 @@ in {
       }
     ];
   };
-
 }

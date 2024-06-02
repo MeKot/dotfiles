@@ -34,16 +34,13 @@
   '';
 
   programs.kitty.extras.useSymbolsFromNerdFont = "JetBrainsMono Nerd Font";
-  # }}}
-
-  # Colors config ------------------------------------------------------------------------------ {{{
 
   programs.kitty.extras.colors = {
-    enable = true;
 
-    # Background dependent colors
-    dark = config.colors.sonokai.pkgThemes.kitty;
+    enable = true;
+    sonokai = config.colors.sonokai.pkgThemes.kitty;
   };
+
   # }}}
 }
 # vim: foldmethod=marker

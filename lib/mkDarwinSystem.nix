@@ -29,7 +29,7 @@ inputs.darwin.lib.darwinSystem {
     ({ config, ... }: {
 
       users.primaryUser = { inherit username fullName email nixConfigDirectory; };
-      nix.nixPath.nixpkgs = "${inputs.nixpkgs}";
+      nix.nixPath.nixpkgs = "${inputs.nixpkgs-unstable}";
 
       # `home-manager` config
       users.users.${username}.home = "/Users/${username}";
