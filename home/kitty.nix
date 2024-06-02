@@ -7,8 +7,8 @@
 
   programs.kitty.settings = {
     # https://fsd.it/shop/fonts/pragmatapro/
-    font_family = "PragmataPro Mono Liga";
-    font_size = "14.0";
+    font_family = "Hack";
+    font_size = "12.0";
     adjust_line_height = "140%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
@@ -27,10 +27,14 @@
 
   # Change the style of italic font variants
   programs.kitty.extraConfig = ''
-    font_features PragmataProMonoLiga-Italic +ss06
-    font_features PragmataProMonoLiga-BoldItalic +ss07
+
+    font_features Hack-Italic +ss06
+    font_features Hack-BoldItalic +ss07
+
     modify_font underline_thickness 400%
     modify_font underline_position 2
+
+    background_opacity 0.85
   '';
 
   programs.kitty.extras.useSymbolsFromNerdFont = "JetBrainsMono Nerd Font";

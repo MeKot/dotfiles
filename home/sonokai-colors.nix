@@ -13,7 +13,7 @@
       color4    = "#81d0c9";
       color5    = "#55393d";
       color6    = "#2aa198";
-      color7    = "#90817b";
+      color7    = "#e4e3e1";
       color8    = "#1f1e1c";
       color9    = "#f08d71";
       color10   = "#312c2b";
@@ -21,7 +21,7 @@
       color12   = "#413937";
       color13   = "#9fa0e1";
       color14   = "#49403c";
-      color15   = "#e4e3e1";
+      color15   = "#90817b";
     };
 
     namedColors = {
@@ -53,6 +53,10 @@
     };
 
     pkgThemes.kitty = {
+
+      foreground = "base2";
+      background = "base03";
+
       url_color = "blue";
       tab_bar_background = "base2";
       active_tab_background = "green";

@@ -20,6 +20,7 @@
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
      recursive
+     hack-font
      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
    ];
 
