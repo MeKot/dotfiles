@@ -117,6 +117,8 @@
 
     darwinModules = {
 
+      app-utils = mac-app-util.darwinModules.default;
+
       bootstrap = import ./darwin/bootstrap.nix;
       defaults = import ./darwin/defaults.nix;
       general = import ./darwin/general.nix;
@@ -188,6 +190,7 @@
 
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
+          extraHomeModules = [ mac-app-util.homeManagerModules.default ];
       });
 
       # Config with small modifications needed/desired for CI with GitHub workflow
