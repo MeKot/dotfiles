@@ -26,12 +26,6 @@ let inherit (lib) mkIf elem; in
 Host *
     ServerAliveInterval 60
 
-Host *.compute.amazonaws.com
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
-  User ubuntu
-  LogLevel QUIET
-
 Host nixos
   User admin
   IdentityFile ~/.ssh/local
@@ -40,9 +34,12 @@ Host gitlab.com
   IdentityFile ~/.ssh/git
   '';
 
+  programs.fzf.enableZshIntegration = true;
+
   home.packages = lib.attrValues ({
     # Some basics
     inherit (pkgs)
+      fzf
       bandwhich # display current network utilization by process
       bottom # fancy version of `top` with ASCII graphs
       coreutils
