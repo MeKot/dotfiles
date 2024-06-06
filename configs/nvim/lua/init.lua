@@ -41,7 +41,6 @@ o.relativenumber=true
 if g.vscode == nil then
   require'mekot.theme'.extraLushSpecs = {
 
-    'colors.mekot.bufferline-nvim',
     'colors.mekot.statusline',
     'colors.mekot.telescope-nvim',
   }

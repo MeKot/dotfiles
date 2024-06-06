@@ -134,6 +134,7 @@
       zsh = import ./home/zsh.nix;
       git = import ./home/git.nix;
       kitty = import ./home/kitty.nix;
+      alacritty = import ./home/alacritty.nix;
       tmux = import ./home/tmux.nix;
 
       neovim = import ./home/neovim.nix;

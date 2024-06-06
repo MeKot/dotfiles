@@ -12,6 +12,7 @@
   environment.systemPackages = with pkgs; [
     tmux
     kitty
+    alacritty
   ];
 
   programs.nix-index.enable = true;

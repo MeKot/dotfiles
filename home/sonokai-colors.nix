@@ -6,21 +6,21 @@
   colors.sonokai = {
 
     colors = {
-      color0    = "#242120";
+      color0    = "#1f1e1c";
       color1    = "#f86882";
       color2    = "#a6cd77";
       color3    = "#f0c66f";
       color4    = "#81d0c9";
-      color5    = "#55393d";
-      color6    = "#2aa198";
+      color5    = "#e68fc7";
+      color6    = "#f08d71";
       color7    = "#e4e3e1";
-      color8    = "#1f1e1c";
-      color9    = "#f08d71";
-      color10   = "#312c2b";
-      color11   = "#393230";
-      color12   = "#413937";
-      color13   = "#9fa0e1";
-      color14   = "#49403c";
+      color8    = "#49403c";
+      color9    = "#cd0a2d";
+      color10   = "#e9bb84";
+      color11   = "#f0e66f";
+      color12   = "#8dc8de";
+      color13   = "#8fe6da";
+      color14   = "#e9552c";
       color15   = "#90817b";
     };
 
