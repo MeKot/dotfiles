@@ -2,7 +2,7 @@
 {
 
   programs.tmux.enable = true;
-  programs.tmux.terminal = "tmux-direct";
+  programs.tmux.terminal = "xterm-256color";
 
   programs.tmux.shortcut = "a";
   programs.tmux.escapeTime = 0;

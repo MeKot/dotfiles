@@ -133,7 +133,6 @@
       config-files = import ./home/config-files.nix;
       zsh = import ./home/zsh.nix;
       git = import ./home/git.nix;
-      kitty = import ./home/kitty.nix;
       alacritty = import ./home/alacritty.nix;
       tmux = import ./home/tmux.nix;
 
@@ -141,7 +140,6 @@
       packages = import ./home/packages.nix;
 
       colors = import ./modules/home/colors;
-      programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
 
       home-user-info = { lib, ... }: {
         options.home.user-info =
