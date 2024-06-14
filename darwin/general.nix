@@ -1,5 +1,12 @@
 { pkgs, ... }:
 
+let
+
+  appleFonts = pkgs.callPackage ./fonts/apple-fonts-sf.nix {};
+  hackNerdFont = pkgs.callPackage ./fonts/font-hack-nerd-font.nix {};
+
+in
+
 {
   environment.systemPackages = with pkgs; [
     tmux
@@ -11,6 +18,9 @@
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
      recursive
+     appleFonts
+     hackNerdFont
+     sketchybar-app-font
      hack-font
      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
    ];
@@ -26,6 +36,7 @@
   nix.gc.automatic = true;
   nix.gc.interval.Hour = 3;
   nix.gc.options = "--delete-older-than 15d";
+
   nix.optimise.automatic = true;
   nix.optimise.interval.Hour = 4;
 }

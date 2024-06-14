@@ -765,7 +765,7 @@ in
 
   services.sketchybar = {
 
-    enable = false;
+    enable = true;
     config = ''
 #!/bin/bash
 
@@ -984,5 +984,12 @@ sketchybar --add bracket status wifi volume_icon calendar \
 
 sketchybar --update
     '';
+  };
+
+  launchd.user.agents.sketchybar = {
+    serviceConfig = {
+      StandardOutPath = "/tmp/sketchybar.log";
+      StandardErrorPath = "/tmp/sketchybar.log";
+    };
   };
 }
