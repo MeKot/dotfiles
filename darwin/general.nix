@@ -1,5 +1,9 @@
 { pkgs, ... }:
+let
 
+  hackNerdFont = pkgs.callPackage ./fonts/font-hack-nerd-font.nix {};
+
+in
 {
   environment.systemPackages = with pkgs; [
     tmux
@@ -12,6 +16,7 @@
   fonts.fonts = with pkgs; [
      recursive
      hack-font
+     hackNerdFont
      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
    ];
 

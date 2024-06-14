@@ -6,7 +6,7 @@
      settings = {
        live_config_reload = false;
        font = {
-         normal.family = "Hack";
+         normal.family = "Hack Nerd Font";
          size = 14;
        };
 
