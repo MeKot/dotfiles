@@ -25,6 +25,14 @@ gl.section.left = {
           V = s.ibar,
           [''] = s.ibar,
         }
+
+        local function setDefault (t, d)
+          local mt = {__index = function () return d end}
+          setmetatable(t, mt)
+        end
+
+        setDefault(alias, '')
+
         return '  ' .. alias[vim.fn.mode()] .. ' '
       end,
       highlight = 'StatusLineMode',
