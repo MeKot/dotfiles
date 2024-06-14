@@ -1,8 +1,8 @@
 -- Highlights used with statusline defined in `../../statusline.lua`.
-local t = require'colors.malo'
+local t = require'lush_theme.mekot'
 
 ---@diagnostic disable: undefined-global
-return require'mekot'(function()
+return require'lush'(function()
   return {
     StatusLineMode    { t.GreenBg, fg = t.LightBaseFg.fg },
     StatusLineModeSep { t.StatusLine, fg = t.GreenFg.fg },

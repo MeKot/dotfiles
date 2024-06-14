@@ -39,12 +39,12 @@ M.loadColorscheme = function ()
 
   -- We need to unload all Lush specs so that the specs are regenerated whenever the colorscheme is
   -- reapplied.
-  package.loaded['colors.mekot'] = nil
+  package.loaded['lush_theme.mekot'] = nil
   seq(M.extraLushSpecs):foreach(function(v) package.loaded[v] = nil end)
 
   -- Merge the main colorscheme spec with any additional specs that were provided.
   local finalSpec = lush.merge {
-    require 'colors.mekot',
+    require 'lush_theme.mekot',
     lush.merge(seq(M.extraLushSpecs):map(require):copy())
   }
 

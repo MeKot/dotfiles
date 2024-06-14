@@ -1,7 +1,7 @@
 -- Highlights for telescope.nvim
 -- https://github.com/nvim-telescope/telescope.nvim
 -- See `../../mekot/telescope-nvim.lua` for related configuration.
-local t = require'colors.mekot'
+local t = require'lush_theme.mekot'
 
 ---@diagnostic disable: undefined-global
 return require'mekot'(function()
