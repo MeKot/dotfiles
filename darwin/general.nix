@@ -1,12 +1,5 @@
 { pkgs, ... }:
 
-let
-
-  appleFonts = pkgs.callPackage ./fonts/apple-fonts-sf.nix {};
-  hackNerdFont = pkgs.callPackage ./fonts/font-hack-nerd-font.nix {};
-
-in
-
 {
   environment.systemPackages = with pkgs; [
     tmux
@@ -18,9 +11,6 @@ in
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
      recursive
-     appleFonts
-     hackNerdFont
-     sketchybar-app-font
      hack-font
      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
    ];

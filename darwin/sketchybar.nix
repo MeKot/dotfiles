@@ -984,6 +984,10 @@ sketchybar --add bracket status wifi volume_icon calendar \
 
 sketchybar --update
     '';
+
+    extraPackages = with pkgs; [
+      jq
+    ];
   };
 
   launchd.user.agents.sketchybar = {
