@@ -4,7 +4,7 @@
 local t = require'lush_theme.mekot'
 
 ---@diagnostic disable: undefined-global
-return require'mekot'(function()
+return require'lush'(function()
   return {
     TelescopeNormal { t.Normal },
 
