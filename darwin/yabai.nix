@@ -22,7 +22,7 @@
       external_bar = "main:5:0";
     };
 
-    extraConfig = '''
+    extraConfig = ''
 	yabai -m signal --add event=dock_did_restart action="yabai --load-sa"
 	yabai --load-sa
 
@@ -33,6 +33,6 @@
 	yabai -m rule --add app="^App Store$" manage=off
 	yabai -m rule --add app="^Mozilla VPN$" manage=off
 	yabai -m rule --add app="^Weather$" manage=off
-    ''';
+    '';
   };
 }

@@ -56,7 +56,7 @@
 
        window = {
          opacity = 0.8;
-         decorations = "None";
+         decorations = "buttonless";
        };
      };
    };
