@@ -348,7 +348,7 @@ in
 
   services.sketchybar = {
 
-    enable = true;
+    enable = false;
     config = ''
 #!/bin/bash
 

@@ -23,8 +23,8 @@
     };
 
     extraConfig = ''
-	yabai -m signal --add event=dock_did_restart action="yabai --load-sa"
-	yabai --load-sa
+	yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+	sudo yabai --load-sa
 
 	yabai -m rule --add app="^System Settings$" manage=off
 	yabai -m rule --add app="^Spark$" manage=off
