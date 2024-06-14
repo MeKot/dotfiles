@@ -125,6 +125,7 @@
       homebrew = import ./darwin/homebrew.nix;
 
       yabai = import ./darwin/yabai.nix;
+      skhd = import ./darwin/skhd.nix;
 
       primaryUser = import ./modules/darwin/users.nix;
     };

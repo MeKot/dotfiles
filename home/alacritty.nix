@@ -29,7 +29,6 @@
            cursor= "0xe4e3e1";
          };
  
-         # Bright colors
          normal = {
            black=   "0x1f1e1c";
            red=     "0xf86882";
@@ -41,7 +40,6 @@
            white=   "0xe4e3e1";
          };
  
-         # Normal colors
          bright = {
            black=   "0x6a5e59";
            red=     "0x55393d";
