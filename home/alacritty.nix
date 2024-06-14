@@ -30,19 +30,19 @@
          };
  
          # Bright colors
-         bright = {
+         normal = {
            black=   "0x1f1e1c";
            red=     "0xf86882";
            green=   "0xa6cd77";
            yellow=  "0xf0c66f";
            blue=    "0x81d0c9";
-           cyan=     "0xf08d71";
+           cyan=    "0xf08d71";
            magenta ="0x9fa0e1";
            white=   "0xe4e3e1";
          };
  
          # Normal colors
-         normal = {
+         bright = {
            black=   "0x6a5e59";
            red=     "0x55393d";
            green=   "0x394634";
@@ -52,8 +52,6 @@
            magenta ="0x9fa0e1";
            white=   "0xe4e3e1";
          };
-
-         draw_bold_text_with_bright_colors = true;
        };
 
        window = {
