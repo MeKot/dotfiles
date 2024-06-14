@@ -19,6 +19,17 @@ let
 in
 {
 
+  home.packages = with pkgs; [
+    tmux
+    tmuxinator
+  ];
+
+  xdg.configFile."tmuxinator" = {
+    enable = true;
+    recursive = true;
+    source = ./tmuxinator;
+  };
+
   programs.tmux = {
 
     enable = true;

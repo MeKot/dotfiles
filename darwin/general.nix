@@ -5,10 +5,6 @@ let
 
 in
 {
-  environment.systemPackages = with pkgs; [
-    tmux
-  ];
-
   programs.nix-index.enable = true;
 
   # Fonts
