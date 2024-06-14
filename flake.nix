@@ -126,6 +126,7 @@
 
       yabai = import ./darwin/yabai.nix;
       skhd = import ./darwin/skhd.nix;
+      sketchybar = import ./darwin/sketchybar.nix;
 
       primaryUser = import ./modules/darwin/users.nix;
     };
