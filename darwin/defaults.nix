@@ -1,4 +1,6 @@
 {
+  
+
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling" = 1.4;
     AppleInterfaceStyleSwitchesAutomatically = true;
@@ -11,7 +13,7 @@
     NSAutomaticCapitalizationEnabled = false;
     NSAutomaticDashSubstitutionEnabled = false;
     NSAutomaticPeriodSubstitutionEnabled = false;
-    _HIHideMenuBar = false;
+    _HIHideMenuBar = true;
   };
 
   # Firewall
