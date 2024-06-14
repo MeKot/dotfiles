@@ -124,6 +124,8 @@
       general = import ./darwin/general.nix;
       homebrew = import ./darwin/homebrew.nix;
 
+      yabai = import ./darwin/yabai.nix;
+
       primaryUser = import ./modules/darwin/users.nix;
     };
 
