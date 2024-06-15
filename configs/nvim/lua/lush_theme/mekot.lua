@@ -523,7 +523,11 @@ return require'lush'(function(injected_functions)
     -- vim-which-key -------------------------------------------------------------------------------
     -- https://github.com/liuchengxu/vim-which-key
 
-    WhichKeyFloating { StatusLine },
+    WhichKeyFloat { StatusLine },
+    WhichKey { Function },
+    WhichKeyGroup { VioletFg },
+    WhichKeyDesc { Identifier },
+    WhichKeySeparator { Constant },
     -- }}}
   }
 end)
