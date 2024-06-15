@@ -52,21 +52,21 @@ return require'lush'(function(injected_functions)
 
     -- Colors dependant on background color
     BaseBg      { bg = choose(c.darkBase, c.lightBase) },
-    BaseHlBg    { bg = choose(c.darkTone, c.lightBaseHl) },
+    BaseHlBg    { bg = choose(c.darkBaseHl, c.lightBaseHl) },
     InvBaseBg   { bg = choose(c.lightBase, c.darkBase) },
     InvBaseHlBg { bg = choose(c.lightBaseHl, c.darkBaseHl) },
-    MainBg      { bg = choose(c.lightTone, c.darkTone) },
-    FadedBg     { bg = choose(c.darkTone, c.lightTone) },
+    MainBg      { bg = BaseBg.bg },
+    FadedBg     { bg = choose(c.darkTone, c.lightestTone) },
     MutedBg     { bg = choose(c.darkestTone, c.lightestTone) },
     StrongBg    { bg = choose(c.lightestTone , c.darkestTone) },
-    BaseFg      { fg = choose(c.lightBase, c.darkBase) },
-    BaseHlFg    { fg = choose(c.lightBaseHl, c.darkBaseHl) },
+    BaseFg      { fg = InvBaseBg.bg },
+    BaseHlFg    { fg = InvBaseHlBg.bg },
     InvBaseFg   { fg = InvBaseBg.bg },
-    InvBaseHlFg { fg = InvBaseHlBg.bg },
-    MainFg      { fg = MainBg.bg },
-    FadedFg     { fg = FadedBg.bg },
-    MutedFg     { fg = choose(c.lightBaseHl, c.darkestTone) },
-    StrongFg    { fg = StrongBg.bg },
+    InvBaseHlFg { fg = BaseHlBg.bg },
+    MainFg      { fg = InvBaseBg.bg },
+    FadedFg     { fg = StrongBg.bg },
+    MutedFg     { fg = StrongBg.bg },
+    StrongFg    { fg = FadedBg.bg },
     YellowHlBg  { bg = highlight(c.yellow) },
     OrangeHlBg  { bg = highlight(c.orange) },
     RedHlBg     { bg = highlight(c.red) },
@@ -180,15 +180,15 @@ return require'lush'(function(injected_functions)
     Search    { YellowHlBg },
 
     -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-    IncSearch { OrangeHlBg },
+    IncSearch { YellowHlBg },
 
     -- |:substitute| replacement text highlighting
-    -- Sustitute { },
+    Sustitute { RedHlBg },
 
     -- Selections ----------------------------------------------------------------------------------
 
     -- Visual mode selection
-    Visual    { CyanHlBg },
+    Visual    { LightBaseHlBg },
 
     -- Visual mode selection when vim is "Not Owning the Selection".
     VisualNOS { Normal, gui = 'reverse'  },
@@ -397,10 +397,10 @@ return require'lush'(function(injected_functions)
     DiagnosticHint  { HintText },
 
     -- Used to underline diagnostics.
-    DiagnosticUnderlineError { gui = 'underline', sp = DiagnosticError.fg },
-    DiagnosticUnderlineWarn  { DiagnosticUnderlineError, sp = DiagnosticWarn.fg },
-    DiagnosticUnderlineInfo  { DiagnosticUnderlineError, sp = DiagnosticInfo.fg },
-    DiagnosticUnderlineHint  { DiagnosticUnderlineError, sp = DiagnosticHint.fg },
+    DiagnosticUnderlineError { DiagnosticError, gui = 'underline' },
+    DiagnosticUnderlineWarn  { DiagnosticWarn, gui = 'underline' },
+    DiagnosticUnderlineInfo  { DiagnosticInfo, gui = 'underline' },
+    DiagnosticUnderlineHint  { DiagnosticHint, gui = 'underline' },
 
     -- Used for diagnostics virtual text.
     -- DiagnosticVirtualTextError { } ,
