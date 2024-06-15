@@ -108,6 +108,8 @@ in {
     { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
     { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
     { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
+    { use = lush-nvim; vscode = true; }
+
     {
       use = noice-nvim;
       deps = [ nui-nvim nvim-notify ];
