@@ -33,6 +33,7 @@ return require'lush'(function(injected_functions)
     BlueBg         { bg = c.blue },
     CyanBg         { bg = c.cyan },
     GreenBg        { bg = c.green },
+    DarkGreenBg    { bg = c.darkGreen },
     DarkBaseFg     { fg = DarkBaseBg.bg },
     DarkBaseHlFg   { fg = DarkBaseHlBg.bg },
     DarkestToneFg  { fg = DarkestToneBg.bg },

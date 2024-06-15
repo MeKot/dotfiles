@@ -48,6 +48,8 @@ gl.section.left = {
         return require'galaxyline.providers.fileinfo'.get_file_icon() .. ' '
       end,
       highlight = {},
+      separator = s.sepSlashRight,
+      separator_highlight = 'StatusLineFileNameSeparator';
     }
   },
   {
@@ -55,7 +57,7 @@ gl.section.left = {
       condition = condition.buffer_not_empty,
       provider = 'FileName',
       highlight = 'StatusLineFileName',
-      separator = '/',
+      separator = s.sepSlashLeft,
       separator_highlight = 'StatusLineFileNameSeparator';
     }
   },

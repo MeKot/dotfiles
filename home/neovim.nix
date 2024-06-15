@@ -174,6 +174,13 @@ in {
             },
             ["core.autocommands"] = {},
             ["core.integrations.treesitter"] = {},
+            ["core.integrations.telescope"] = {
+              config = {
+                insert_file_link = {
+                  show_title_preview = true,
+                },
+              }
+            }
           }
         }
     '';
@@ -181,7 +188,7 @@ in {
 
     # Language support/utilities
     {
-      use = nvim-treesitter.withAllGrammars;
+      use = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars);
       config = requireConf nvim-treesitter;
     }
     { use = vim-polyglot; config = requireConf vim-polyglot; }

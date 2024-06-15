@@ -172,6 +172,17 @@ wk.register ({
     y = { '"+yy', 'Yank current line to system clipboard' },
   },
 
+  n = {
+
+    name = '+Neorg',
+
+    l = { '<Cmd>Telescope neorg find_linkable<CR>'         , 'Find link'                },
+    i = { '<Cmd>Telescope neorg insert_file_link<CR>'      , 'Insert link'              },
+    h = { '<Cmd>Telescope neorg search_headings<CR>'       , 'Find headings in buffer'  },
+    b = { '<Cmd>Telescope neorg find_backlinks<CR>'        , 'Find backlinks to file'   },
+    m = { '<Cmd>Telescope neorg find_header_backlinks<CR>' , 'Find all links to header' },
+  },
+
 }, { prefix = ',' })
 
 -- Spaced prefiexd in mode Visual mode
@@ -201,8 +212,7 @@ augroup END
 
 augroup NEORG
   autocmd!
-  autocmd FileType neorg setlocal spell
-  autocmd BufEnter,BufNewFile *.norg setlocal spell
+  autocmd BufEnter,BufNewFile *.norg setlocal spell | set filetype=norg
 augroup END
 
 ]]

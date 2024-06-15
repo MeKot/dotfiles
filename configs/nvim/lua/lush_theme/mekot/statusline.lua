@@ -7,7 +7,7 @@ return require'lush'(function()
     StatusLineMode    { bg = t.GreenBg.bg, fg = t.MagentaFg.fg },
     StatusLineModeSep { bg = t.StatusLine.bg, fg = t.GreenFg.fg },
 
-    StatusLineFileName { t.FadedBg, fg = t.MainFg.fg, gui = 'italic' },
+    StatusLineFileName { t.DarkGreenBg, fg = t.MainFg.fg, gui = 'italic' },
 
     StatusLineGitBranch             { t.StatusLine, gui = 'bold' },
     StatusLineGitBranchSeparator    { t.StatusLine, fg = t.StatusLine.bg },
@@ -15,7 +15,7 @@ return require'lush'(function()
     StatusLineDiffModified          { bg = t.StatusLine.bg, fg = t.ChangeText.fg },
     StatusLineDiffRemove            { bg = t.StatusLine.bg, fg = t.DeleteText.fg },
 
-    StatusLineFileNameSeparator { t.FadedBg, fg = StatusLineMode.fg },
+    StatusLineFileNameSeparator { StatusLineFileName, fg = StatusLineGitBranch.bg },
 
     StatusLineDiagnosticError { bg = t.StatusLine.bg, fg = t.ErrorText.fg },
     StatusLineDiagnosticWarn  { bg = t.StatusLine.bg, fg = t.WarningText.fg },

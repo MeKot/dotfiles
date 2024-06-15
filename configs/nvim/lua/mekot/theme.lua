@@ -26,6 +26,7 @@ M.colors = {
   blue         = hsl '#81d0c9',
   cyan         = hsl '#2aa198',
   green        = hsl '#a6cd77',
+  darkGreen    = hsl '#748F53';
 }
 
 -- A table of strings with the name of additonal Lush specs that should be merged with the
