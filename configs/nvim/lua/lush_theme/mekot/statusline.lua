@@ -16,6 +16,7 @@ return require'lush'(function()
     StatusLineDiffRemove            { bg = t.StatusLine.bg, fg = t.DeleteText.fg },
 
     StatusLineFileNameSeparator { StatusLineFileName, fg = StatusLineGitBranch.bg },
+    StatusLineFileNameGitSeparator { StatusLineGitBranch, fg = StatusLineFileName.bg },
 
     StatusLineDiagnosticError { bg = t.StatusLine.bg, fg = t.ErrorText.fg },
     StatusLineDiagnosticWarn  { bg = t.StatusLine.bg, fg = t.WarningText.fg },

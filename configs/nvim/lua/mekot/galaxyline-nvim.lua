@@ -57,10 +57,11 @@ gl.section.left = {
       condition = condition.buffer_not_empty,
       provider = 'FileName',
       highlight = 'StatusLineFileName',
-      separator = s.sepSlashLeft,
-      separator_highlight = 'StatusLineFileNameSeparator';
+      separator = s.sepSlashRight,
+      separator_highlight = 'StatusLineFileNameGitSeparator';
     }
   },
+
   {
     GitBranch = {
       condition = condition.buffer_not_empty,
