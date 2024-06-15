@@ -20,7 +20,7 @@ return require'lush'(function()
     TelescopePreviewBorder { TelescopeBorder },
 
     -- Used for highlighting characters that you match.
-    TelescopeMatching { t.RedFg },
+    TelescopeMatching { t.VioletFg },
 
     -- Used for the prompt prefix
     TelescopePromptPrefix { t.GreenFg, gui = 'bold' },

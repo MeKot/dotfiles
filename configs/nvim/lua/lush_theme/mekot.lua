@@ -91,7 +91,7 @@ return require'lush'(function(injected_functions)
 
     Normal      { BaseBg, fg = MainFg.fg },
     NormalNC    { Normal },
-    NormalFloat { bg = StrongBg.bg, fg = StrongFg.fg },
+    NormalFloat { bg = FadedBg.bg, fg = MainFg.fg },
 
     Comment { MutedFg, gui = 'italic' },
 
@@ -267,10 +267,10 @@ return require'lush'(function(injected_functions)
     PmenuSel   { BlueBg, fg = MagentaFg.fg, gui = 'bold', blend = 0 },
 
     -- Scrollbar
-    PmenuSbar  { InvBaseBg },
+    PmenuSbar  { Pmenu },
 
     -- Thumb of the scrollbar
-    PmenuThumb { Pmenu, gui = 'reverse' },
+    PmenuThumb { Pmenu },
 
 
     -- Diff mode -----------------------------------------------------------------------------------
