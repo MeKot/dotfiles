@@ -131,7 +131,7 @@ return require'lush'(function(injected_functions)
     -- Typedef      { }, -- A typedef
 
     -- Any special symbol
-    Special { RedFg },
+    Special { MainFg },
     -- SpecialChar    { }, -- special character in a constant
     -- Tag            { }, -- you can use CTRL-] on this
     Delimiter      { Special }, -- character that needs attention
