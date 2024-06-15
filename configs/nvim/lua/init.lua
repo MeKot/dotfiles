@@ -83,11 +83,11 @@ wk.register ({
   g = {
     name = '+Git',
     -- vim-fugitive
-    b = { '<Cmd>Gblame<CR>' , 'Blame'  },
+    b = { '<Cmd>Git blame<CR>' , 'Blame'  },
     s = { '<Cmd>Git<CR>'    , 'Status' },
     d = {
       name = '+Diff',
-      s = { '<Cmd>Ghdiffsplit<CR>' , 'Split horizontal' },
+      s = { '<Cmd>Gdiffsplit<CR>' , 'Split horizontal' },
       v = { '<Cmd>Gvdiffsplit<CR>' , 'Split vertical'   },
     },
 

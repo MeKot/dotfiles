@@ -144,11 +144,12 @@ in {
       use = lsp_lines-nvim;
       config = ''
         require'lsp_lines'.setup()
-        vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
+        vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+      '';
     }
     {
       use = nvim-lspconfig;
-      deps = [ neodev-nvim telescope-nvim ];
+      deps = [ telescope-nvim ];
       config = requireConf nvim-lspconfig;
     }
 
@@ -158,11 +159,11 @@ in {
       config = requireConf nvim-treesitter;
     }
     { use = vim-polyglot; config = requireConf vim-polyglot; }
-    { use = vim-surround; vscode = true; }
+    { use = vim-surround; }
 
     # Misc
     { use = vim-fugitive; }
-    { use = lush-nvim; vscode = true; }
+    { use = lush-nvim; }
     { use = which-key-nvim; opt = true; }
 
     # The dependencies for this are in a special overlay as it requires a bunch of crap
@@ -182,10 +183,6 @@ in {
     nixpkgs-fmt
 
     ccls
-
-    #Other
-    sumneko-lua-language-server
-    vscode-langservers-extracted
   ];
   # }}}
 }

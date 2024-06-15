@@ -1,50 +1,99 @@
--- nvim-cmp
--- A completion plugin for neovim coded in Lua.
--- https://github.com/hrsh7th/nvim-cmp
+-- nvim-lspconfig
+-- Configure available LSPs
+-- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
+--
+-- Note that all language servers are installed via Nix. See:
+-- `../../../../home/neovim.nix`.
+local s = require'mekot.utils'.symbols
+local foreach = require 'pl.tablex'.foreach
+local augroup = require 'mekot.utils'.augroup
 
-local cmp = require 'cmp'
-
--- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+-- Configure diagnostic icons
+local signs = { Error = s.error, Warn = s.warning, Hint = s.question, Info = s.info }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-cmp.setup {
-  sources = {
-    { name = 'async_path' },
-    { name = 'buffer' },
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
-  },
+local lspconf = require 'lspconfig'
 
-  formatting = {
-    format = require 'lspkind'.cmp_format {
-      mode = 'symbol',
-      show_labelDetails = true,
-      symbol_map = { Copilot = "" },
+local function on_attach(client, bufnr)
+  if client.server_capabilities.documentHighlightProvider then
+    augroup { name = 'MekotLspDocumentHighlights' .. bufnr, cmds = {
+      {{ 'CursorHold', 'CursorHoldI' }, {
+        buffer = bufnr,
+        desc = "Create LSP document highlights",
+        callback = vim.lsp.buf.document_highlight,
+      }},
+      {{ 'CursorMoved' }, {
+        buffer = bufnr,
+        desc = "Clear LSP document highlights",
+        callback = vim.lsp.buf.clear_references,
+      }},
+    }}
+  end
+end
+
+local servers_config = {
+  bashls = {},
+  ccls = {},
+  jsonls = {},
+
+  nil_ls = {
+    settings ={
+      ['nil'] = {
+        formatting = {
+          command = { 'nixpkgs-fmt' },
+        },
+
+        nix = {
+          flake = {
+            autoArchive = true,
+            autoEvalInputs = true,
+          },
+        },
+      },
     },
   },
 
-  -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
-  mapping = {
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+  pyright = {},
+  sourcekit = {},
 
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+  vimls = {
+    init_options = {
+      iskeyword = '@,48-57,_,192-255,-#',
+      vimruntime = vim.env.VIMRUNTIME,
+      runtimepath = vim.o.runtimepath,
+      diagnostic = {
+        enable = true,
+      },
+      indexes = {
+        runtimepath = true,
+        gap = 100,
+        count = 8,
+        projectRootPatterns = { "runtime", "nvim", ".git", "autoload", "plugin" },
+      },
+      suggest = {
+        fromRuntimepath = true,
+        fromVimruntime = true
+      },
+    }
+  },
+
+  yamlls = {
+    settings = {
+      yaml = {
+        format = {
+          printWidth = 100,
+          singleQuote = true,
+        },
+      },
+    },
   },
 }
+
+foreach(servers_config, function(v, k)
+  lspconf[k].setup(require'cmp_nvim_lsp'.default_capabilities(
+    vim.tbl_extend('error', v, { on_attach = on_attach })
+  ))
+end)
