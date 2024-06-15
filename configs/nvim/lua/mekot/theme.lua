@@ -11,12 +11,12 @@ local M = {}
 -- Default colors are the Solarized colors
 M.colors = {
   darkBase     = hsl '#1f1e1c',
-  darkBaseHl   = hsl '#242120',
-  darkestTone  = hsl '#312c2b',
+  darkestTone  = hsl '#242120',
+  darkBaseHl   = hsl '#312c2b',
   darkTone     = hsl '#393230',
   lightTone    = hsl '#413937',
-  lightestTone = hsl '#49403c',
-  lightBaseHl  = hsl '#90817b',
+  lightBaseHl  = hsl '#49403c',
+  lightestTone = hsl '#90817b',
   lightBase    = hsl '#e4e3e1',
   yellow       = hsl '#f0c66f',
   orange       = hsl '#f08d71',

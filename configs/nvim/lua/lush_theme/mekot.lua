@@ -52,20 +52,20 @@ return require'lush'(function(injected_functions)
 
     -- Colors dependant on background color
     BaseBg      { bg = choose(c.darkBase, c.lightBase) },
-    BaseHlBg    { bg = choose(c.darkBaseHl, c.lightBaseHl) },
+    BaseHlBg    { bg = choose(c.darkTone, c.lightBaseHl) },
     InvBaseBg   { bg = choose(c.lightBase, c.darkBase) },
     InvBaseHlBg { bg = choose(c.lightBaseHl, c.darkBaseHl) },
     MainBg      { bg = choose(c.lightTone, c.darkTone) },
     FadedBg     { bg = choose(c.darkTone, c.lightTone) },
     MutedBg     { bg = choose(c.darkestTone, c.lightestTone) },
     StrongBg    { bg = choose(c.lightestTone , c.darkestTone) },
-    BaseFg      { fg = BaseBg.bg },
-    BasheHlFg   { fg = BasheHlBg.bg },
+    BaseFg      { fg = choose(c.lightBase, c.darkBase) },
+    BaseHlFg    { fg = choose(c.lightBaseHl, c.darkBaseHl) },
     InvBaseFg   { fg = InvBaseBg.bg },
     InvBaseHlFg { fg = InvBaseHlBg.bg },
     MainFg      { fg = MainBg.bg },
     FadedFg     { fg = FadedBg.bg },
-    MutedFg     { fg = choose(c.lightestTone, c.darkestTone) },
+    MutedFg     { fg = choose(c.lightBaseHl, c.darkestTone) },
     StrongFg    { fg = StrongBg.bg },
     YellowHlBg  { bg = highlight(c.yellow) },
     OrangeHlBg  { bg = highlight(c.orange) },
@@ -91,25 +91,25 @@ return require'lush'(function(injected_functions)
 
     Normal      { BaseBg, fg = MainFg.fg },
     NormalNC    { Normal },
-    NormalFloat { InvBaseHlBg, fg = MutedFg.fg },
+    NormalFloat { Normal, fg = MutedFg.fg },
 
     Comment { MutedFg, gui = 'italic' },
 
     -- Any constant
-    Constant { CyanFg },
-    String   { Constant }, -- a string constant: "this is a string"
+    Constant { OrangeFg },
+    String   { YellowFg }, -- a string constant: "this is a string"
     -- Character { }, -- a character constant: 'c', '\n'
     -- Number    { }, -- a number constant: 234, 0xff
     -- Boolean   { }, -- a boolean constant: TRUE, false
     -- Float     { }, -- a floating point constant: 2.3e10
 
     -- Any variable name
-    Identifier { BlueFg },
-    Function   { Identifier }, -- function name (also: methods for classes)
+    Identifier { BaseFg },
+    Function   { GreenFg }, -- function name (also: methods for classes)
     sym"@variable" { Identifier },
 
     -- Any statement
-    Statement { GreenFg, gui = 'bold,italic' },
+    Statement { RedFg, gui = 'bold,italic' },
     -- Conditional { }, -- if, then, else, endif, switch, etc.
     -- Repeat      { }, -- for, do, while, etc.
     -- Label       { }, -- case, default, etc.
@@ -125,7 +125,7 @@ return require'lush'(function(injected_functions)
     -- PreCondit { }, -- preprocessor #if, #else, #endif, etc.
 
     -- int, long, char, etc.
-    Type { YellowFg },
+    Type { CyanFg },
     -- StorageClass { }, -- static, register, volatile, etc.
     -- Structure    { }, -- struct, union, enum, etc.
     -- Typedef      { }, -- A typedef
@@ -142,10 +142,10 @@ return require'lush'(function(injected_functions)
     Ignore { },
 
     -- Any erroneous construct
-    Error { ErrorText, gui = 'bold' },
+    Error { ErrorText, gui = 'bold,italic,underline' },
 
     -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Todo { MagentaFg, gui = 'bold' },
+    Todo { YellowFg, gui = 'bold,italic,underline' },
 
     Underlined { gui = 'underline' },
     Bold       { gui = 'bold' },
@@ -188,7 +188,7 @@ return require'lush'(function(injected_functions)
     -- Selections ----------------------------------------------------------------------------------
 
     -- Visual mode selection
-    Visual    { BlueHlBg  },
+    Visual    { CyanHlBg },
 
     -- Visual mode selection when vim is "Not Owning the Selection".
     VisualNOS { Normal, gui = 'reverse'  },
@@ -223,7 +223,7 @@ return require'lush'(function(injected_functions)
     LineNr       { MutedFg },
 
     -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    CursorLineNr { BlueFg, gui = 'bold' },
+    CursorLineNr { OrangeFg, gui = 'bold' },
 
     -- Column where |signs| are displayed.
     SignColumn   { bg = LineNr.bg, gui = 'bold' },
@@ -292,19 +292,19 @@ return require'lush'(function(injected_functions)
 
     -- Word that is not recognized by the spellchecker. Combined with the highlighting used
     -- otherwise.
-    SpellBad   { gui = 'undercurl', sp = c.red },
+    SpellBad   { RedFg, gui = 'undercurl' },
 
 
     -- Word that should start with a capital. Combined with the highlighting used otherwise.
-    SpellCap   { gui = 'undercurl', sp = c.violet },
+    SpellCap   { VioletFg, gui = 'undercurl' },
 
     -- Word that is recognized by the spellchecker as one that is hardly ever used. Combined with
     -- the highlighting used otherwise.
-    SpellRare  { gui = 'undercurl', sp = c.cyan },
+    SpellRare  { VioletFg, gui = 'undercurl' },
 
     -- Word that is recognized by the spellchecker as one that is used in another region. Combined
     -- with the highlighting used otherwise.
-    SpellLocal { gui = 'undercurl', sp = c.yellow },
+    SpellLocal { YellowFg, gui = 'undercurl' },
 
 
     -- Messages, prompts, etc. ---------------------------------------------------------------------
@@ -316,7 +316,7 @@ return require'lush'(function(injected_functions)
     -- MsgSeparator { },
 
     -- Error messages on the command line
-    ErrorMsg   { ErrorText, gui = 'bold' },
+    ErrorMsg   { ErrorText, gui = 'bold,italic,underline' },
 
     -- Warning messages
     WarningMsg { WarningText, gui = 'bold' },
@@ -372,7 +372,7 @@ return require'lush'(function(injected_functions)
     -- See :h lsp-highlight
 
     -- Used for highlighting references. See :h document_highlight
-    LspReferenceText  { gui = 'underline', sp = CyanBg.bg },
+    LspReferenceText  { LightToneBg, gui = 'underline' },
     LspReferenceRead  { LspReferenceText },
     LspReferenceWrite { LspReferenceText, sp = VioletBg.bg },
 
