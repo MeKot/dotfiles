@@ -22,6 +22,7 @@ o.conceallevel=2
 o.timeoutlen = 500
 o.colorcolumn="100"
 o.foldmethod="manual"
+o.background = "dark"
 
 o.hls=true
 o.wrap=true

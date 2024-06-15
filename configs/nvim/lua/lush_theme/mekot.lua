@@ -65,7 +65,7 @@ return require'lush'(function(injected_functions)
     InvBaseHlFg { fg = InvBaseHlBg.bg },
     MainFg      { fg = MainBg.bg },
     FadedFg     { fg = FadedBg.bg },
-    MutedFg     { fg = MutedBg.bg },
+    MutedFg     { fg = choose(c.lightestTone, c.darkestTone) },
     StrongFg    { fg = StrongBg.bg },
     YellowHlBg  { bg = highlight(c.yellow) },
     OrangeHlBg  { bg = highlight(c.orange) },
