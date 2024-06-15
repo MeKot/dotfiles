@@ -153,19 +153,6 @@ in {
       config = requireConf nvim-lspconfig;
     }
 
-    # Language support/utilities
-    {
-      use = nvim-treesitter.withAllGrammars;
-      config = requireConf nvim-treesitter;
-    }
-    { use = vim-polyglot; config = requireConf vim-polyglot; }
-    { use = vim-surround; }
-
-    # Misc
-    { use = vim-fugitive; }
-    { use = lush-nvim; }
-    { use = which-key-nvim; opt = true; }
-
     {
       use = neorg;
       deps = [ neorg-telescope ];
@@ -191,6 +178,19 @@ in {
         }
     '';
     }
+
+    # Language support/utilities
+    {
+      use = nvim-treesitter.withAllGrammars;
+      config = requireConf nvim-treesitter;
+    }
+    { use = vim-polyglot; config = requireConf vim-polyglot; }
+    { use = vim-surround; }
+
+    # Misc
+    { use = vim-fugitive; }
+    { use = lush-nvim; }
+    { use = which-key-nvim; opt = true; }
 
     # The dependencies for this are in a special overlay as it requires a bunch of crap
     # TODO: Create an overlay an plug this in
