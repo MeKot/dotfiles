@@ -122,9 +122,7 @@ in {
         nvim-web-devicons
         telescope-file-browser-nvim
         telescope-fzf-native-nvim
-        telescope_hoogle
         telescope-symbols-nvim
-        telescope-zoxide
       ];
     }
 
@@ -137,9 +135,6 @@ in {
         cmp-nvim-lsp
         cmp-nvim-lsp-signature-help
         lspkind-nvim
-
-        luasnip
-        cmp_luasnip
       ];
       config = requireConf nvim-cmp;
     }
