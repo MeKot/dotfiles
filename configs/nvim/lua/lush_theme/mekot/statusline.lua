@@ -4,7 +4,7 @@ local t = require'lush_theme.mekot'
 ---@diagnostic disable: undefined-global
 return require'lush'(function()
   return {
-    StatusLineMode    { bg = t.GreenBg.bg, fg = t.LightestToneFg.fg },
+    StatusLineMode    { bg = t.GreenBg.bg, fg = t.MagentaFg.fg },
     StatusLineModeSep { bg = t.StatusLine.bg, fg = t.GreenFg.fg },
 
     StatusLineFileName { t.FadedBg, fg = t.MainFg.fg, gui = 'italic' },
@@ -22,7 +22,7 @@ return require'lush'(function()
     StatusLineDiagnosticInfo  { t.StatusLine },
     StatusLineDiagnosticHint  { StatusLineDiagnosticInfo },
 
-    StatusLineLspClient          { StatusLineMode },
+    StatusLineLspClient          { StatusLineMode, gui = 'italic' },
     StatusLineLspClientSeparator { StatusLineModeSep },
   }
 end)
