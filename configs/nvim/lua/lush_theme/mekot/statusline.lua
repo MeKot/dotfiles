@@ -4,19 +4,19 @@ local t = require'lush_theme.mekot'
 ---@diagnostic disable: undefined-global
 return require'lush'(function()
   return {
-    StatusLineMode    { t.GreenBg, fg = t.LightBaseFg.fg },
-    StatusLineModeSep { t.StatusLine, fg = t.GreenFg.fg },
+    StatusLineMode    { bg = t.GreenBg.bg, fg = t.LightestToneFg.fg },
+    StatusLineModeSep { bg = t.StatusLine.bg, fg = t.GreenFg.fg },
 
     StatusLineFileName { t.StatusLine, gui = 'italic' },
 
     StatusLineGitBranch    { t.StatusLine, gui = 'bold' },
-    StatusLineDiffAdd      { t.StatusLine, fg = t.AddText.fg },
-    StatusLineDiffModified { t.StatusLine, fg = t.ChangeText.fg },
-    StatusLineDiffRemove   { t.StatusLine, fg = t.DeleteText.fg },
+    StatusLineDiffAdd      { bg = t.StatusLine.bg, fg = t.AddText.fg },
+    StatusLineDiffModified { bg = t.StatusLine.bg, fg = t.ChangeText.fg },
+    StatusLineDiffRemove   { bg = t.StatusLine.bg, fg = t.DeleteText.fg },
 
     StatusLineLspClient       { t.StatusLine },
-    StatusLineDiagnosticError { t.StatusLine, fg = t.ErrorText.fg },
-    StatusLineDiagnosticWarn  { t.StatusLine, fg = t.WarningText.fg },
+    StatusLineDiagnosticError { bg = t.StatusLine.bg, fg = t.ErrorText.fg },
+    StatusLineDiagnosticWarn  { bg = t.StatusLine.bg, fg = t.WarningText.fg },
     StatusLineDiagnosticInfo  { t.StatusLine },
     StatusLineDiagnosticHint  { StatusLineDiagnosticInfo },
 

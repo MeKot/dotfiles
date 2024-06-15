@@ -36,7 +36,7 @@ gl.section.left = {
         return '  ' .. alias[vim.fn.mode()] .. ' '
       end,
       highlight = 'StatusLineMode',
-      separator = s.sepRoundRight .. ' ',
+      separator = s.sepSlashRight .. ' ',
       separator_highlight = 'StatusLineModeSep',
     }
   },
@@ -63,6 +63,7 @@ gl.section.left = {
       icon = '  ' .. s.gitBranch .. ' ',
       provider = 'GitBranch',
       highlight = 'StatusLineGitBranch',
+      separator = ' ',
     }
   },
   {
@@ -133,7 +134,7 @@ gl.section.right = {
   },
   {
     LineInfo = {
-      separator = ' ' .. s.sepRoundLeft,
+      separator = ' ' .. s.sepSlashLeft,
       separator_highlight = 'StatusLineModeSep',
       icon = ' ',
       provider = 'LineColumn',

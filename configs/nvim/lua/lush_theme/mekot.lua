@@ -91,7 +91,7 @@ return require'lush'(function(injected_functions)
 
     Normal      { BaseBg, fg = MainFg.fg },
     NormalNC    { Normal },
-    NormalFloat { Normal, fg = MutedFg.fg },
+    NormalFloat { bg = StrongBg.bg, fg = StrongFg.fg },
 
     Comment { MutedFg, gui = 'italic' },
 
@@ -264,7 +264,7 @@ return require'lush'(function(injected_functions)
     Pmenu      { NormalFloat },
 
     -- Selected item
-    PmenuSel   { Pmenu, gui = 'bold', blend = 0 },
+    PmenuSel   { BlueBg, fg = MagentaFg.fg, gui = 'bold', blend = 0 },
 
     -- Scrollbar
     PmenuSbar  { InvBaseBg },
