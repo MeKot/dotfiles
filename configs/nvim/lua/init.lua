@@ -10,9 +10,6 @@ local cmd = vim.cmd
 
 g.mapleader=','
 g.maplocalleader='§'
-g.sonokai_style='espresso'
-g.sonokai_better_performance=1
-g.spaceline_colorscheme='sonokai'
 
 o.tabstop=2
 o.textwidth=99

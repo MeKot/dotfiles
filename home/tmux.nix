@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
 
   tmux-nova = pkgs.tmuxPlugins.mkTmuxPlugin
@@ -46,9 +46,10 @@ in
 
     extraConfig = ''
 set-option -g status-position top
+set-option -sa terminal-overrides ",xterm*:Tc"
     '';
 
-    plugins = with pkgs; [
+    plugins = [
       {
         plugin = tmux-nova;
         extraConfig = ''
