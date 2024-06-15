@@ -16,6 +16,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay/main";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, mac-app-util, ... }@inputs:
@@ -41,7 +43,6 @@
               ;
           }) // {
 
-            # add other overlays here (say for another plaform / shared across all archs) here
           }
       );
     };
@@ -108,6 +109,8 @@
             ]
             );
       };
+
+      neorg = inputs.neorg-overlay.overlays.default;
 
       tweaks = _: _: {
 

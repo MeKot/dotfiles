@@ -1,7 +1,5 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (config.home.user-info) nixConfigDirectory;
-in {
+{ config, ... }:
+{
 
   programs.zsh = {
     enable = true;
@@ -15,8 +13,8 @@ in {
       ta = "tmux attach -t";
       tt = "terraform";
       v = "nvim";
+      vim = "nvim";
       q = "exit";
-      zshconfig = "nvim ~/.zshrc";
       catt = "cat";
       cat = "bat";
       gcam = "git commit -a -m";

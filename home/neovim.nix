@@ -166,6 +166,32 @@ in {
     { use = lush-nvim; }
     { use = which-key-nvim; opt = true; }
 
+    {
+      use = neorg;
+      deps = [ neorg-telescope ];
+      opt = false;
+      config = ''
+        local neorg = require "neorg"
+        neorg.setup {
+          load = {
+            ["core.defaults"] = {}, -- Loads default behaviour
+            ["core.concealer"] = {}, -- Adds pretty icons to your documents
+            ["core.ui.calendar"] = {}, -- Adds a calendar picker for the journal -- NEEDS V0.10
+            ["core.dirman"] = { -- Manages Neorg workspaces
+              config = {
+                workspaces = {
+                  notes = "~/notes",
+                },
+                default_workspace="notes",
+              },
+            },
+            ["core.autocommands"] = {},
+            ["core.integrations.treesitter"] = {},
+          }
+        }
+    '';
+    }
+
     # The dependencies for this are in a special overlay as it requires a bunch of crap
     # TODO: Create an overlay an plug this in
     # { use = neorg; config = requireConf neorg; }
