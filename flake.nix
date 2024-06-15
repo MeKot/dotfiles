@@ -136,7 +136,6 @@
 
     homeManagerModules = {
 
-      sonokai-colors = import ./home/sonokai-colors.nix;
       config-files = import ./home/config-files.nix;
       zsh = import ./home/zsh.nix;
       git = import ./home/git.nix;
@@ -145,8 +144,6 @@
 
       neovim = import ./home/neovim.nix;
       packages = import ./home/packages.nix;
-
-      colors = import ./modules/home/colors;
 
       home-user-info = { lib, ... }: {
         options.home.user-info =
