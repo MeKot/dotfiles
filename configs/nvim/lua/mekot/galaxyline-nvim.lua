@@ -55,6 +55,8 @@ gl.section.left = {
       condition = condition.buffer_not_empty,
       provider = 'FileName',
       highlight = 'StatusLineFileName',
+      separator = '/',
+      separator_highlight = 'StatusLineFileNameSeparator';
     }
   },
   {
@@ -64,6 +66,7 @@ gl.section.left = {
       provider = 'GitBranch',
       highlight = 'StatusLineGitBranch',
       separator = ' ',
+      separator_highlight = 'StatusLineGitBranchSeparator';
     }
   },
   {
@@ -93,13 +96,6 @@ gl.section.left = {
 }
 
 gl.section.right = {
-  {
-    LspClient = {
-      condition = condition.check_active_lsp,
-      provider = { 'GetLspClient', const(' ') },
-      highlight = 'StatusLineLspClient',
-    }
-  },
   {
     DiagnosticError = {
       condition = condition.check_active_lsp,
@@ -133,22 +129,14 @@ gl.section.right = {
     }
   },
   {
-    LineInfo = {
-      separator = ' ' .. s.sepSlashLeft,
-      separator_highlight = 'StatusLineModeSep',
-      icon = ' ',
-      provider = 'LineColumn',
-      highlight = 'StatusLineLineInfo',
+    LspClient = {
+      condition = condition.check_active_lsp,
+      provider = { 'GetLspClient', const(' ') },
+      highlight = 'StatusLineLspClient',
+      separator = s.sepSlashLeft,
+      separator_highlight = 'StatusLineLspClientSeparator',
     }
-  },
-  {
-    FilePosition = {
-      separator = ' ',
-      separator_highlight = 'StatusLineFilePositionSep',
-      provider = { 'LinePercent', 'ScrollBar' },
-      highlight = 'StatusLineFilePosition',
-    }
-  },
+  }
 }
 
 gl.section.short_line_left = {

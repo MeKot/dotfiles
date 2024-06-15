@@ -7,25 +7,23 @@ return require'lush'(function()
     StatusLineMode    { bg = t.GreenBg.bg, fg = t.LightestToneFg.fg },
     StatusLineModeSep { bg = t.StatusLine.bg, fg = t.GreenFg.fg },
 
-    StatusLineFileName { t.StatusLine, gui = 'italic' },
+    StatusLineFileName { t.FadedBg, fg = t.MainFg.fg, gui = 'italic' },
 
-    StatusLineGitBranch    { t.StatusLine, gui = 'bold' },
-    StatusLineDiffAdd      { bg = t.StatusLine.bg, fg = t.AddText.fg },
-    StatusLineDiffModified { bg = t.StatusLine.bg, fg = t.ChangeText.fg },
-    StatusLineDiffRemove   { bg = t.StatusLine.bg, fg = t.DeleteText.fg },
+    StatusLineGitBranch             { t.StatusLine, gui = 'bold' },
+    StatusLineGitBranchSeparator    { t.StatusLine, fg = t.StatusLine.bg },
+    StatusLineDiffAdd               { bg = t.StatusLine.bg, fg = t.AddText.fg },
+    StatusLineDiffModified          { bg = t.StatusLine.bg, fg = t.ChangeText.fg },
+    StatusLineDiffRemove            { bg = t.StatusLine.bg, fg = t.DeleteText.fg },
 
-    StatusLineLspClient       { t.StatusLine },
+    StatusLineFileNameSeparator { t.FadedBg, fg = StatusLineMode.fg },
+
     StatusLineDiagnosticError { bg = t.StatusLine.bg, fg = t.ErrorText.fg },
     StatusLineDiagnosticWarn  { bg = t.StatusLine.bg, fg = t.WarningText.fg },
     StatusLineDiagnosticInfo  { t.StatusLine },
     StatusLineDiagnosticHint  { StatusLineDiagnosticInfo },
 
-    StatusLineLineInfo        { StatusLineMode },
-    StatusLineLineInfoSep     { StatusLineModeSep },
-    StatusLineFilePosition    { StatusLineMode },
-    StatusLineFilePositionSep { StatusLineMode },
-
-    StatusLineSortStatusLine { t.StatusLineNC },
+    StatusLineLspClient          { StatusLineMode },
+    StatusLineLspClientSeparator { StatusLineModeSep },
   }
 end)
 

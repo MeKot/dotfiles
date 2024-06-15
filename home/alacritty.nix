@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   programs.alacritty = {
@@ -13,7 +13,7 @@
        shell = {
          program = "${pkgs.zsh}/bin/zsh";
        };
- 
+
        # Base16 Bright - alacritty color config
        # Chris Kempson (http://chriskempson.com)
        colors = {
@@ -22,13 +22,13 @@
            background = "0x242120";
            foreground = "0xe4e3e1";
          };
- 
+
          # Colors the cursor will use if `custom_cursor_colors` is true
          cursor = {
            text= "0x242120";
            cursor= "0xe4e3e1";
          };
- 
+
          normal = {
            black=   "0x1f1e1c";
            red=     "0xf86882";
@@ -39,7 +39,7 @@
            magenta ="0x9fa0e1";
            white=   "0xe4e3e1";
          };
- 
+
          bright = {
            black=   "0x6a5e59";
            red=     "0x55393d";
@@ -53,7 +53,6 @@
        };
 
        window = {
-         opacity = 0.8;
          decorations = "buttonless";
        };
      };
