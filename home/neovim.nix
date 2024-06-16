@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 # Let-In ----------------------------------------------------------------------------------------{{{
 let
-  inherit (lib) concatStringsSep optional;
+  inherit (lib) concatStringsSep optional optionalAttrs;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
 
@@ -103,7 +103,7 @@ in {
   programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
 
   # Add plugins using my `packer` function.
-  programs.neovim.plugins = with pkgs.vimPlugins; map packer [
+  programs.neovim.plugins = with pkgs.vimPlugins; map packer (builtins.filter (x: x ? use) [
     # Apperance, interface, UI, etc.
     { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
     { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
@@ -153,38 +153,12 @@ in {
       config = requireConf nvim-lspconfig;
     }
 
-    {
+    (optionalAttrs (pkgs.stdenv.system == "aarch64-darwin") {
       use = neorg;
       deps = [ neorg-telescope ];
       opt = false;
-      config = ''
-        local neorg = require "neorg"
-        neorg.setup {
-          load = {
-            ["core.defaults"] = {}, -- Loads default behaviour
-            ["core.concealer"] = {}, -- Adds pretty icons to your documents
-            ["core.ui.calendar"] = {}, -- Adds a calendar picker for the journal -- NEEDS V0.10
-            ["core.dirman"] = { -- Manages Neorg workspaces
-              config = {
-                workspaces = {
-                  notes = "~/notes",
-                },
-                default_workspace="notes",
-              },
-            },
-            ["core.autocommands"] = {},
-            ["core.integrations.treesitter"] = {},
-            ["core.integrations.telescope"] = {
-              config = {
-                insert_file_link = {
-                  show_title_preview = true,
-                },
-              }
-            }
-          }
-        }
-    '';
-    }
+      config = requireConf neorg;
+    })
 
     # Language support/utilities
     {
@@ -198,11 +172,7 @@ in {
     { use = vim-fugitive; }
     { use = lush-nvim; }
     { use = which-key-nvim; opt = true; }
-
-    # The dependencies for this are in a special overlay as it requires a bunch of crap
-    # TODO: Create an overlay an plug this in
-    # { use = neorg; config = requireConf neorg; }
-  ];
+  ]);
 
   # }}}
 
@@ -215,8 +185,10 @@ in {
     nil
     nixpkgs-fmt
 
-    ccls
-  ];
+  ] ++ (builtins.attrValues (optionalAttrs (stdenv.system != "aarch64-darwin") {
+
+    ccls = ccls;
+  }));
   # }}}
 }
 # vim: foldmethod=marker

@@ -110,7 +110,8 @@
             );
       };
 
-      neorg = inputs.neorg-overlay.overlays.default;
+      neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
+      (inputs.neorg-overlay.overlays.default f p);
 
       tweaks = _: _: {
 
