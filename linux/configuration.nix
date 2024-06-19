@@ -137,8 +137,8 @@
     extraConfig = ''
       TCPKeepAlive yes
       KeepAlive yes
-      ClientAliveInterval = 60
-      ClientAliveCountMax = 15
+      ClientAliveInterval 60
+      ClientAliveCountMax 15
       SetEnv IGNOREOF=10
     '';
   };
