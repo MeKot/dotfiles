@@ -1,6 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-let inherit (lib) mkIf elem; in
+{ lib, pkgs, ... }:
 
 {
   # Bat, a substitute for cat.

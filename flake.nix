@@ -36,55 +36,56 @@
 
       overlays = attrValues self.overlays ++ singleton (
 
-          final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+        final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
 
-            inherit (final.pkgs-x86)
+          inherit (final.pkgs-x86)
               # This is where the default overlays for x86 packages would come for a mac
               ;
-          }) // {
+            }) // {
 
-          }
-      );
-    };
+            }
+            );
+          };
 
-    primaryUserDefaults = {
+          primaryUserDefaults = {
 
-      username = "admin";
-      fullName = "Ivan Kotegov";
-      email = "ivan@kotegov.com";
-      nixConfigDirectory = "/Users/admin/dotfiles";
-    };
+            username = "admin";
+            fullName = "Ivan Kotegov";
+            email = "ivan@kotegov.com";
+            nixConfigDirectory = "/Users/admin/dotfiles";
+          };
 
   in {
 
     lib = inputs.nixpkgs-unstable.lib.extend (_: _: {
 
-        mkDarwinSystem = import ./lib/mkDarwinSystem.nix inputs;
-        lsnix = import ./lib/lsnix.nix;
+      mkDarwinSystem = import ./lib/mkDarwinSystem.nix inputs;
+      mkNixosSystem = import ./lib/mkNixosSystem.nix inputs;
+      lsnix = import ./lib/lsnix.nix;
     });
 
     overlays = {
 
       pkgs-master = _: prev: {
-          pkgs-master = import inputs.nixpkgs-master {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsDefaults) config;
-          };
+        pkgs-master = import inputs.nixpkgs-master {
+          inherit (prev.stdenv) system;
+          inherit (nixpkgsDefaults) config;
         };
+      };
 
-        pkgs-stable = _: prev: {
-          pkgs-stable = import inputs.nixpkgs-stable {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsDefaults) config;
-          };
+      pkgs-stable = _: prev: {
+        pkgs-stable = import inputs.nixpkgs-stable {
+          inherit (prev.stdenv) system;
+          inherit (nixpkgsDefaults) config;
         };
+      };
 
-        pkgs-unstable = _: prev: {
-          pkgs-unstable = import inputs.nixpkgs-unstable {
-            inherit (prev.stdenv) system;
-            inherit (nixpkgsDefaults) config;
-          };
+      pkgs-unstable = _: prev: {
+        pkgs-unstable = import inputs.nixpkgs-unstable {
+          inherit (prev.stdenv) system;
+          inherit (nixpkgsDefaults) config;
         };
+      };
 
       apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
 
@@ -98,22 +99,22 @@
 
       vimUtils = import ./overlays/vimUtils.nix;
       vimPlugins = final: prev:
-        let
+      let
 
         inherit (self.overlays.vimUtils final prev) vimUtils;
       in {
         vimPlugins = prev.vimPlugins.extend (_: _:
-            vimUtils.buildVimPluginsFromFlakeInputs inputs [
+        vimUtils.buildVimPluginsFromFlakeInputs inputs [
 
               # flake input names here for a vim plugin repo
             ]
             );
-      };
+          };
 
-      neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
-      (inputs.neorg-overlay.overlays.default f p);
+          neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
+          (inputs.neorg-overlay.overlays.default f p);
 
-      tweaks = _: _: {
+          tweaks = _: _: {
 
         # Temporary overlays
       };
@@ -149,10 +150,10 @@
       home-user-info = { lib, ... }: {
         options.home.user-info =
           (self.darwinModules.primaryUser { inherit lib; }).options.users.primaryUser;
+        };
       };
-    };
 
-    darwinConfigurations = {
+      darwinConfigurations = {
       # Minimal config to bootstrap the system on Mac OS
 
       bootstrap-x86 = makeOverridable darwin.lib.darwinSystem {
@@ -168,33 +169,33 @@
       # Boombox config
       boombox = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
 
-          modules = attrValues self.darwinModules ++ singleton {
+        modules = attrValues self.darwinModules ++ singleton {
 
-            nixpkgs = nixpkgsDefaults;
-            networking.computerName = "boombox";
-            networking.hostName = "boombox";
-            networking.knownNetworkServices = [
-              "Wi-Fi"
-              "USB 10/100/1000 LAN"
-            ];
+          nixpkgs = nixpkgsDefaults;
+          networking.computerName = "boombox";
+          networking.hostName = "boombox";
+          networking.knownNetworkServices = [
+            "Wi-Fi"
+            "USB 10/100/1000 LAN"
+          ];
 
-            nix.registry.my.flake = inputs.self;
+          nix.registry.my.flake = inputs.self;
+        };
+
+        extraModules = singleton {
+
+          nix.linux-builder.enable = true;
+          nix.linux-builder.maxJobs = 8;
+          nix.linux-builder.config = {
+
+            virtualisation.cores = 8;
+            virtualisation.darwin-builder.memorySize = 12 * 1024;
           };
+        };
 
-          extraModules = singleton {
-
-            nix.linux-builder.enable = true;
-            nix.linux-builder.maxJobs = 8;
-            nix.linux-builder.config = {
-
-              virtualisation.cores = 8;
-              virtualisation.darwin-builder.memorySize = 12 * 1024;
-            };
-          };
-
-          inherit homeStateVersion;
-          homeModules = attrValues self.homeManagerModules;
-          extraHomeModules = [ mac-app-util.homeManagerModules.default ];
+        inherit homeStateVersion;
+        homeModules = attrValues self.homeManagerModules;
+        extraHomeModules = [ mac-app-util.homeManagerModules.default ];
       });
 
       # Config with small modifications needed/desired for CI with GitHub workflow
@@ -207,9 +208,9 @@
           environment.etc.shells.enable = mkForce false;
           environment.etc."nix/nix.conf".enable = mkForce false;
           homebrew.enable = mkForce false;
-          };
         };
       };
+    };
 
       # Config I use with non-NixOS Linux systems (e.g., cloud VMs etc.)
       # Build and activate on new system with:
@@ -229,6 +230,24 @@
         });
       };
 
+      nixosConfigurations = {
+
+        nixos = makeOverridable self.lib.mkNixosSystem {
+
+          modules = [ ./linux/configuration.nix ] ++ singleton {
+
+            nixpkgs = nixpkgsDefaults;
+            networking.hostName = "nixos";
+            networking.computerName = "nixos";
+
+            nix.registry.my.flake = inputs.self;
+          };
+
+          inherit homeStateVersion;
+          homeModules = attrValues self.homeManagerModules;
+        };
+      };
+
       # Config with small modifications needed/desired for CI with GitHub workflow
       homeConfigurations.runner = self.homeConfigurations.mekot.override (old: {
         modules = old.modules ++ singleton {
@@ -237,22 +256,22 @@
           home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
         };
       });
-  } // flake-utils.lib.eachDefaultSystem (system: {
+    } // flake-utils.lib.eachDefaultSystem (system: {
 
-    legacyPackages = import inputs.nixpkgs-unstable ( nixpkgsDefaults // { inherit system; } );
+      legacyPackages = import inputs.nixpkgs-unstable ( nixpkgsDefaults // { inherit system; } );
 
-    devShells = let pkgs = self.legacyPackages.${system}; in
-    {
+      devShells = let pkgs = self.legacyPackages.${system}; in
+      {
 
-      python = pkgs.mkShell {
+        python = pkgs.mkShell {
 
-        name = "python310";
-        inputsFrom = attrValues {
+          name = "python310";
+          inputsFrom = attrValues {
 
-          inherit (pkgs.pkgs-master.python310Packages) black isort;
-          inherit (pkgs) poetry python310 pyright;
+            inherit (pkgs.pkgs-master.python310Packages) black isort;
+            inherit (pkgs) poetry python310 pyright;
+          };
         };
       };
-    };
-  });
-}
+    });
+  }
