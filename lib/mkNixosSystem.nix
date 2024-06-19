@@ -42,7 +42,10 @@ inputs.nixpkgs-unstable.lib.nixosSystem {
 
         imports = homeModules ++ extraHomeModules;
         home.stateVersion = homeStateVersion;
-        home.user-info = config.users.primaryUser;
+
+        home.user-info = {
+          inherit username fullName email nixConfigDirectory;
+        };
       };
     })
   ];
