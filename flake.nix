@@ -234,7 +234,7 @@
 
         nixos = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
 
-          nixConfigDirectory = "/home/${primaryUserDefaults.username}/.config/nixpkgs";
+          nixConfigDirectory = "/home/${primaryUserDefaults.username}/git/dotfiles";
 
           modules = [ ./linux/configuration.nix ] ++ singleton {
 

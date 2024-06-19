@@ -84,8 +84,6 @@ let
 in {
 
 # }}}
-  # Neovim
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
   programs.neovim.enable = true;
 
   # Config and plugins ------------------------------------------------------------------------- {{{
