@@ -38,8 +38,6 @@ inputs.nixpkgs-unstable.lib.nixosSystem {
 
       home-manager.users.${username} = {
 
-        inherit username fullName email nixConfigDirectory;
-
         imports = homeModules ++ extraHomeModules;
         home.stateVersion = homeStateVersion;
 
