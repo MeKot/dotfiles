@@ -240,7 +240,6 @@
 
             nixpkgs = nixpkgsDefaults;
             networking.hostName = "nixos";
-            networking.computerName = "nixos";
 
             nix.registry.my.flake = inputs.self;
           };
