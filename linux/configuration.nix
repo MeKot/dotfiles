@@ -107,6 +107,9 @@
     ];
   };
 
+  programs.zsh.enable = true;
+
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
