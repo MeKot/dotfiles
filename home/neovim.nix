@@ -183,10 +183,7 @@ in {
     nil
     nixpkgs-fmt
 
-  ] ++ (builtins.attrValues (optionalAttrs (stdenv.system != "aarch64-darwin") {
-
-    ccls = ccls;
-  }));
+  ] ++ (lib.optionals (stdenv.system != "aarch64-darwin") [ clangd ]);
   # }}}
 }
 # vim: foldmethod=marker

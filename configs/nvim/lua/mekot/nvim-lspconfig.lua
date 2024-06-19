@@ -35,9 +35,8 @@ local function on_attach(client, bufnr)
 end
 
 local servers_config = {
-  bashls = {},
-  ccls = {},
-  jsonls = {},
+
+  clangd = {},
 
   nil_ls = {
     settings ={
