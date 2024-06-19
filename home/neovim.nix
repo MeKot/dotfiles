@@ -183,7 +183,11 @@ in {
     nil
     nixpkgs-fmt
 
-  ] ++ (lib.optionals (stdenv.system != "aarch64-darwin") [ clangd ]);
+  ] ++ (lib.optionals (stdenv.system != "aarch64-darwin") [
+
+    # Linux specific vim dependencies
+
+  ]);
   # }}}
 }
 # vim: foldmethod=marker
