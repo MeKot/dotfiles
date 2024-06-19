@@ -230,6 +230,8 @@
         });
       };
 
+      # Config for full NixOS system
+      # nixos-rebuild switch --impure --flake .#
       nixosConfigurations = {
 
         nixos = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
