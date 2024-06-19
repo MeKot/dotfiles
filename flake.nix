@@ -232,7 +232,9 @@
 
       nixosConfigurations = {
 
-        nixos = makeOverridable self.lib.mkNixosSystem {
+        nixos = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
+
+          nixConfigDirectory = "/home/${primaryUserDefaults.username}/.config/nixpkgs";
 
           modules = [ ./linux/configuration.nix ] ++ singleton {
 
@@ -245,7 +247,7 @@
 
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
-        };
+        });
       };
 
       # Config with small modifications needed/desired for CI with GitHub workflow
