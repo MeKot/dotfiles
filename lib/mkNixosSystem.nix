@@ -28,7 +28,7 @@ inputs.nixpkgs-unstable.lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager
     ({ config, ... }: {
 
-      nix.nixPath.nixpkgs = "${inputs.nixpkgs-unstable}";
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-unstable}" ];
 
       # `home-manager` config
       users.users.${username}.home = "/home/${username}";
