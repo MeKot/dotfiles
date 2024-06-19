@@ -238,7 +238,6 @@
 
           modules = [ ./linux/configuration.nix ] ++ singleton {
 
-            nixpkgs = nixpkgsDefaults;
             networking.hostName = "nixos";
 
             nix.registry.my.flake = inputs.self;

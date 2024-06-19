@@ -56,15 +56,16 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = false;
   services.xserver.desktopManager.gnome.enable = false;
-  services.xserver.xkbOptions = "caps:ctrl_modifier";
 
   # gsettings reset org.gnome.desktop.input-sources xkb-options
   # gsettings reset org.gnome.desktop.input-sources sources
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "gb";
-    xkbVariant = "";
+
+    xkb.variant = "";
+    xkb.layout = "gb";
+    xkb.options = "caps:ctrl_modifier";
   };
 
   # Configure console keymap
