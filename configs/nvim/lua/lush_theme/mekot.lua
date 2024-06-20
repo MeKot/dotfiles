@@ -99,10 +99,10 @@ return require'lush'(function(injected_functions)
     -- Any constant
     Constant { OrangeFg },
     String   { YellowFg }, -- a string constant: "this is a string"
-    Character { YellowFg }, -- a character constant: 'c', '\n'
-    Number    { PurpleFg }, -- a number constant: 234, 0xff
+    Character { String }, -- a character constant: 'c', '\n'
+    Number    { VioletFg }, -- a number constant: 234, 0xff
     Boolean   { RedFg }, -- a boolean constant: TRUE, false
-    Float     { PurpleFg }, -- a floating point constant: 2.3e10
+    Float     { Number }, -- a floating point constant: 2.3e10
 
     -- Any variable name
     Identifier { BaseFg },
