@@ -18,7 +18,6 @@ o.softtabstop=0
 o.conceallevel=2
 o.timeoutlen = 500
 o.colorcolumn="100"
-o.foldmethod="manual"
 o.background = "dark"
 
 o.hls=true
@@ -48,7 +47,16 @@ end
 
 cmd 'inoremap <special> jk <Esc>'
 
--- WhichKey maps -----------------------------------------------------------------------------------
+-- Title: Folds ------------------------------------------- {{{
+
+o.foldmethod="marker"
+
+
+
+-- }}}
+
+
+-- WhichKey maps ------------------------------------------------------------------------------{{{
 
 -- Define all `<Space>` prefixed keymaps with which-key.nvim
 -- https://github.com/folke/which-key.nvim
@@ -184,8 +192,9 @@ wk.register ({
   },
 
 }, { prefix = ',' })
+--}}}
 
--- Spaced prefiexd in mode Visual mode
+-- Spaced prefiexd in mode Visual mode -------------------------------------------{{{
 wk.register ({
   l = {
     name = '+LSP',
@@ -196,6 +205,7 @@ wk.register ({
 
 }, { prefix = ',' })
 
+--}}}
 
 vim.cmd [[
 
