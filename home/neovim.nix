@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-# Let-In ----------------------------------------------------------------------------------------{{{
+# Title: "Let-In" {{{
 let
   inherit (lib) concatStringsSep optional optionalAttrs;
   inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -86,7 +86,7 @@ in {
 # }}}
   programs.neovim.enable = true;
 
-  # Title: Config and plugins {{{
+  # Title: "Config and plugins" {{{
 
   # Put neovim configuration located in this repository into place in a way that edits to the
   # configuration don't require rebuilding the `home-manager` environment to take effect.
@@ -174,7 +174,7 @@ in {
 
   # }}}
 
-  # Title: Required packages {{{
+  # Title: "Required packages" {{{
 
   programs.neovim.extraPackages = with pkgs; [
     neovim-remote
