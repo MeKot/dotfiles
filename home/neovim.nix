@@ -86,7 +86,7 @@ in {
 # }}}
   programs.neovim.enable = true;
 
-  # Config and plugins ------------------------------------------------------------------------- {{{
+  # Title: Config and plugins {{{
 
   # Put neovim configuration located in this repository into place in a way that edits to the
   # configuration don't require rebuilding the `home-manager` environment to take effect.
@@ -174,7 +174,7 @@ in {
 
   # }}}
 
-  # Required packages -------------------------------------------------------------------------- {{{
+  # Title: Required packages {{{
 
   programs.neovim.extraPackages = with pkgs; [
     neovim-remote
@@ -190,4 +190,3 @@ in {
   ]);
   # }}}
 }
-# vim: foldmethod=marker
