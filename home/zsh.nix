@@ -1,4 +1,12 @@
-{ config, ... }:
+{ pkgs, config, ... }:
+let
+
+  inherit (config.home.user-info) nixConfigDirectory;
+
+  cutomPrefix = if (pkgs.stdenv.system == "aarch64-darwin")
+    then "$HOME"
+    else "${nixConfigDirectory}/configs/zsh";
+in
 {
 
   programs.zsh = {
@@ -35,7 +43,7 @@
        "z"
       ];
 
-      custom = "$HOME/.oh-my-custom";
+      custom = cutomPrefix + "/.oh-my-custom";
       theme = "robbyrussell";
     };
   };
