@@ -26,6 +26,7 @@ in
       catt = "cat";
       cat = "bat";
       gcam = "git commit -a -m";
+      nd = "nix develop -c $SHELL";
     };
 
     history = {
@@ -43,7 +44,7 @@ in
        "z"
       ];
 
-      custom = cutomPrefix + "/.oh-my-custom";
+      custom = cutomPrefix;
       theme = "robbyrussell";
     };
   };

@@ -92,7 +92,7 @@
         # Add access to x86 packages for ARM-backed systems
         pkgs-x86 = import inputs.nixpkgs-unstable {
 
-          system = "x86_64-dawrin";
+          system = "x86_64-darwin";
           inherit (nixpkgsDefaults) config;
         };
       };
