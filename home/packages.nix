@@ -27,6 +27,7 @@ Host *
 Host nixos
   User admin
   IdentityFile ~/.ssh/local
+  ServerAliveInterval 30
 
 Host gitlab.com
   IdentityFile ~/.ssh/git
