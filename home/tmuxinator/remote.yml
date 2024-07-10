@@ -20,3 +20,5 @@ root: ~/
 
 windows:
   - dev:
+  - build:
+  - scratch:
