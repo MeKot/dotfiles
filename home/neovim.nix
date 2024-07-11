@@ -85,6 +85,7 @@ in {
 
 # }}}
   programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
 
   # Title: "Config and plugins" {{{
 
