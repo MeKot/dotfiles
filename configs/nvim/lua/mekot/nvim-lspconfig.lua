@@ -55,7 +55,15 @@ local servers_config = {
     },
   },
 
-  pyright = {},
+  pyright = {
+
+    root_dir = function(fname)
+      return lspconf.util.root_pattern('pyrightconfig.json')(fname)
+    end,
+
+    single_file_support = true,
+  },
+
   sourcekit = {},
 
   vimls = {
@@ -92,7 +100,7 @@ local servers_config = {
 }
 
 foreach(servers_config, function(v, k)
-  lspconf[k].setup(require'cmp_nvim_lsp'.default_capabilities(
-    vim.tbl_extend('error', v, { on_attach = on_attach })
+  lspconf[k].setup(
+    vim.tbl_extend('keep', v, { on_attach = on_attach })
   ))
 end)

@@ -31,7 +31,7 @@
 
          normal = {
            black=   "0x1f1e1c";
-           red=     "0xf86882";
+           red=     "0xaf4049";
            green=   "0xa6cd77";
            yellow=  "0xf0c66f";
            blue=    "0x81d0c9";
@@ -42,10 +42,10 @@
 
          bright = {
            black=   "0x6a5e59";
-           red=     "0x55393d";
-           green=   "0x394634";
-           yellow=  "0x4e432f";
-           blue=    "0x354157";
+           red=     "0xe02b38";
+           green=   "0xa6cd77";
+           yellow=  "0xb38b42";
+           blue=    "0x4abab0";
            cyan =   "0xf08d71";
            magenta ="0x9fa0e1";
            white=   "0xe4e3e1";

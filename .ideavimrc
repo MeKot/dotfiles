@@ -1,0 +1,28 @@
+let mapleader=','
+
+set hls
+set wrap
+set hidden
+set cindent
+set showcmd
+set smarttab
+set surround
+set expandtab
+set smartcase
+set autoindent
+set cursorline
+set incsearch
+
+set number
+set relativenumber
+
+set tabstop=2
+set shiftwidth=2
+set sefttabstop=0
+set timeoutlen=100
+
+nnoremap <Leader>hs :split<CR>
+nnoremap <Leader>vs :vsplit<CR>
+
+inoremap <special> jk <Esc>
+

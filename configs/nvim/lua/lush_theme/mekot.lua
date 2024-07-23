@@ -14,7 +14,7 @@ end
 return require'lush'(function(injected_functions)
   local sym = injected_functions.sym
   return {
-    -- Building Blocks ------------------------------------------------------------------------- {{{
+    -- Title: "Building Blocks" {{{
 
     -- Basic colors
     DarkBaseBg     { bg = c.darkBase },
@@ -88,7 +88,7 @@ return require'lush'(function(injected_functions)
     HintText         { MutedFg },
     -- }}}
 
-    -- Basic Highlights ------------------------------------------------------------------------ {{{
+    -- Title: "Basic Highlights" {{{
 
     Normal      { BaseBg, fg = MainFg.fg },
     NormalNC    { Normal },
@@ -153,7 +153,7 @@ return require'lush'(function(injected_functions)
     Italic     { gui = 'italic' },
     --- }}}
 
-    -- Neovim UI ------------------------------------------------------------------------------- {{{
+    -- Title: "Neovim UI" {{{
 
 
     -- Cursors -------------------------------------------------------------------------------------
@@ -366,7 +366,7 @@ return require'lush'(function(injected_functions)
     -- Whitespace { },
     -- }}}
 
-    -- Builtin LSP ----------------------------------------------------------------------------- {{{
+    -- Title: "Builtin LSP" {{{
 
     -- These groups are for the native LSP client and diagnostic system. Some other LSP clients may
     -- use these groups, or use their own.
@@ -388,7 +388,7 @@ return require'lush'(function(injected_functions)
 
     -- }}}
 
-    -- Diagnostics ----------------------------------------------------------------------------- {{{
+    -- Title: "Diagnostics" -{{{
 
     -- Used as the base highlight groups. Other Diagnostic highlights link to these by default
     -- (except Underline)
@@ -422,7 +422,7 @@ return require'lush'(function(injected_functions)
     -- DiagnosticSignHint  { } ,
     -- }}}
 
-    -- TODO: TreeSitter ------------------------------------------------------------------------ {{{
+    -- Title: "TODO: TreeSitter" {{{
 
     -- Tree-Sitter syntax groups. Most link to corresponding
     -- vim syntax groups (e.g. TSKeyword => Keyword) by default.
@@ -498,7 +498,7 @@ return require'lush'(function(injected_functions)
 
     -- }}}
 
-    -- Plugins --------------------------------------------------------------------------------- {{{
+    -- Title: "Plugins" -{{{
 
 
     -- vim-floaterm --------------------------------------------------------------------------------

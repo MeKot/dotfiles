@@ -27,12 +27,20 @@ in
       cat = "bat";
       gcam = "git commit -a -m";
       nd = "nix develop -c $SHELL";
+      csv = "mlr --icsv --opprint";
     };
 
     history = {
       size = 10000;
       path = "${config.xdg.dataHome}/zsh/history";
     };
+
+    extraConfig = ''
+
+      source ~/.profile
+      source ~/.nix-profile
+
+    '';
 
     oh-my-zsh = {
       enable = true;

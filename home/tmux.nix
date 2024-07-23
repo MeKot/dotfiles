@@ -36,7 +36,7 @@ in
     terminal = "xterm-256color";
 
     shortcut = "a";
-    escapeTime = 0;
+    escapeTime = 1;
 
     keyMode = "vi";
     shell = "${pkgs.zsh}/bin/zsh";
@@ -45,6 +45,12 @@ in
     customPaneNavigationAndResize = true;
 
     extraConfig = ''
+set -g mouse on
+bind-key C-a send-key C-a
+bind-key s choose-tree -sZ -O name
+
+bind C-j split-window -v "tmux list-windows | fzf --reverse | awk -F ':' '{print $1;}' | xargs tmux select-window -t"
+
 set-option -g status-position top
 set-option -sa terminal-overrides ",xterm*:Tc"
     '';
