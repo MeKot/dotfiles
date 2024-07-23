@@ -35,13 +35,6 @@ in
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
-    extraConfig = ''
-
-      source ~/.profile
-      source ~/.nix-profile
-
-    '';
-
     oh-my-zsh = {
       enable = true;
       plugins = [
@@ -54,6 +47,14 @@ in
 
       custom = cutomPrefix;
       theme = "robbyrussell";
+
+      extraConfig = ''
+
+        source ~/.profile
+        source ~/.nix-profile
+
+      '';
+
     };
   };
 }
