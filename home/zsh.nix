@@ -14,7 +14,9 @@ in
     enableCompletion = true;
 
     shellAliases = {
-      ll = "ls -l";
+      ll = "ls -l --color=auto";
+      ls = "ls --color=auto";
+      l = "ls -la --color=auto";
       c = "clear";
       view = "nvim -R";
       gqs = "git-quick-stats";
@@ -49,10 +51,6 @@ in
       theme = "robbyrussell";
 
       extraConfig = ''
-
-        source ~/.profile
-        source ~/.nix-profile
-
       '';
 
     };

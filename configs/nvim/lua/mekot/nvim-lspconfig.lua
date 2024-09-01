@@ -102,5 +102,5 @@ local servers_config = {
 foreach(servers_config, function(v, k)
   lspconf[k].setup(
     vim.tbl_extend('keep', v, { on_attach = on_attach })
-  ))
+  )
 end)
