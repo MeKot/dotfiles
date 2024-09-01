@@ -31,6 +31,9 @@ Host nixos
 
 Host gitlab.com
   IdentityFile ~/.ssh/git
+
+Host github.com
+  IdentityFile ~/.ssh/git
   '';
 
   programs.fzf.enableZshIntegration = true;
