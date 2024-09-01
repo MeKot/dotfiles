@@ -53,6 +53,8 @@
   # Enable the X11 windowing system.
   services.xserver.enable = false;
 
+  services.tailscale.enable = true;
+
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = false;
   services.xserver.desktopManager.gnome.enable = false;
