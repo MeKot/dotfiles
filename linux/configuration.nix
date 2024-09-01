@@ -132,15 +132,15 @@
     enable = true;
     startWhenNeeded = true;
     settings = {
-      PermitRootLogin = "yes";
-      PasswordAuthentication = true;
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
     };
 
     extraConfig = ''
-      TCPKeepAlive yes
       KeepAlive yes
-      ClientAliveInterval 60
-      ClientAliveCountMax 15
+      TCPKeepAlive yes
+      ClientAliveInterval 30
+      ClientAliveCountMax 2
       SetEnv IGNOREOF=10
     '';
   };

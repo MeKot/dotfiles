@@ -22,12 +22,12 @@
 
   programs.ssh.extraConfig = ''
 Host *
-    ServerAliveInterval 60
+  ServerAliveInterval 30
+  ServerAliveCountMax 2
 
 Host nixos
   User admin
   IdentityFile ~/.ssh/local
-  ServerAliveInterval 30
 
 Host gitlab.com
   IdentityFile ~/.ssh/git
