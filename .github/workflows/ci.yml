@@ -76,6 +76,13 @@ jobs:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+      if: ${{ failure() }}
+      with:
+        ## If no one connects after 5 minutes, shut down server.
+        wait-timeout-minutes: 5
+
     - name: Setup Cachix
       uses: cachix/cachix-action@v14
       with:
