@@ -208,6 +208,8 @@
           environment.etc.shells.enable = mkForce false;
           environment.etc."nix/nix.conf".enable = mkForce false;
           homebrew.enable = mkForce false;
+
+          ids.gids.nixbld = 30000;
         };
       };
     };
