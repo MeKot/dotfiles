@@ -105,7 +105,7 @@ update() {
 }
 
 set_space_label() {
-  sketchybar --set ''$NAME icon="''$@" label.color=''$SELECTED
+  sketchybar --set ''$NAME icon="''$@" label.color=''$SELECTED icon.color=''$SELECTED
 }
 
 mouse_clicked() {
@@ -846,16 +846,16 @@ do
 
   space=(
     space=''$sid
-    icon="''${SPACE_ICONS[i]}"
-    icon.padding_left=10
-    icon.padding_right=10
     padding_left=2
     padding_right=2
-    label.padding_right=20
+    icon="''${SPACE_ICONS[i]}"
+    icon.padding_left=8
+    icon.padding_right=0
     icon.highlight_color=''$RED
     label.color=''$WHITE
-    label.highlight_color=''$WHITE
+    label.highlight_color=''$RED
     label.font="sketchybar-app-font:Regular:16.0"
+    label.padding_right=20
     label.y_offset=-1
     background.color=''$BLACK
     background.border_color=''$BLACK
