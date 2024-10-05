@@ -209,7 +209,7 @@
           environment.etc."nix/nix.conf".enable = mkForce false;
           homebrew.enable = mkForce false;
 
-          ids.gids.nixbld = 30000;
+          ids.gids.nixbld = 350;
         };
       };
     };
