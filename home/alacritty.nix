@@ -55,7 +55,7 @@
        window = {
          decorations = "buttonless";
          padding = {
-            x = 2;
+            x = 1;
          };
        };
      };
