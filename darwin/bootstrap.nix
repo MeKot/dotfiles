@@ -3,11 +3,11 @@
   nix.settings = {
     substituters = [
       "https://cache.nixos.org/"
-      "https://mekot.cachix.org"
+      "https://mekot.cachix.org/"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "mekot.cachix.org-1:I5LmlrWstoNGDX/ouE2kqi9yQpDerxX/AHiaE6ctbT0="
+      "mekot.cachix.org-1:Yuv6hTpLeV5m8Un4buk+C8z2Went6peRvPzgS7LjmsA="
     ];
 
     trusted-users = [ "@admin" ];
