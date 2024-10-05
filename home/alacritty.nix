@@ -6,8 +6,8 @@
      settings = {
        live_config_reload = false;
        font = {
-         normal.family = "Hack Nerd Font";
-         size = 14;
+         normal.family = "IosevkaMeKot Nerd Font";
+         size = 15;
        };
 
        shell = {
@@ -54,6 +54,9 @@
 
        window = {
          decorations = "buttonless";
+         padding = {
+            x = 2;
+         };
        };
      };
    };

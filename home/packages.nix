@@ -58,6 +58,7 @@ Host github.com
       cloc # source code line counter
       jq
       nodejs
+      iosevka-mekot
       ;
 
     # Useful nix related tools

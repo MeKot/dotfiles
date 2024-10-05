@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
 
-  barColors = pkgs.writeScriptBin "colors.sh" 
+  barColors = pkgs.writeScriptBin "colors.sh"
     ''
 #!/bin/bash
 
@@ -31,7 +31,7 @@ export POPUP_BORDER_COLOR=$BLACK
 export SHADOW_COLOR=$BLACK
     '';
 
-  icons = pkgs.writeScriptBin "icons.sh" 
+  icons = pkgs.writeScriptBin "icons.sh"
     ''
 #!/bin/bash
 
@@ -92,7 +92,7 @@ MODE_CMD=􀂙
 MODE_PENDING=􀈏
     '';
 
-  spaceManagerScript = pkgs.writeScriptBin "space.sh" 
+  spaceManagerScript = pkgs.writeScriptBin "space.sh"
     ''
 #!/bin/bash
 
@@ -105,7 +105,7 @@ update() {
 }
 
 set_space_label() {
-  sketchybar --set ''$NAME icon="''$@" label.color=''$WHITE
+  sketchybar --set ''$NAME icon="''$@" label.color=''$SELECTED
 }
 
 mouse_clicked() {
@@ -553,7 +553,7 @@ esac
 echo $icon_result
     '';
 
-  spaceCreatorScript = pkgs.writeScriptBin "space_creator.sh" 
+  spaceCreatorScript = pkgs.writeScriptBin "space_creator.sh"
     ''
 #!/bin/bash
 
@@ -578,13 +578,13 @@ if [ "$SENDER" = "space_windows_change" ]; then
 fi
     '';
 
-  wifiScript = pkgs.writeScriptBin "wifi_script.sh" 
+  wifiScript = pkgs.writeScriptBin "wifi_script.sh"
     ''
 #!/bin/bash
 
 update() {
   source "${icons}/bin/icons.sh"
-  INFO="''$(/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I | awk -F ' SSID: '  '/ SSID: / {print ''$2}')"
+  INFO="''$(system_profiler SPAirPortDataType | awk '/Current Network/ {getline;$1=$1; gsub(":",""); print;exit}')"
   LABEL=" "
   ICON="''$([ -n "''$INFO" ] && echo "''$WIFI_CONNECTED" || echo "''$WIFI_DISCONNECTED")"
 
@@ -610,7 +610,7 @@ case "''$SENDER" in
 esac
     '';
 
-  batteryScript = pkgs.writeScriptBin "battery_script.sh" 
+  batteryScript = pkgs.writeScriptBin "battery_script.sh"
     ''
 #!/bin/bash
 
@@ -649,14 +649,14 @@ LABEL="''$PERCENTAGE%"
 sketchybar --set ''$NAME drawing=''$DRAWING icon="''$ICON" icon.color=''$COLOR label="''$LABEL" label.color=''$COLOR
     '';
 
-  calendarScript = pkgs.writeScriptBin "calendar_script.sh" 
+  calendarScript = pkgs.writeScriptBin "calendar_script.sh"
     ''
 #!/bin/bash
 
 sketchybar --set ''$NAME icon="''$(date '+%a %d %b')" label="''$(date '+%H:%M')"
     '';
 
-  volumeScript = pkgs.writeScriptBin "volume_script.sh" 
+  volumeScript = pkgs.writeScriptBin "volume_script.sh"
     ''
 #!/bin/bash
 
@@ -681,7 +681,7 @@ volume_change() {
   sketchybar --set volume_icon label=''$ICON
 
   sketchybar --set ''$NAME slider.percentage=''$INFO \
-             --animate tanh 30 --set ''$NAME slider.width=''$WIDTH 
+             --animate tanh 30 --set ''$NAME slider.width=''$WIDTH
 
   sleep 2
 

@@ -22,4 +22,18 @@ require 'noice'.setup {
     long_message_to_split = true,
     -- lsp_doc_border = true,
   },
+
+  routes = {
+    {
+      filter = { event = "msg_show", kind = "" },
+      opts = { skip = true },
+    },
+    {
+      filter = {
+        event = "msg_show",
+        kind = "search_count",
+      },
+      opts = { skip = true },
+    },
+  },
 }

@@ -1,18 +1,12 @@
 { pkgs, ... }:
-let
-
-  hackNerdFont = pkgs.callPackage ./fonts/font-hack-nerd-font.nix {};
-
-in
 {
   programs.nix-index.enable = true;
 
   # Fonts
   fonts.packages = with pkgs; [
-     recursive
-     hack-font
-     hackNerdFont
-     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    recursive
+    hack-font
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
    ];
 
   # Keyboard

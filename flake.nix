@@ -21,7 +21,6 @@
   };
 
   outputs = { self, darwin, home-manager, flake-utils, mac-app-util, ... }@inputs:
-
   let
 
     inherit (self.lib) attrValues makeOverridable mkForce optionalAttrs singleton;
@@ -41,19 +40,17 @@
           inherit (final.pkgs-x86)
               # This is where the default overlays for x86 packages would come for a mac
               ;
-            }) // {
+          }) //
+      { });
+    };
 
-            }
-            );
-          };
+    primaryUserDefaults = {
 
-          primaryUserDefaults = {
-
-            username = "admin";
-            fullName = "Ivan Kotegov";
-            email = "ivan@kotegov.com";
-            nixConfigDirectory = "/Users/admin/dotfiles";
-          };
+      username = "admin";
+      fullName = "Ivan Kotegov";
+      email = "ivan@kotegov.com";
+      nixConfigDirectory = "/Users/admin/dotfiles";
+    };
 
   in {
 
@@ -98,23 +95,21 @@
       };
 
       vimUtils = import ./overlays/vimUtils.nix;
-      vimPlugins = final: prev:
-      let
-
-        inherit (self.overlays.vimUtils final prev) vimUtils;
-      in {
+      vimPlugins = final: prev: let inherit (self.overlays.vimUtils final prev) vimUtils; in
+      {
         vimPlugins = prev.vimPlugins.extend (_: _:
         vimUtils.buildVimPluginsFromFlakeInputs inputs [
 
               # flake input names here for a vim plugin repo
-            ]
-            );
-          };
+        ]);
+      };
 
-          neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
-          (inputs.neorg-overlay.overlays.default f p);
+      iosevka-mekot = import ./fonts/iosevka-mekot.nix inputs;
 
-          tweaks = _: _: {
+      neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
+        (inputs.neorg-overlay.overlays.default f p);
+
+      tweaks = _: _: {
 
         # Temporary overlays
       };
