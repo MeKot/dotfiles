@@ -110,7 +110,9 @@
       zsh
       gnupg
       git-crypt
+
       keybase
+      kbfs
     ];
   };
 
