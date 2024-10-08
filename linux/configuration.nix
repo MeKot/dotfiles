@@ -110,6 +110,7 @@
       zsh
       gnupg
       git-crypt
+      keybase
     ];
   };
 
