@@ -6,7 +6,7 @@
   fonts.packages = with pkgs; [
     recursive
     hack-font
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    jetbrains-mono
    ];
 
   # Keyboard
