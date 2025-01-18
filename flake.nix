@@ -179,7 +179,7 @@
 
         extraModules = singleton {
 
-          nix.linux-builder.enable = true;
+          nix.linux-builder.enable = false;
           nix.linux-builder.ephemeral = true;
           nix.linux-builder.maxJobs = 8;
           nix.linux-builder.config = {
