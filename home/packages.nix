@@ -43,7 +43,6 @@ Host github.com
     inherit (pkgs)
       fzf
       miller
-      xsv
       bandwhich # display current network utilization by process
       bottom # fancy version of `top` with ASCII graphs
       coreutils
