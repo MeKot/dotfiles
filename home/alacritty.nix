@@ -4,13 +4,12 @@
   programs.alacritty = {
      enable = true;
      settings = {
-       live_config_reload = false;
        font = {
          normal.family = "IosevkaMeKot Nerd Font";
          size = 15;
        };
 
-       shell = {
+       terminal.shell = {
          program = "${pkgs.zsh}/bin/zsh";
        };
 
