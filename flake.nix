@@ -120,7 +120,7 @@
       app-utils = mac-app-util.darwinModules.default;
 
       bootstrap = import ./darwin/bootstrap.nix;
-      defaults = import ./darwin/defaults.nix;
+      defaults = import ./darwin/defaults.nix primaryUserDefaults;
       general = import ./darwin/general.nix;
       homebrew = import ./darwin/homebrew.nix;
 

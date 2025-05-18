@@ -1,5 +1,4 @@
-{
-
+{ username, ... }: { ... }: {
 
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling" = 1.4;
@@ -56,4 +55,6 @@
   system.defaults.finder = {
     FXEnableExtensionChangeWarning = true;
   };
+
+  system.primaryUser = username;
 }
