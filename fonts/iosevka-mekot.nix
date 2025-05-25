@@ -25,7 +25,7 @@ let
             buildPhase = ''
                   for fontfile in ${plainPackage}/share/fonts/truetype/*
                   do
-                  nerd-font-patcher $fontfile --complete --careful --outputdir ${outDir}
+                  nerd-font-patcher $fontfile --complete --makegroups 0 --careful --outputdir ${outDir}
                   done
                   '';
             dontInstall = true;
