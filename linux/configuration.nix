@@ -59,8 +59,8 @@
   services.tailscale.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
+  services.desktopManager.gnome.enable = false;
 
   # gsettings reset org.gnome.desktop.input-sources xkb-options
   # gsettings reset org.gnome.desktop.input-sources sources
@@ -80,7 +80,7 @@
   services.printing.enable = false;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -156,10 +156,10 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  services.logind = {
-    lidSwitchExternalPower = "ignore";
-    lidSwitchDocked = "ignore";
-    lidSwitch = "suspend";
+  services.logind.settings.Login = {
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    HandleLidSwitch = "suspend";
   };
 
 
