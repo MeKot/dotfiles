@@ -11,7 +11,6 @@
         /etc/nixos/hardware-configuration.nix
     ];
 
-  nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -32,8 +31,8 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.trusted-public-keys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     "mekot.cachix.org-1:Yuv6hTpLeV5m8Un4buk+C8z2Went6peRvPzgS7LjmsA="
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
   # Set your time zone.
