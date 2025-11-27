@@ -11,7 +11,7 @@
 
       layout = "bsp";
 
-      top_padding = 8;
+      top_padding = 6;
       left_padding = 8;
       right_padding = 8;
       bottom_padding = 8;

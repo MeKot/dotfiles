@@ -793,7 +793,7 @@ bar=(
   sticky=on
   padding_right=10
   padding_left=10
-  y_offset=-5
+  y_offset=-4
   margin=-2
   topmost=window
 )
