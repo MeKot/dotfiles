@@ -100,4 +100,5 @@ local servers_config = {
 
 foreach(servers_config, function(v, k)
   vim.lsp.config(k, vim.tbl_extend('keep', v, { on_attach = on_attach }))
+  vim.lsp.enable(k)
 end)
