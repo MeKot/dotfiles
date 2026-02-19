@@ -15,8 +15,6 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local lspconf = require 'lspconfig'
-
 local function on_attach(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
     augroup { name = 'MekotLspDocumentHighlights' .. bufnr, cmds = {
@@ -57,8 +55,9 @@ local servers_config = {
 
   pyright = {
 
-    root_dir = function(fname)
-      return lspconf.util.root_pattern('pyrightconfig.json')(fname)
+    root_dir = function(bufnr, on_dir)
+      local fname = vim.api.nvim_buf_get_name(bufnr)
+      on_dir(require'lspconfig.util'.root_pattern('pyrightconfig.json')(fname))
     end,
 
     single_file_support = true,
@@ -100,7 +99,5 @@ local servers_config = {
 }
 
 foreach(servers_config, function(v, k)
-  lspconf[k].setup(
-    vim.tbl_extend('keep', v, { on_attach = on_attach })
-  )
+  vim.lsp.config(k, vim.tbl_extend('keep', v, { on_attach = on_attach }))
 end)
