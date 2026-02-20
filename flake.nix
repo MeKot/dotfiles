@@ -25,7 +25,7 @@
 
     inherit (self.lib) attrValues makeOverridable mkForce optionalAttrs singleton;
 
-    homeStateVersion = "25.05";
+    homeStateVersion = "26.05";
 
     nixpkgsDefaults = {
 
