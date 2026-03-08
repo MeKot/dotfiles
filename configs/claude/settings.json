@@ -13,6 +13,14 @@
       "Bash(gh api *--input *)"
     ],
     "allow": [
+      "Read(~/dotfiles/**)",
+      "Bash(darwin-rebuild build --no-nom)",
+      "Bash(home-manager build:*)",
+      "Bash(darwin-rebuild build:*)",
+      "Bash(nix flake:*)",
+      "Bash(nix-instantiate:*)",
+      "Bash(darwin-rebuild:*)",
+      "Bash(echo:*)",
       "Bash(git add *)",
       "Bash(git branch *)",
       "Bash(git diff *)",
