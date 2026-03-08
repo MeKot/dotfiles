@@ -138,6 +138,7 @@
       zsh = import ./home/zsh.nix;
       git = import ./home/git.nix;
       alacritty = import ./home/alacritty.nix;
+      ghostty = import ./home/ghostty.nix;
       tmux = import ./home/tmux.nix;
 
       claude = import ./home/claude.nix;
