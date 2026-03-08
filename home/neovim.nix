@@ -4,6 +4,7 @@ let
   inherit (lib) concatStringsSep optional optionalAttrs;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
+  inherit (config.mekot) colors;
 
   mkLuaTableFromList = x: "{" + lib.concatMapStringsSep "," (y: "'${y}'") x + "}";
   mkNeovimAutocmd = { event, pattern, callback ? "" }: ''
@@ -95,8 +96,29 @@ in {
   xdg.configFile."nvim/colors".source =
     mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
 
-  # Load the `init` module from the above configs
-  programs.neovim.extraConfig = "lua require('init')";
+  # Inject Nix-generated colors as a Lua global before the init module loads.
+  # theme.lua reads vim.g.nix_colors and falls back to hardcoded values if unset.
+  programs.neovim.extraConfig = ''
+    lua << EOF
+    vim.g.nix_colors = {
+      darkBase     = '${colors.bg}',
+      darkestTone  = '${colors.darkest}',
+      darkBaseHl   = '${colors.surface}',
+      darkTone     = '${colors.tone}',
+      lightestTone = '${colors.subtle}',
+      lightBase    = '${colors.fg}',
+      yellow       = '${colors.yellow}',
+      orange       = '${colors.orange}',
+      red          = '${colors.nvimRed}',
+      violet       = '${colors.violet}',
+      blue         = '${colors.blue}',
+      green        = '${colors.green}',
+      cyan         = '${colors.cyan}',
+      muted        = '${colors.muted}',
+    }
+    EOF
+    lua require('init')'';
+
 
   # Add `penlight` Lua module package since I used in the above configs
   programs.neovim.extraLuaPackages = ps: [ ps.penlight ];

@@ -1,62 +1,64 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+
+let
+  inherit (config.mekot) colors;
+
+  # Alacritty uses "0xhex" format (no '#')
+  a = c: "0x${builtins.substring 1 6 c}";
+in
+
 {
-
   programs.alacritty = {
-     enable = true;
-     settings = {
-       font = {
-         normal.family = "IosevkaMeKot Nerd Font";
-         size = 15;
-       };
+    enable = true;
+    settings = {
+      font = {
+        normal.family = "IosevkaMeKot Nerd Font";
+        size = 15;
+      };
 
-       terminal.shell = {
-         program = "${pkgs.zsh}/bin/zsh";
-       };
+      terminal.shell = {
+        program = "${pkgs.zsh}/bin/zsh";
+      };
 
-       # Base16 Bright - alacritty color config
-       # Chris Kempson (http://chriskempson.com)
-       colors = {
-         # Default colors
-         primary = {
-           background = "0x242120";
-           foreground = "0xe4e3e1";
-         };
+      colors = {
+        primary = {
+          background = a colors.bg;
+          foreground = a colors.fg;
+        };
 
-         # Colors the cursor will use if `custom_cursor_colors` is true
-         cursor = {
-           text= "0x242120";
-           cursor= "0xe4e3e1";
-         };
+        cursor = {
+          text   = a colors.cursorFg;
+          cursor = a colors.cursorBg;
+        };
 
-         normal = {
-           black=   "0x1f1e1c";
-           red=     "0xaf4049";
-           green=   "0xa6cd77";
-           yellow=  "0xf0c66f";
-           blue=    "0x81d0c9";
-           cyan=    "0xf08d71";
-           magenta ="0x9fa0e1";
-           white=   "0xe4e3e1";
-         };
+        # Solarized-style slot assignment: violet in magenta slot, orange in cyan slot
+        normal = {
+          black   = a colors.darkest;
+          red     = a colors.red;
+          green   = a colors.green;
+          yellow  = a colors.yellow;
+          blue    = a colors.blue;
+          magenta = a colors.violet;
+          cyan    = a colors.orange;
+          white   = a colors.fg;
+        };
 
-         bright = {
-           black=   "0x6a5e59";
-           red=     "0xe02b38";
-           green=   "0xa6cd77";
-           yellow=  "0xb38b42";
-           blue=    "0x4abab0";
-           cyan =   "0xf08d71";
-           magenta ="0x9fa0e1";
-           white=   "0xe4e3e1";
-         };
-       };
+        bright = {
+          black   = a colors.muted;
+          red     = a colors.brRed;
+          green   = a colors.brGreen;
+          yellow  = a colors.brYellow;
+          blue    = a colors.brBlue;
+          magenta = a colors.brViolet;
+          cyan    = a colors.brOrange;
+          white   = a colors.fg;
+        };
+      };
 
-       window = {
-         decorations = "buttonless";
-         padding = {
-            x = 1;
-         };
-       };
-     };
-   };
+      window = {
+        decorations = "buttonless";
+        padding.x = 1;
+      };
+    };
+  };
 }

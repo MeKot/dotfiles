@@ -134,6 +134,8 @@
 
     homeManagerModules = {
 
+      colors = import ./home/colors.nix;
+
       config-files = import ./home/config-files.nix;
       zsh = import ./home/zsh.nix;
       git = import ./home/git.nix;
