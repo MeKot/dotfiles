@@ -1,0 +1,49 @@
+{
+  "name": "malos-plugins",
+  "description": "Malo's personal Claude Code plugins",
+  "owner": {
+    "name": "Malo Bourgon"
+  },
+  "plugins": [
+    {
+      "name": "ai-sdk",
+      "description": "Tools for working with Vercel AI SDK - documentation lookup, model queries, and AI Gateway integration",
+      "source": "./ai-sdk"
+    },
+    {
+      "name": "nix-lsp",
+      "description": "Nix language server integration using nixd",
+      "source": "./nix-lsp"
+    },
+    {
+      "name": "json-lsp",
+      "description": "JSON language server integration for schema validation and diagnostics",
+      "source": "./json-lsp"
+    },
+    {
+      "name": "tts",
+      "description": "Text-to-speech for Claude responses using macOS say command",
+      "source": "./tts"
+    },
+    {
+      "name": "pua-unicode",
+      "description": "Workaround for BMP PUA Unicode filtering with placeholder syntax and automatic conversion (primarily for Nerd Font icons)",
+      "source": "./pua-unicode"
+    },
+    {
+      "name": "cc-maintenance",
+      "description": "Claude Code maintenance utilities - audit permissions, clean up settings, and keep your configuration healthy",
+      "source": "./cc-maintenance"
+    },
+    {
+      "name": "homebrew",
+      "description": "Tools for working with Homebrew - cask creation, package management, and more",
+      "source": "./homebrew"
+    },
+    {
+      "name": "haskell-lsp",
+      "description": "Haskell Language Server integration via HLS",
+      "source": "./haskell-lsp"
+    }
+  ]
+}

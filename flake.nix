@@ -118,6 +118,7 @@
     darwinModules = {
 
       app-utils = mac-app-util.darwinModules.default;
+      claude-managed-settings = import ./darwin/claude-managed-settings.nix;
 
       bootstrap = import ./darwin/bootstrap.nix;
       defaults = import ./darwin/defaults.nix primaryUserDefaults;
@@ -138,6 +139,8 @@
       git = import ./home/git.nix;
       alacritty = import ./home/alacritty.nix;
       tmux = import ./home/tmux.nix;
+
+      claude = import ./home/claude.nix;
 
       neovim = import ./home/neovim.nix;
       packages = import ./home/packages.nix;

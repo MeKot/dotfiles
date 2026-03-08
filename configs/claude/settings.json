@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD": "1"
+  },
+  "permissions": {
+    "ask": [
+      "Bash(gh api *-X *)",
+      "Bash(gh api *--method *)",
+      "Bash(gh api *-f *)",
+      "Bash(gh api *-F *)",
+      "Bash(gh api *--input *)"
+    ],
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git branch *)",
+      "Bash(git diff *)",
+      "Bash(git init *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git status *)",
+      "Bash(cat *)",
+      "Bash(du *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(head *)",
+      "Bash(launchctl list *)",
+      "Bash(ls *)",
+      "Bash(md5 *)",
+      "Bash(mdls *)",
+      "Bash(sort *)",
+      "Bash(strings *)",
+      "Bash(tail *)",
+      "Bash(tree *)",
+      "Bash(unzip *)",
+      "Bash(wc *)",
+      "Bash(xxd *)",
+      "Bash(nh darwin build *)",
+      "Bash(nh darwin switch *)",
+      "Bash(nix build *)",
+      "Bash(nix develop *)",
+      "Bash(nix eval *)",
+      "Bash(nix flake *)",
+      "Bash(nix path-info *)",
+      "Bash(nix-prefetch-github *)",
+      "Bash(nix-prefetch-url *)",
+      "Bash(nix-build *)",
+      "Bash(brew info *)",
+      "Bash(brew search *)",
+      "Bash(gh api *)",
+      "Bash(gh auth status *)",
+      "Bash(gh issue list *)",
+      "Bash(gh issue view *)",
+      "Bash(gh pr checks *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr view *)",
+      "Bash(gh release list *)",
+      "Bash(gh release view *)",
+      "Bash(gh repo list *)",
+      "Bash(gh repo view *)",
+      "Bash(gh run list *)",
+      "Bash(gh run view *)",
+      "Bash(gh search *)",
+      "Bash(npm view *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm list *)",
+      "Bash(lsof *)",
+      "Bash(open *)",
+      "Bash(pbcopy)",
+      "Bash(ps *)",
+      "Bash(xcodebuild *)",
+      "Bash(mkdir -p ~/.claude/research/*)",
+      "Bash(cargo build *)",
+      "Bash(deno check *)",
+      "Bash(deno lint *)",
+      "Bash(npx firecrawl-cli *)",
+      "Bash(npx tsc *)",
+      "Bash(npx tsx *)",
+      "Bash(uv add *)",
+      "Bash(uv pip show *)",
+      "Bash(uv sync *)",
+      "Bash(uv venv *)",
+      "Bash(* --help *)",
+      "Bash(* --version)",
+      "Skill(plugin-dev:*)",
+      "Skill(tts:*)",
+      "Read(//nix/store/**)",
+      "Read(//tmp/**)",
+      "Write(//tmp/**)",
+      "Edit(//tmp/**)"
+    ],
+    "additionalDirectories": [
+      "~/.claude"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/shellcheck-lint.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-ghostty.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true,
+    "nix-lsp@malos-plugins": true,
+    "json-lsp@malos-plugins": true,
+    "tts@malos-plugins": true,
+    "cc-maintenance@malos-plugins": true,
+    "claude-md-management@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "haskell-lsp@malos-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "miri-tools": {
+      "source": {
+        "source": "github",
+        "repo": "machine-intelligence/claude-code-plugins"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true
+}
