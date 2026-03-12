@@ -54,6 +54,7 @@ M.loadColorscheme = function ()
 
   -- Apply colorscheme
   lush(finalSpec)
+  vim.api.nvim_set_hl(0, "@markup.strikethrough", { strikethrough = true })
 
   -- Set `nvim-web-devicons` highlights if they are in use
   if pcall(require, 'nvim-web-devicons') then require'nvim-web-devicons'.setup() end

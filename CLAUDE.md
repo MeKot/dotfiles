@@ -101,6 +101,7 @@ rm -rf ~/.claude/plugins/cache/user-plugins/<plugin-name>
 
 ## Conventions
 
+- Comments: avoid them unless the logic is genuinely non-obvious. When adding one, make it concise — no narrating what the code does, no multi-line explanations for a single thought.
 - Follow nixpkgs code style
 - Line length: 100 columns
 - Section banners: `# Section name` followed by dashes to column 100, with a blank line before and after

@@ -15,7 +15,6 @@ neorg.setup {
         default_workspace="notes",
       },
     },
-    ["core.autocommands"] = {},
     ["core.integrations.treesitter"] = {},
     ["core.integrations.telescope"] = {
       config = {
