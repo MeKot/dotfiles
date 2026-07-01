@@ -103,6 +103,7 @@
       "~/.claude"
     ]
   },
+  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {
@@ -150,6 +151,9 @@
       }
     }
   },
+  "effortLevel": "xhigh",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "light-ansi",
   "voiceEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "tui": "fullscreen"
 }
