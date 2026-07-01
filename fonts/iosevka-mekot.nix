@@ -7,10 +7,14 @@ let
     (system:
       let
         pkgs = prev;
-        plainPackage = pkgs.iosevka.override {
+        # ttfautohint SIGABRTs under high parallelism, so cap the font build's
+        # jCmd (--jCmd=$NIX_BUILD_CORES) to keep it reproducible across machines.
+        plainPackage = (pkgs.iosevka.override {
           privateBuildPlan = builtins.readFile ./iosevka-mekot.toml;
           set = "MeKot";
-        };
+        }).overrideAttrs (_: {
+          preBuild = "export NIX_BUILD_CORES=1";
+        });
 
         nerdFontPackage = let outDir = "$out/share/fonts/truetype/"; in
           pkgs.stdenv.mkDerivation {
