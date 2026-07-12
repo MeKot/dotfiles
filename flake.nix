@@ -109,9 +109,12 @@
       neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
         (inputs.neorg-overlay.overlays.default f p);
 
-      tweaks = _: _: {
+      tweaks = final: _: {
 
-        # Temporary overlays
+        # unstable's cctools ld (1010.6) crashes linking these hand-rolled C/ObjC
+        # makefiles, and the newer versions aren't in the binary cache; pin to
+        # stable's prebuilt builds until the toolchain regression is fixed.
+        inherit (final.pkgs-stable) yabai sketchybar;
       };
     };
 
