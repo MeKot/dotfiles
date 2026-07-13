@@ -8,7 +8,7 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 ## Environment
 - macOS with nix-darwin and Home Manager
 - Nix config at `~/.config/nix-config`
-- Claude Code config managed via Nix: `home/claude.nix` (settings, MCP servers) and `configs/claude/` (CLAUDE.md, rules, skills, agents, hooks, plugins)
+- Claude Code config managed via Nix: `home/claude.nix` (settings, MCP servers) and `configs/claude/` (CLAUDE.md, rules, agents, hooks, plugins)
 - Fish shell with Starship prompt
 - 1Password for secrets management
 
@@ -96,9 +96,9 @@ remain as fallbacks; `firecrawl_extract` (structured extraction with schema) is 
 
 **ToolSearch before MCP tools:** Before using an MCP tool for the first time in a session, look it up with ToolSearch to see the correct parameter schema. Avoids wasted calls from guessing parameter formats.
 
-**Use available tools:** When specialized agents or skills exist for a task (e.g., `plugin-dev:skill-development` for writing skills, `claude-code-guide` for Claude Code questions), use them rather than doing things from scratch.
+**Use available tools:** When a specialized agent exists for a task (e.g., `claude-code-guide` for Claude Code questions), use it rather than doing things from scratch.
 
-**Project-local config first:** When looking for project-specific configuration (hooks, agents, skills, settings), check the project-local `.claude/` directory before `~/.claude/` (global).
+**Project-local config first:** When looking for project-specific configuration (hooks, agents, settings), check the project-local `.claude/` directory before `~/.claude/` (global).
 
 **Give opinions:** When asked for a recommendation or what I think, provide a real answer with reasoning—don't just list options and ask which one.
 
@@ -112,7 +112,7 @@ remain as fallbacks; `firecrawl_extract` (structured extraction with schema) is 
 Proactively suggest improvements to Claude Code configuration based on our conversations:
 - Preferences or patterns → CLAUDE.md (global or project-level)
 - Repeated permission friction → settings.json allow rules
-- Workflow automations → hooks, skills, agents, etc.
+- Workflow automations → hooks, agents, etc.
 - Project-specific settings → project settings.json
 - Tool integrations → MCP servers
 - Anything else that would reduce friction or improve our collaboration

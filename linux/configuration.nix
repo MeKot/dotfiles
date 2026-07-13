@@ -1,19 +1,19 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# Stock NixOS host installed the usual way: hardware config comes from the installer's scan,
+# everything shared with the other NixOS hosts comes from ./common.nix.
 
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  inherit (config.users.primaryUser) username;
+in
 {
   imports = [
+      ./common.nix
+
       # Include the results of the hardware scan.
       # Can rely on being present as this is supposed to be stock nixos
         /etc/nixos/hardware-configuration.nix
     ];
-
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -29,34 +29,8 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.settings.trusted-public-keys = [
-    "mekot.cachix.org-1:Yuv6hTpLeV5m8Un4buk+C8z2Went6peRvPzgS7LjmsA="
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  ];
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
   # Enable the X11 windowing system.
   services.xserver.enable = false;
-
-  services.tailscale.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = false;
@@ -64,17 +38,6 @@
 
   # gsettings reset org.gnome.desktop.input-sources xkb-options
   # gsettings reset org.gnome.desktop.input-sources sources
-
-  # Configure keymap in X11
-  services.xserver = {
-
-    xkb.variant = "";
-    xkb.layout = "gb";
-    xkb.options = "caps:ctrl_modifier";
-  };
-
-  # Configure console keymap
-  console.useXkbConfig=true;
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
@@ -98,27 +61,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.admin = {
-    shell = pkgs.zsh;
-    useDefaultShell = false;
-    isNormalUser = true;
-    description = "Ivan";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      zsh
-      gnupg
-      git-crypt
-
-      keybase
-      kbfs
-    ];
-  };
-
-  programs.zsh.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  users.users.${username}.packages = lib.attrValues { inherit (pkgs) keybase kbfs; };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -127,28 +70,6 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    startWhenNeeded = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-
-    extraConfig = ''
-      KeepAlive yes
-      TCPKeepAlive yes
-      ClientAliveInterval 30
-      ClientAliveCountMax 2
-      SetEnv IGNOREOF=10
-    '';
-  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

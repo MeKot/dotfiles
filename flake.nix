@@ -15,6 +15,9 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay/main";
@@ -51,6 +54,22 @@
       email = "ivan@kotegov.com";
       nixConfigDirectory = "/Users/admin/dotfiles";
     };
+
+    linuxConfigDirectory = "/home/${primaryUserDefaults.username}/git/dotfiles";
+
+    # Enough for a headless box: no editor, GUI terminals or Claude tooling.
+    slimHomeModules = with self.homeManagerModules; [
+      colors
+      config-files
+      git
+      nix-index
+      packages
+      profile
+      theme
+      tmux
+      zsh
+      home-user-info
+    ];
 
   in {
 
@@ -132,12 +151,18 @@
       skhd = import ./darwin/skhd.nix;
       sketchybar = import ./darwin/sketchybar.nix;
 
-      primaryUser = import ./modules/darwin/users.nix;
+      primaryUser = import ./modules/users.nix;
+    };
+
+    nixosModules = {
+
+      wake-on-lan = import ./modules/nixos/wake-on-lan.nix;
     };
 
     homeManagerModules = {
 
       colors = import ./home/colors.nix;
+      profile = import ./home/profile.nix;
 
       config-files = import ./home/config-files.nix;
       zsh = import ./home/zsh.nix;
@@ -145,11 +170,13 @@
       alacritty = import ./home/alacritty.nix;
       ghostty = import ./home/ghostty.nix;
       tmux = import ./home/tmux.nix;
+      theme = import ./home/theme.nix;
 
       claude = import ./home/claude.nix;
 
       neovim = import ./home/neovim.nix;
       packages = import ./home/packages.nix;
+      nix-index = inputs.nix-index-database.homeModules.default;
 
       home-user-info = { lib, ... }: {
         options.home.user-info =
@@ -243,7 +270,7 @@
 
         nixos = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
 
-          nixConfigDirectory = "/home/${primaryUserDefaults.username}/git/dotfiles";
+          nixConfigDirectory = linuxConfigDirectory;
 
           modules = [ ./linux/configuration.nix ] ++ singleton {
 
@@ -256,7 +283,47 @@
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
         });
+
+        jukebox = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
+
+          nixConfigDirectory = linuxConfigDirectory;
+
+          modules = [ ./linux/jukebox ] ++ attrValues self.nixosModules ++ singleton {
+
+            nixpkgs = nixpkgsDefaults;
+            networking.hostName = "jukebox";
+
+            nix.registry.my.flake = inputs.self;
+          };
+
+          inherit homeStateVersion;
+          homeModules = attrValues self.homeManagerModules;
+        });
+
+        # Raspberry Pi 3 whose job is waking jukebox
+        matchbox = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
+
+          system = "aarch64-linux";
+          nixConfigDirectory = linuxConfigDirectory;
+
+          modules = [ ./linux/matchbox.nix ] ++ attrValues self.nixosModules ++ singleton {
+
+            nixpkgs = nixpkgsDefaults;
+            networking.hostName = "matchbox";
+
+            nix.registry.my.flake = inputs.self;
+          };
+
+          inherit homeStateVersion;
+          homeModules = slimHomeModules;
+          extraHomeModules = singleton { mekot.slimProfile = true; };
+        });
       };
+
+      # Image to flash onto matchbox's SD card. Build it on a machine that can produce
+      # aarch64-linux: `nix build .#matchbox-sd-image`
+      packages.aarch64-linux.matchbox-sd-image =
+        self.nixosConfigurations.matchbox.config.system.build.sdImage;
 
       # Config with small modifications needed/desired for CI with GitHub workflow
       homeConfigurations.runner = self.homeConfigurations.mekot.override (old: {

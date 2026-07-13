@@ -373,7 +373,7 @@ return require'lush'(function(injected_functions)
     -- See :h lsp-highlight
 
     -- Used for highlighting references. See :h document_highlight
-    LspReferenceText  { LightToneBg, gui = 'underline' },
+    LspReferenceText  { bg = choose(DarkToneBg.bg, LightToneBg.bg), gui = 'underline' },
     LspReferenceRead  { LspReferenceText },
     LspReferenceWrite { LspReferenceText, sp = VioletBg.bg },
 

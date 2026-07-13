@@ -7,6 +7,8 @@ let
   inherit (config.mekot) colors;
 
   mkLuaTableFromList = x: "{" + lib.concatMapStringsSep "," (y: "'${y}'") x + "}";
+  mkLuaTableFromAttrs = x:
+    "{" + lib.concatStringsSep "," (lib.mapAttrsToList (k: v: "${k} = '${v}'") x) + "}";
   mkNeovimAutocmd = { event, pattern, callback ? "" }: ''
     vim.api.nvim_create_autocmd(${mkLuaTableFromList event}, {
       pattern = ${mkLuaTableFromList pattern},
@@ -96,25 +98,13 @@ in {
   xdg.configFile."nvim/colors".source =
     mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
 
-  # Inject Nix-generated colors as a Lua global before the init module loads.
-  # theme.lua reads vim.g.nix_colors and falls back to hardcoded values if unset.
+  # Both palettes are always injected; which is *active* is a live runtime toggle (see
+  # home/theme.nix), read via vim.g.nix_colors[vim.o.background] in theme.lua.
   programs.neovim.extraConfig = ''
     lua << EOF
     vim.g.nix_colors = {
-      darkBase     = '${colors.bg}',
-      darkestTone  = '${colors.darkest}',
-      darkBaseHl   = '${colors.surface}',
-      darkTone     = '${colors.tone}',
-      lightestTone = '${colors.subtle}',
-      lightBase    = '${colors.fg}',
-      yellow       = '${colors.yellow}',
-      orange       = '${colors.orange}',
-      red          = '${colors.nvimRed}',
-      violet       = '${colors.violet}',
-      blue         = '${colors.blue}',
-      green        = '${colors.green}',
-      cyan         = '${colors.cyan}',
-      muted        = '${colors.muted}',
+      dark  = ${mkLuaTableFromAttrs colors.dark},
+      light = ${mkLuaTableFromAttrs colors.light},
     }
     EOF
     lua require('init')'';

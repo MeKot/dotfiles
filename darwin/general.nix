@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
-  programs.nix-index.enable = true;
+  # nix-index comes from home-manager with a prebuilt database; enabling nix-darwin's module too
+  # would put a second, empty-database `nix-locate` on PATH.
+  programs.nix-index.enable = false;
 
   # Fonts
   fonts.packages = with pkgs; [

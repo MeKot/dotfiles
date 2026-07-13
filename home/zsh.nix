@@ -28,6 +28,8 @@ in
       gcam = "git commit -a -m";
       nd = "nix develop -c $SHELL";
       csv = "mlr --icsv --opprint";
+      theme = "mekot-theme";
+      zap = "ssh matchbox wake-jukebox";
     };
 
     history = {

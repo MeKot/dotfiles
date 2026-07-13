@@ -28,6 +28,10 @@ inputs.nixpkgs-unstable.lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager
     ({ config, ... }: {
 
+      imports = [ ../modules/users.nix ];
+
+      users.primaryUser = { inherit username fullName email nixConfigDirectory; };
+
       # `home-manager` config
       users.users.${username}.home = "/home/${username}";
 
@@ -38,10 +42,7 @@ inputs.nixpkgs-unstable.lib.nixosSystem {
 
         imports = homeModules ++ extraHomeModules;
         home.stateVersion = homeStateVersion;
-
-        home.user-info = {
-          inherit username fullName email nixConfigDirectory;
-        };
+        home.user-info = config.users.primaryUser;
       };
     })
   ];

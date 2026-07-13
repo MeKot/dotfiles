@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  inherit (config.mekot) slimProfile;
+in
 {
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
@@ -36,6 +39,10 @@ Host github.com
 
   programs.fzf.enableZshIntegration = true;
 
+  # `,` — run a program without installing it. The wrapper carries its own bin-only index, so it
+  # works without ever running `nix-index` locally.
+  programs.nix-index-database.comma.enable = true;
+
   home.packages = lib.attrValues ({
     # Some basics
     inherit (pkgs)
@@ -54,19 +61,24 @@ Host github.com
     inherit (pkgs)
       cloc # source code line counter
       jq
-      nodejs
-      iosevka-mekot
       ;
 
     # Useful nix related tools
     inherit (pkgs)
       cachix # adding/managing alternative binary caches hosted by Cachix
-      comma # run software from without installing it
       nix-output-monitor # get additional information while building packages
       nix-tree # interactively browse dependency graphs of Nix derivations
       nix-update # swiss-knife for updating nix packages
       nixpkgs-review # review pull-requests on nixpkgs
       statix # lints and suggestions for the Nix programming language
+      ;
+
+  } // lib.optionalAttrs (!slimProfile) {
+
+    # Heavy closures: GUI apps, the font build, and the runtime behind Claude Code
+    inherit (pkgs)
+      iosevka-mekot
+      nodejs
       ;
 
   } // lib.optionalAttrs pkgs.stdenv.isDarwin {

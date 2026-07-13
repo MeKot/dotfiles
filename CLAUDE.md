@@ -16,21 +16,30 @@ nix flake update
 
 # Update a specific input
 nix flake update nixpkgs-unstable
+
+# NixOS hosts, run on the host itself
+nixos-rebuild switch --flake .#jukebox
+
+# matchbox is a Pi 3 and can't realistically build its own closure: build on jukebox, push it
+nixos-rebuild switch --flake .#matchbox --target-host matchbox --build-host localhost --sudo
+
+# SD card image for a fresh matchbox install (needs an aarch64-linux builder)
+nix build .#matchbox-sd-image
 ```
 
 ## Architecture
 
-This is a Nix flake that manages system configuration for macOS (via nix-darwin) and Linux (via
-home-manager).
+This is a Nix flake that manages system configuration for macOS (via nix-darwin), NixOS, and other
+Linux systems (via home-manager).
 
 ### Key Structure
 
 - **`flake.nix`** - Main entry point defining inputs, outputs, overlays, and system configurations
 - **`darwin/`** - nix-darwin modules for macOS system-level configuration
-- **`linux/`** - nix modules for linux system-level configuration
+- **`linux/`** - NixOS modules: `common.nix` is shared by every NixOS host, the rest are per-host
 - **`home/`** - home-manager modules for user-level configuration
-- **`modules/`** - Reusable modules (both darwin and home-manager)
-- **`lib/`** - Helper functions including `mkDarwinSystem`
+- **`modules/`** - Reusable modules (`users.nix` is shared by darwin and NixOS, `nixos/` is NixOS-only)
+- **`lib/`** - Helper functions including `mkDarwinSystem` and `mkNixosSystem`
 - **`configs/`** - Application configs (Claude Code) symlinked for live editing
 - **`overlays/`** - Nixpkgs overlays
 
@@ -38,14 +47,21 @@ home-manager).
 
 - **`darwinConfigurations.boombox`** - Primary macOS config, built with `lib.mkDarwinSystem`
 - **`darwinConfigurations.githubCI`** - CI variant with homebrew disabled
+- **`nixosConfigurations.nixos`** - Stock NixOS install, hardware config from `/etc/nixos`
+- **`nixosConfigurations.jukebox`** - Gaming PC (AM5 / Ryzen 5 7600X / RTX 4070 SUPER): GNOME,
+  proprietary NVIDIA driver, Steam, and Wake-on-LAN armed on the wired NIC
+- **`nixosConfigurations.matchbox`** - Raspberry Pi 3: headless, aarch64, exists to run
+  `wake-jukebox` over the point-to-point ethernet link to jukebox (both use wifi for internet).
+  Gets `mekot.slimProfile` and a reduced set of home-manager modules
 - **`homeConfigurations.mekot`** - Standalone home-manager config for Linux
 
 ### User Info Pattern
 
 User info is defined once and referenced throughout:
 
-1. Passed to `lib.mkDarwinSystem` as `username`, `fullName`, `email`, `nixConfigDirectory`
-2. Set on `users.primaryUser` in darwin config
+1. Passed to `lib.mkDarwinSystem`/`lib.mkNixosSystem` as `username`, `fullName`, `email`,
+   `nixConfigDirectory`
+2. Set on `users.primaryUser` in the darwin and NixOS configs alike (`modules/users.nix`)
 3. Available as `config.home.user-info` in all home-manager modules
 
 Example usage in a home module:
@@ -89,9 +105,9 @@ pkgs.nixpkgs-stable.some-package    # stable release
 
 **Add a darwin module:** Same pattern in `darwin/` directory and `darwinModules` in flake.nix.
 
-**Add an external Claude Code skill:** Add to `externalSkills` in `home/claude.nix`, then rebuild.
-Custom skills go in `configs/claude/skills/` as regular directories (committed to git).
-External skills are symlinks managed by the activation script (gitignored).
+**Add a NixOS module:** Reusable ones go in `modules/nixos/` and `nixosModules` in flake.nix (every
+NixOS host pulls in `attrValues self.nixosModules`). Anything host-specific belongs in that host's
+own module under `linux/`.
 
 **Iterate on Claude Code plugins:** Plugins in `configs/claude/plugins/` are symlinked but cached by Claude. After making changes, clear the cache and restart:
 ```bash
@@ -122,3 +138,11 @@ rm -rf ~/.claude/plugins/cache/user-plugins/<plugin-name>
   stderr to `/dev/null`. When debugging activation scripts, temporarily remove `--silence` or
   use `run` without flags to see output. The generated script is at
   `~/.local/state/home-manager/gcroots/current-home/activate`.
+- **nix-index comes prebuilt:** `nix-index-database` supplies the index, wired in through the
+  home-manager module (`homeManagerModules.nix-index`), so `nix-index` never runs locally. Don't
+  add `nix-index` or `comma` to any package list — the wrappers would collide. The upstream index
+  is regenerated weekly, so `nix flake update` pulls a fresh ~90 MB fetch whenever it moves.
+- **Placeholders in the new NixOS hosts:** `linux/jukebox/hardware-configuration.nix` is a stand-in
+  until `nixos-generate-config` has run on the machine, `wiredInterface` in
+  `linux/jukebox/default.nix` is a guess, and `linux/matchbox.nix` holds a dummy MAC and SSID.
+  These evaluate fine but won't work until they're filled in with real values.

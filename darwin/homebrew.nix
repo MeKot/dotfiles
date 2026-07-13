@@ -35,6 +35,7 @@ in {
     "ghostty"
     "gpg-suite"
     "keybase"
+    "tailscale-app"
   ];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be

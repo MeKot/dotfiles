@@ -103,7 +103,7 @@
       "~/.claude"
     ]
   },
-  "model": "opus",
+  "model": "sonnet",
   "hooks": {
     "PostToolUse": [
       {
@@ -143,17 +143,9 @@
     "haskell-lsp@malos-plugins": true,
     "clangd-lsp@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {
-    "miri-tools": {
-      "source": {
-        "source": "github",
-        "repo": "machine-intelligence/claude-code-plugins"
-      }
-    }
-  },
   "effortLevel": "xhigh",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "theme": "light-ansi",
-  "voiceEnabled": true,
-  "tui": "fullscreen"
+  "theme": "light",
+  "voiceEnabled": true
 }

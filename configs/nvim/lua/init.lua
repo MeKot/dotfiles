@@ -18,7 +18,10 @@ o.softtabstop=0
 o.conceallevel=2
 o.timeoutlen = 500
 o.colorcolumn="100"
-o.background = "dark"
+
+-- Apply whatever the shared state file says before the first colorscheme load (see
+-- mekot/theme-watch.lua), which also starts watching it for changes from another shell.
+o.background = require'mekot.theme-watch'.initial() or "dark"
 
 o.hls=true
 o.wrap=true
@@ -43,6 +46,7 @@ if g.vscode == nil then
   }
 
   cmd 'colorscheme mekot'
+  require'mekot.theme-watch'.watch()
 end
 
 cmd 'inoremap <special> jk <Esc>'
