@@ -55,6 +55,7 @@ in
       "config-file" = "?${configHome}/ghostty/theme-current.conf";
 
       macos-titlebar-style = "hidden";
+      gtk-titlebar = false;
       window-padding-x = 1;
     };
   };
