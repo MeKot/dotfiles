@@ -12,12 +12,14 @@ on:
     - '!**.md'
   schedule:
     - cron: '0 0 * * 0' # Every Sunday at midnight UTC
+  workflow_dispatch: # lets the NixOS host jobs below be triggered manually, without waiting a week
 
 jobs:
 
   build-macos-env:
     name: Build/cache macOS Nix env
     runs-on: macos-14
+    timeout-minutes: 90
 
     steps:
 
@@ -64,6 +66,7 @@ jobs:
   build-linux-env:
     name: Build/cache Linux Nix env
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
 
@@ -96,3 +99,79 @@ jobs:
         nix-env --set-flag priority 1 cachix
         # Build and switch to home-manager env
         nix build .#homeConfigurations.runner.activationPackage --show-trace; ./result/activate
+
+  # jukebox and matchbox below build the *actual* NixOS system closures (not just the generic
+  # home-manager env above), so `nixos-rebuild switch` on those hosts can substitute from cachix
+  # instead of rebuilding locally. Restricted to schedule/manual runs rather than every push:
+  # jukebox alone is ~870 derivations including the NVIDIA driver (which cache.nixos.org won't
+  # serve, being a proprietary package — this is genuinely the slow, cache-miss-prone build the
+  # rest of this setup exists to avoid paying for more than once), and matchbox cross-builds
+  # aarch64-linux under QEMU emulation, which is slow per-derivation even though its closure
+  # (~340 derivations) is smaller. Neither is a "did this commit break something" signal worth
+  # blocking every push on. `continue-on-error` so a slow/failed run here doesn't red-X the workflow.
+
+  build-nixos-jukebox:
+    name: Build/cache jukebox (NixOS)
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    continue-on-error: true
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v30
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: mekot
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        useDaemon: false
+
+    - name: Build jukebox system closure
+      run: |
+        nix-env --set-flag priority 1 cachix
+        nix build .#nixosConfigurations.jukebox.config.system.build.toplevel --show-trace
+
+  build-nixos-matchbox:
+    name: Build/cache matchbox (NixOS, aarch64 via emulation)
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    continue-on-error: true
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up QEMU (aarch64 emulation)
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: arm64
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v30
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          extra-platforms = aarch64-linux
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: mekot
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        useDaemon: false
+
+    - name: Build matchbox system closure
+      run: |
+        nix-env --set-flag priority 1 cachix
+        nix build .#nixosConfigurations.matchbox.config.system.build.toplevel --show-trace
