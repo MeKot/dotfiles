@@ -10,7 +10,8 @@ let
 
   mekotThemeScript = pkgs.writeShellApplication {
     name = "mekot-theme";
-    runtimeInputs = [ pkgs.coreutils pkgs.tmux ]
+    runtimeInputs = [ pkgs.coreutils pkgs.gawk pkgs.tmux ]
+      ++ lib.optional pkgs.stdenv.isLinux pkgs.procps
       ++ lib.optional config.programs.alacritty.enable pkgs.alacritty;
     text = ''
       STATE_FILE="${stateHome}/mekot/theme"

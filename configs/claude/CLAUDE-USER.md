@@ -96,7 +96,7 @@ remain as fallbacks; `firecrawl_extract` (structured extraction with schema) is 
 
 **ToolSearch before MCP tools:** Before using an MCP tool for the first time in a session, look it up with ToolSearch to see the correct parameter schema. Avoids wasted calls from guessing parameter formats.
 
-**Use available tools:** When a specialized agent exists for a task (e.g., `claude-code-guide` for Claude Code questions), use it rather than doing things from scratch.
+**Use available tools:** Use the dedicated tools and skills that fit the task rather than doing things from scratch. Never spin up agents (see `rules/no-background-agents.md`).
 
 **Project-local config first:** When looking for project-specific configuration (hooks, agents, settings), check the project-local `.claude/` directory before `~/.claude/` (global).
 

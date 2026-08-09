@@ -1,6 +1,3 @@
-# Base configuration shared by every NixOS host in this flake.
-# Host-specific hardware, desktop and networking bits live in the per-host modules.
-
 { config, lib, pkgs, ... }:
 
 let
@@ -20,6 +17,15 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+
+  # Store management -------------------------------------------------------------------------------
+
+  nix.gc.automatic = true;
+  nix.gc.dates = "03:00";
+  nix.gc.options = "--delete-older-than 14d";
+
+  nix.optimise.automatic = true;
+  nix.optimise.dates = "04:00";
 
   # Locale and keyboard ----------------------------------------------------------------------------
 
@@ -57,8 +63,6 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
     packages = lib.attrValues { inherit (pkgs) zsh gnupg git-crypt; };
 
-    # boombox's ~/.ssh/local. Declared rather than left stateful because matchbox is headless and
-    # sshd below refuses passwords, so a fresh install has no other way in.
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjJcrRin02U8GneOXiX3PvyOTm79OHylNdF/9yW3yxb ivan@kotegov.com"
     ];
@@ -66,7 +70,6 @@ in
 
   programs.zsh.enable = true;
 
-  # Wants a nixpkgs channel, which these hosts don't have. nix-index handles it instead.
   programs.command-not-found.enable = false;
 
   programs.gnupg.agent = {

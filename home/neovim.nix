@@ -183,6 +183,7 @@ in {
     { use = vim-fugitive; }
     { use = lush-nvim; }
     { use = which-key-nvim; opt = true; }
+    { use = leetcode-nvim; config = requireConf leetcode-nvim; }
   ]);
 
   # }}}

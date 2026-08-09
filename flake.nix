@@ -300,6 +300,22 @@
           homeModules = attrValues self.homeManagerModules;
         });
 
+        bigbox = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
+
+          nixConfigDirectory = linuxConfigDirectory;
+
+          modules = [ ./linux/bigbox ] ++ singleton {
+
+            nixpkgs = nixpkgsDefaults;
+            networking.hostName = "bigbox";
+
+            nix.registry.my.flake = inputs.self;
+          };
+
+          inherit homeStateVersion;
+          homeModules = attrValues self.homeManagerModules;
+        });
+
         # Raspberry Pi 3 whose job is waking jukebox
         matchbox = makeOverridable self.lib.mkNixosSystem (primaryUserDefaults // {
 
@@ -318,12 +334,21 @@
           homeModules = slimHomeModules;
           extraHomeModules = singleton { mekot.slimProfile = true; };
         });
+
+        # First-boot variant, reachable over the router's LAN. See linux/matchbox-provision.nix.
+        matchbox-provision = self.nixosConfigurations.matchbox.extendModules {
+          modules = [ ./linux/matchbox-provision.nix ];
+        };
       };
 
-      # Image to flash onto matchbox's SD card. Build it on a machine that can produce
-      # aarch64-linux: `nix build .#matchbox-sd-image`
-      packages.aarch64-linux.matchbox-sd-image =
-        self.nixosConfigurations.matchbox.config.system.build.sdImage;
+      # Images to flash onto matchbox's SD card. Build them on a machine that can produce
+      # aarch64-linux: `nix build .#matchbox-provision-sd-image`
+      packages.aarch64-linux = {
+
+        matchbox-sd-image = self.nixosConfigurations.matchbox.config.system.build.sdImage;
+        matchbox-provision-sd-image =
+          self.nixosConfigurations.matchbox-provision.config.system.build.sdImage;
+      };
 
       # Config with small modifications needed/desired for CI with GitHub workflow
       homeConfigurations.runner = self.homeConfigurations.mekot.override (old: {
