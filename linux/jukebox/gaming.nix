@@ -1,5 +1,3 @@
-# GPU and game runtime for jukebox.
-
 { config, lib, pkgs, ... }:
 
 {
@@ -21,7 +19,7 @@
 
     modesetting.enable = true;
     nvidiaSettings = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
   };
 
   # Steam ------------------------------------------------------------------------------------------
@@ -39,4 +37,8 @@
 
   programs.gamescope.enable = true;
   programs.gamemode.enable = true;
+
+  # Chat -------------------------------------------------------------------------------------------
+
+  environment.systemPackages = lib.attrValues { inherit (pkgs) discord; };
 }

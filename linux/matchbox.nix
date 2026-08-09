@@ -9,7 +9,7 @@
 { modulesPath, ... }:
 
 let
-  linkPrefix = "192.168.100";
+  linkPrefix = "192.168.250"; # kept high: the Crestron system claims low 192.168.x ranges
 in
 {
   imports = [
@@ -27,11 +27,11 @@ in
 
   # Wake-on-LAN ------------------------------------------------------------------------------------
 
-  # `wake-jukebox` and `systemctl start wake-jukebox`. The MAC is jukebox's wired NIC:
-  # `cat /sys/class/net/<iface>/address` there. Broadcasting to the link rather than the default
-  # 255.255.255.255 matters — the latter follows the default route and leaves over wifi.
+  # `wake-jukebox` and `systemctl start wake-jukebox`. The MAC is jukebox's enp8s0. Broadcasting to
+  # the link rather than the default 255.255.255.255 matters — the latter follows the default route
+  # and leaves over wifi.
   mekot.wakeOnLan.targets.jukebox = {
-    mac = "aa:bb:cc:dd:ee:ff";
+    mac = "9c:6b:00:59:56:ed";
     broadcast = "${linkPrefix}.255";
     hostName = "${linkPrefix}.2";
   };
@@ -52,14 +52,24 @@ in
     }
   ];
 
+  # Neither the SSID nor the PSK belongs in this repo, so no network is declared here. With
+  # `networks` empty, wpa_supplicant runs off /etc/wpa_supplicant/imperative.conf on the card —
+  # state that survives rebuilds. Write it once, as root:
+  #
+  #   ctrl_interface=/run/wpa_supplicant/control
+  #   ctrl_interface_group=wpa_supplicant
+  #   update_config=1
+  #
+  #   network={
+  #     ssid="..."
+  #     psk="..."
+  #   }
+  #
+  # `wpa_passphrase '<ssid>' '<pass>'` generates that block with a hashed psk.
   networking.wireless = {
 
     enable = true;
-
-    # Keeps the PSK out of the nix store. Before first boot, mount the card's root partition and:
-    #   printf 'home_psk=<psk>\n' > /var/lib/wpa_supplicant/secrets && chmod 600 <same file>
-    secretsFile = "/var/lib/wpa_supplicant/secrets";
-    networks."CHANGEME-SSID".pskRaw = "ext:home_psk";
+    allowAuxiliaryImperativeNetworks = true;
   };
 
   hardware.enableRedistributableFirmware = true;

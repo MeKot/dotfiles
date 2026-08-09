@@ -145,4 +145,7 @@ rm -rf ~/.claude/plugins/cache/user-plugins/<plugin-name>
 - **Placeholders in the new NixOS hosts:** `linux/jukebox/hardware-configuration.nix` is a stand-in
   until `nixos-generate-config` has run on the machine, `wiredInterface` in
   `linux/jukebox/default.nix` is a guess, and `linux/matchbox.nix` holds a dummy MAC and SSID.
-  These evaluate fine but won't work until they're filled in with real values.
+  `linux/bigbox/hardware-configuration.nix` is likewise a stand-in (fake UUIDs) until bigbox is
+  installed, and `isolatedCpus` in `linux/bigbox/default.nix` needs real core IDs from `lscpu -e`
+  once it's up (2 physical cores per NUMA node, skipping CPU 0). These evaluate fine but won't work
+  until they're filled in with real values.
