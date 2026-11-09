@@ -313,7 +313,8 @@
           };
 
           inherit homeStateVersion;
-          homeModules = attrValues self.homeManagerModules;
+          homeModules = slimHomeModules;
+          extraHomeModules = singleton { mekot.slimProfile = true; };
         });
 
         # Raspberry Pi 3 whose job is waking jukebox

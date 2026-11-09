@@ -1,9 +1,12 @@
 { lib, pkgs, config, ... }:
 
 let
-  # Placeholder — real core IDs aren't known until bigbox is installed and `lscpu -e` shows the
-  # actual CPU->NODE mapping. Pick 2 physical cores per NUMA node (skip CPU 0) and replace this.
   isolatedCpus = "TODO";
+
+  isolationParams = [
+    "isolcpus=${isolatedCpus}"
+    "nohz_full=${isolatedCpus}"
+  ];
 in
 {
   imports = [
@@ -18,12 +21,25 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # SMT/Hyper-Threading off in software rather than a BIOS toggle, so it stays declarative and
-  # reviewable. With nosmt applied, isolatedCpus above refers to physical core IDs, not siblings.
-  boot.kernelParams = [
-    "nosmt"
-    "isolcpus=${isolatedCpus}"
-  ];
+  specialisation = {
+
+    nosmt.configuration = {
+      boot.kernelParams = [ "nosmt" ];
+    };
+
+    isolated.configuration = {
+      boot.kernelParams = isolationParams;
+    };
+
+    nosmt-isolated.configuration = {
+      boot.kernelParams = [ "nosmt" ] ++ isolationParams;
+    };
+  };
+
+  # Automatic NUMA balancing migrates pages behind the program's back
+  boot.kernel.sysctl."kernel.numa_balancing" = 0;
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   hardware.enableRedistributableFirmware = true;
 
@@ -31,10 +47,15 @@ in
 
   networking.networkmanager.enable = true;
 
+  # Scheduled jobs from common.nix could fire at a bad time
+  nix.gc.automatic = lib.mkForce false;
+  nix.optimise.automatic = lib.mkForce false;
+
   # Performance / diagnostics -------------------------------------------------------------------
 
   environment.systemPackages = lib.attrValues {
-    inherit (pkgs) numactl hwloc msr-tools pciutils smartmontools likwid;
+    inherit (pkgs)
+      numactl hwloc msr-tools pciutils smartmontools likwid dmidecode perf intel-cmt-cat;
     inherit (config.boot.kernelPackages) turbostat;
   };
 
