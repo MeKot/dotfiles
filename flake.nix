@@ -125,8 +125,7 @@
 
       iosevka-mekot = import ./fonts/iosevka-mekot.nix inputs;
 
-      neorg = f: p: optionalAttrs (p.stdenv.system == "aarch64-darwin")
-        (inputs.neorg-overlay.overlays.default f p);
+      neorg = inputs.neorg-overlay.overlays.default;
 
       tweaks = final: _: {
 
@@ -175,6 +174,7 @@
       claude = import ./home/claude.nix;
 
       neovim = import ./home/neovim.nix;
+      syncthing = import ./home/syncthing.nix;
       packages = import ./home/packages.nix;
       nix-index = inputs.nix-index-database.homeModules.default;
 

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 # Title: "Let-In" {{{
 let
-  inherit (lib) concatStringsSep optional optionalAttrs;
+  inherit (lib) concatStringsSep optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
   inherit (config.mekot) colors;
@@ -164,12 +164,12 @@ in {
       config = requireConf nvim-lspconfig;
     }
 
-    (optionalAttrs (pkgs.stdenv.system == "aarch64-darwin") {
+    {
       use = neorg;
       deps = [ neorg-telescope ];
       opt = false;
       config = requireConf neorg;
-    })
+    }
 
     # Language support/utilities
     {
