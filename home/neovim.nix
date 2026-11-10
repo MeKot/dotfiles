@@ -97,6 +97,8 @@ in {
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/lua";
   xdg.configFile."nvim/colors".source =
     mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
+  xdg.configFile."nvim/queries".source =
+    mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/queries";
 
   # Both palettes are always injected; which is *active* is a live runtime toggle (see
   # home/theme.nix), read via vim.g.nix_colors[vim.o.background] in theme.lua.
